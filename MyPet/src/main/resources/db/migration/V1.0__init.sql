@@ -1,0 +1,1 @@
+INSERT INTO chu_nhan (id, dia_chi, gioi_tinh, sdt, ten_chu_nhan) VALUES (1,"214B Hưng Phú, P8, Q8",false,0918793284,"Hoàng Minh");
