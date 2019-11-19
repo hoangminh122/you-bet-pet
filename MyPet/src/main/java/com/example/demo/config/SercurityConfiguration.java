@@ -43,7 +43,7 @@ public class SercurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/slide").permitAll()
             .antMatchers("/").permitAll()
-            .antMatchers("/login").permitAll()
+            .antMatchers("/login","/hello","/login-api").permitAll()
             .antMatchers("/index/**").permitAll()
             .anyRequest().authenticated().and()
             .csrf().disable().formLogin();

@@ -46,7 +46,10 @@ public class DongVat {
 
     @OneToOne(mappedBy = "dongVat")
     private DauGia dauGia;
-
+    @NotBlank
+    private boolean isNew;
+    @NotBlank
+    private boolean isRickKid;
 
 
 }
