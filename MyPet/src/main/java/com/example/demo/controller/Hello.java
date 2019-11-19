@@ -1,16 +1,27 @@
 package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import com.example.demo.model.User;
 
 @Controller
 public class Hello {
+    private String userTrue="minh hoang";
+    private String passTrue="123456";
+    @RequestMapping(value = "/login-api", method = RequestMethod.POST)
+    @CrossOrigin(origins = "http://localhost:3000")
+    @ResponseBody
+    public User sayHello(@RequestBody User user) {
+        if ((user.getUserName()).equals(userTrue) && (user.getPassWord()).equals(passTrue)) {
+            return user;
+        }
 
-//    @RequestMapping(name ="/hello",method = RequestMethod.GET)
-//    @ResponseBody
-//    public String sayHello(){
-//        return "Hello";
-//    }
+        return new User();
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    @ResponseBody
+    public String sayHello() {
+        return "ok";
+    }
 }
