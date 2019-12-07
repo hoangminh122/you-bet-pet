@@ -26,6 +26,9 @@ public class DauGia {
     @NotBlank
     private boolean giaoBan;
 
+    @NotBlank
+    private Long groupId;
+
     @OneToOne(fetch = FetchType.LAZY)
     @NotNull
     @JsonIgnore
