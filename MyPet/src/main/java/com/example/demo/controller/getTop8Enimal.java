@@ -40,7 +40,7 @@ public class getTop8Enimal {
         {
             return  null;
         }
-    }
+    }                                                                              
 
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/index/getEnimalById/{id}",method = RequestMethod.GET)

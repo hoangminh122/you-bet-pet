@@ -26,12 +26,15 @@ public class DauGia {
     @NotBlank
     private boolean giaoBan;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @NotBlank
+    private Long groupId;
+
+    @OneToOne()
     @NotNull
-    @JsonIgnore
+//    @JsonIgnore
     @JoinColumn(name ="dongVat_id",nullable = false, unique = true)
     private DongVat dongVat;
-
+                                                                      
 //    @ManyToMany(mappedBy = "dauGias")
 //
 //    private List<ChuNhan> chuNhans;
