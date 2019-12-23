@@ -58,7 +58,7 @@ public class SercurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/slide").permitAll()
             .antMatchers("/").permitAll()
-            .antMatchers("/login-api").authenticated()
+            .antMatchers("/hello","/login-api").authenticated()
             .antMatchers("/index/**").permitAll()
             .anyRequest().authenticated().and()
             .csrf().disable()
