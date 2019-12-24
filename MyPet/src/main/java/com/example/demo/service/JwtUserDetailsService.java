@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-//@Service
+@Service
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -24,17 +24,26 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        if ("techgeeknext".equals(email)) {
-            return new User("techgeeknext", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-                    new ArrayList<>());
-        } else {
+//        if ("techgeeknext".equals(email)) {
+//            return new User("techgeeknext", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
+//                    new ArrayList<>());
+//        } else {
+//            throw new UsernameNotFoundException("User not found with username: " + email);
+//        }
+        ChuNhan user = userDao.findByEmail(email);
+        if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + email);
         }
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassWord(),
+                new ArrayList<>());
     }
     public ChuNhan save(UserDto user){
         ChuNhan newUser = new ChuNhan();
         newUser.setEmail(user.getEmail());
-        newUser.setPassWord(user.getPassword());
+        newUser.setPassWord(bcryptEncoder.encode(user.getPassword()));
+        newUser.setTenChuNhan(user.getTenChuNhan());
+        newUser.setUserName(user.getUserName());
+        newUser.setDiaChi(user.getDiaChi());
         return userDao.save(newUser);
     }
 }

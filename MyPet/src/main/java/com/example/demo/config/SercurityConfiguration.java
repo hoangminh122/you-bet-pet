@@ -3,8 +3,10 @@ package com.example.demo.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -52,22 +54,32 @@ public class SercurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(jwtUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http   .csrf().disable()
+    .authorizeRequests()
 
                 .antMatchers("/slide").permitAll()
             .antMatchers("/").permitAll()
-            .antMatchers("/hello","/login-api").authenticated()
+//            .antMatchers("/hello","/login-api").authenticated()
             .antMatchers("/index/**").permitAll()
-            .anyRequest().authenticated().and()
-            .csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate").permitAll()
+                .antMatchers("/authenticate", "/register").permitAll()
+
+//            .anyRequest().authenticated().and()
+
+                .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .formLogin();
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//                .and()
+//                .formLogin();
 
         //Add a filter to validate the tokens with every request
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

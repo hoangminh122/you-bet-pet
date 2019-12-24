@@ -39,8 +39,8 @@ public class ChuNhan {
     @NotBlank
     private String passWord;
     @Size(max =50)
-    @NotBlank
 
+    @NotBlank
     private  String diaChi;
     private boolean gioiTinh;
     @OneToMany(mappedBy = "chuNhan",cascade = CascadeType.ALL)

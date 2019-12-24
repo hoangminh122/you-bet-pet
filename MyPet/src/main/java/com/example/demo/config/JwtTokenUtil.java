@@ -26,7 +26,7 @@ public class JwtTokenUtil implements Serializable {
 
     public static final long JWT_TOKEN_VALIDITY = 5*60*60;
 
-    @Value("")
+    @Value("zsadas")
     private String secret;
 
     public String getUsernameFromToken(String token) {
