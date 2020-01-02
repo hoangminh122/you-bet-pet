@@ -44,7 +44,8 @@ public class DongVat {
     @NonNull
     private  ChuNhan chuNhan;
 
-    @OneToOne(mappedBy = "dongVat")
+    @OneToOne(mappedBy = "dongVat",fetch = FetchType.LAZY)
+    @JsonIgnore
     private DauGia dauGia;
     @NotBlank
     private boolean isNew;

@@ -29,12 +29,12 @@ public class DauGia {
     @NotBlank
     private Long groupId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne()
     @NotNull
-    @JsonIgnore
+//    @JsonIgnore
     @JoinColumn(name ="dongVat_id",nullable = false, unique = true)
     private DongVat dongVat;
-
+                                                                      
 //    @ManyToMany(mappedBy = "dauGias")
 //
 //    private List<ChuNhan> chuNhans;
