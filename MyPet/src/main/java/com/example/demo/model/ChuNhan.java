@@ -24,8 +24,10 @@ public class ChuNhan {
     private Long id;
 
     @Size(max = 50)
-    @NotBlank(message = "Ten khong duoc trong")
+//    @NotBlank(message = "Ten khong duoc trong")
     private String tenChuNhan;
+    @NotNull
+    @Column(unique = true)
     private int sdt;
     @NotBlank
     @Column(unique = true)
