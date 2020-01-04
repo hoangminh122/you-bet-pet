@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 public class Group_Secret {
 
@@ -18,7 +19,7 @@ public class Group_Secret {
     private int GROUP=1;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/index/getMoneyAuctionForIdGroup/{group}",method = RequestMethod.GET)
+    @RequestMapping(value = "/getMoneyAuctionForIdGroup/{group}",method = RequestMethod.GET)
     public Collection<DauGia> getMoneyAuctionForIdGroup(@PathVariable Long group){
         List<DauGia> daugia  = (List<DauGia>) dauGiaRepo.find_auction_by_IdGroup(group);
         return daugia;
