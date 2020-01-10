@@ -5,7 +5,7 @@ https://github.com/hoangminh122/front-end-mypet
 
 <h2><b>Program description:</b></h2>
 
- &nbsp; PetShop is a simple java server based Spring boot. Database is mysql. The package that connect server and db is mysql.
+ &nbsp; PetShop is a simple java server based Spring boot+laravel. Database is mysql. The package that connect server and db is mysql.
 
 <b><u>Features/highlights<br/>
  ![alt text](https://raw.githubusercontent.com/hoangminh122/you-bet-pet/master/pet1.png)
@@ -27,5 +27,32 @@ https://github.com/hoangminh122/front-end-mypet
 
 <b><u>Build</u></b><br/>
  &nbsp; $ npm start (port is default 8081)
+HUONG DAN CAI DAT<br/>
 
+B1: CLONE SOURCE CODE backend FROM GITHUB to DESTOP(use git comment)<br/>
+LINK: https://github.com/hoangminh122/you-bet-pet<br/>
+
+B2:OPEN BY INTELIJI IDEA (I used Inteliji 2019.2 for source code).<br/>
+
+B3: CLONE SOURCE CODE FRONDEND FROM GITHUB to DESTOP(use git comment)<br/>
+ Link: https://github.com/hoangminh122/front-end-mypet<br/>
+
+B4: OPEN BY vISUAL CODE ( use "npm install" to setting package need for project.<br/>
+
+B5: DOWNLOAD AND SETTING NODE(I use 10.3) ,Xampp (use 7.3.1)<br/>
+
+b6: IMPORT FILE NAME "mypet.sql" to xampp.(use utf8-unicode, port 8081).<br/>
+
+b7: IMPORT FILE NAME "db_banhang" to xamp .....<br/>
+
+b8:CLONE SOURCE CODE app-android FROM GITHUB to DESTOP(use git comment)<br/>
+Link: https://github.com/hoangminh122/PetShop-App.<br/>
+
+b9: built by android studio, copy foder name "SourceOpen" to C:\xampp\htdocs\.<br/>
+
+b10: built project complete.<br/>
+
+THANKYOU!<br/>
+By: -hoangminh12297@gmail.com<br/>
+    -thevi97@gmail.com<br/>
 <b><u>Deploying</u></b><br/>
