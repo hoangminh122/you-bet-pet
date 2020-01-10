@@ -1,0 +1,28 @@
+HUONG DAN CAI DAT
+
+B1: CLONE SOURCE CODE backend FROM GITHUB to DESTOP(use git comment)
+LINK: https://github.com/hoangminh122/you-bet-pet
+
+B2:OPEN BY INTELIJI IDEA (I used Inteliji 2019.2 for source code).
+
+B3: CLONE SOURCE CODE FRONDEND FROM GITHUB to DESTOP(use git comment)
+ Link: https://github.com/hoangminh122/front-end-mypet
+
+B4: OPEN BY vISUAL CODE ( use "npm install" to setting package need for project.
+
+B5: DOWNLOAD AND SETTING NODE(I use 10.3) ,Xampp (use 7.3.1)
+
+b6: IMPORT FILE NAME "mypet.sql" to xampp.(use utf8-unicode, port 8081).
+
+b7: IMPORT FILE NAME "db_banhang" to xamp .....
+
+b8:CLONE SOURCE CODE app-android FROM GITHUB to DESTOP(use git comment)
+Link: https://github.com/hoangminh122/PetShop-App.
+
+b9: built by android studio, copy foder name "SourceOpen" to C:\xampp\htdocs\.
+
+b10: built project complete.
+
+THANKYOU!
+By: -hoangminh12297@gmail.com
+    -thevi97@gmail.com
