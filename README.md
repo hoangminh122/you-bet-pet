@@ -26,7 +26,7 @@ https://github.com/hoangminh122/front-end-mypet
  &nbsp; $ npm install
 
 <b><u>Build</u></b><br/>
- &nbsp; $ npm start (port is default 8081)
+ &nbsp; $ npm start (port is default 8081)<br/>
 HUONG DAN CAI DAT<br/>
 
 B1: CLONE SOURCE CODE backend FROM GITHUB to DESTOP(use git comment)<br/>
