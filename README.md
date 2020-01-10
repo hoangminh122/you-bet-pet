@@ -7,7 +7,7 @@ https://github.com/hoangminh122/front-end-mypet
 
  &nbsp; PetShop is a simple java server based Spring boot. Database is mysql. The package that connect server and db is mysql.
 
-<b><u>Features/highlights
+<b><u>Features/highlights<br/>
  ![alt text](https://raw.githubusercontent.com/hoangminh122/you-bet-pet/master/pet1.png)
  ![alt text](https://raw.githubusercontent.com/hoangminh122/you-bet-pet/master/pet2.png)
  ![alt text](https://raw.githubusercontent.com/hoangminh122/you-bet-pet/master/pet3.png)
