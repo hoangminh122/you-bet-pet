@@ -32,19 +32,19 @@ public class DauGia {
     @OneToOne()
     @NotNull
 //    @JsonIgnore
-    @JoinColumn(name ="dongVat_id",nullable = false, unique = true)
+    @JoinColumn(name = "dongVat_id", nullable = false, unique = true)
     private DongVat dongVat;
-                                                                      
+
 //    @ManyToMany(mappedBy = "dauGias")
 //
 //    private List<ChuNhan> chuNhans;
 
-    @OneToMany(mappedBy = "chuNhan",cascade = CascadeType.ALL)
-   private  List<DauGia_ChuNhan> dauGia_chuNhans;
+    @OneToMany(mappedBy = "chuNhan", cascade = CascadeType.ALL)
+    private List<DauGia_ChuNhan> dauGia_chuNhans;
 
     @OneToOne(fetch = FetchType.LAZY)
     @NotNull
     @JsonIgnore
-    @JoinColumn(name ="trend_id",nullable = false, unique = true)
+    @JoinColumn(name = "trend_id", nullable = false, unique = true)
     private Trend trend;
 }

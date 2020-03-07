@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,7 +16,7 @@ import java.util.Set;
 @Entity
 public class LoaiDongVat {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn
@@ -27,8 +28,8 @@ public class LoaiDongVat {
     @NotBlank
     @Size(max = 400)
     @NotNull
-    private  String moTaDacDiem;
+    private String moTaDacDiem;
 
-    @OneToMany(mappedBy = "loaiDongVat",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "loaiDongVat", cascade = CascadeType.ALL)
     private Set<DongVat> DongVats;
 }

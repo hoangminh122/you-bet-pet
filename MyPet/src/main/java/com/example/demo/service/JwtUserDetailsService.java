@@ -37,7 +37,8 @@ public class JwtUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassWord(),
                 new ArrayList<>());
     }
-    public ChuNhan save(UserDto user){
+
+    public ChuNhan save(UserDto user) {
         ChuNhan newUser = new ChuNhan();
         newUser.setEmail(user.getEmail());
         newUser.setPassWord(bcryptEncoder.encode(user.getPassword()));

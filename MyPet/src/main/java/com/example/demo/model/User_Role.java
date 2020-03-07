@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Entity
 @Setter
 @Getter
-public class User_Role  implements Serializable {
+public class User_Role implements Serializable {
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn

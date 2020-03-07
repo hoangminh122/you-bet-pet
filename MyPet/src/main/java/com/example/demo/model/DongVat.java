@@ -24,7 +24,7 @@ public class DongVat {
     @NotBlank
     private float giaTien;
     @Size(max = 100)
-    private  String tinhTrangSucKhoe;
+    private String tinhTrangSucKhoe;
     @NotBlank
 
     private boolean gioiTinh;
@@ -37,14 +37,14 @@ public class DongVat {
     @JoinColumn
     @JsonIgnore
     @NonNull
-    private  LoaiDongVat loaiDongVat;
+    private LoaiDongVat loaiDongVat;
     @ManyToOne
     @JoinColumn
     @JsonIgnore
     @NonNull
-    private  ChuNhan chuNhan;
+    private ChuNhan chuNhan;
 
-    @OneToOne(mappedBy = "dongVat",fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "dongVat", fetch = FetchType.LAZY)
     @JsonIgnore
     private DauGia dauGia;
     @NotBlank

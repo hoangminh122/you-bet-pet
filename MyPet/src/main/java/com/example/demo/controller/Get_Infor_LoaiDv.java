@@ -20,18 +20,21 @@ public class Get_Infor_LoaiDv {
 
     @Autowired
     private LoaiDongVatRepo loaiDvRepo;
-//
+
+    //
     @ResponseBody
-    @RequestMapping(value = "/getAllLoaiDv",method = RequestMethod.GET)
-    private List<LoaiDongVat> getLoaiDongVats(){
+    @RequestMapping(value = "/getAllLoaiDv", method = RequestMethod.GET)
+    private List<LoaiDongVat> getLoaiDongVats() {
         return loaiDvRepo.findAll();
     }
-    @RequestMapping(value = "/getAnimalByIdLoaiDv",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    private Optional<LoaiDongVat> getDongVatByChuNhan(@PathVariable("id") final Long id){
+
+    @RequestMapping(value = "/getAnimalByIdLoaiDv", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    private Optional<LoaiDongVat> getDongVatByChuNhan(@PathVariable("id") final Long id) {
         return loaiDvRepo.findById(id);
     }
-    @RequestMapping(value = "/deleteAnimalByIdLoaiDv",method = RequestMethod.GET)
-    private void deleteLoaiDv(@PathVariable("id") Long id){
+
+    @RequestMapping(value = "/deleteAnimalByIdLoaiDv", method = RequestMethod.GET)
+    private void deleteLoaiDv(@PathVariable("id") Long id) {
         loaiDvRepo.deleteById(id);
 
     }

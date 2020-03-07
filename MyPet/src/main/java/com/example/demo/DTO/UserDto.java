@@ -7,6 +7,7 @@ public class UserDto {
     private String userName;
     private String diaChi;
     private int sdt;
+
     public String getDiaChi() {
         return diaChi;
     }

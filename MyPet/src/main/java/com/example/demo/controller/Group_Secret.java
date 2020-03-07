@@ -16,12 +16,12 @@ public class Group_Secret {
     @Autowired
     DauGiaRepo dauGiaRepo;
 
-    private int GROUP=1;
+    private int GROUP = 1;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/getMoneyAuctionForIdGroup/{group}",method = RequestMethod.GET)
-    public Collection<DauGia> getMoneyAuctionForIdGroup(@PathVariable Long group){
-        List<DauGia> daugia  = (List<DauGia>) dauGiaRepo.find_auction_by_IdGroup(group);
+    @RequestMapping(value = "/getMoneyAuctionForIdGroup/{group}", method = RequestMethod.GET)
+    public Collection<DauGia> getMoneyAuctionForIdGroup(@PathVariable Long group) {
+        List<DauGia> daugia = (List<DauGia>) dauGiaRepo.find_auction_by_IdGroup(group);
         return daugia;
     }
 

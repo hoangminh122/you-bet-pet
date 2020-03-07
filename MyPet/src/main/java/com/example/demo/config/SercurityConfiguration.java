@@ -66,13 +66,12 @@ public class SercurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource()
-    {
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-        configuration.setAllowedHeaders(Arrays.asList("Content-Type","Access-Control-Allow-Headers","Authorization","X-Requested-With","observe"));
-        configuration.setExposedHeaders(Arrays.asList("Authorization","responseType","observe"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Access-Control-Allow-Headers", "Authorization", "X-Requested-With", "observe"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "responseType", "observe"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
@@ -81,14 +80,15 @@ public class SercurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().
-        //other config
-        csrf().disable()
-    .authorizeRequests()
+                //other config
+                        csrf().disable()
+                .authorizeRequests()
 
                 .antMatchers("/slide").permitAll()
-            .antMatchers("/").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/hello").permitAll()
 //            .antMatchers("/hello","/login-api").authenticated()
-            .antMatchers("/index/**").permitAll()
+                .antMatchers("/index/**").permitAll()
                 .antMatchers("/authenticate", "/register").permitAll()
 
 //            .anyRequest().authenticated().and()
@@ -107,6 +107,6 @@ public class SercurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**","/css/**","/images/**");
+        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**");
     }
 }

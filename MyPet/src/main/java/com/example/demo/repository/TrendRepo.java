@@ -9,8 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+
 @Repository
-public interface TrendRepo extends JpaRepository<Trend,Long> {
+public interface TrendRepo extends JpaRepository<Trend, Long> {
 
 
 }

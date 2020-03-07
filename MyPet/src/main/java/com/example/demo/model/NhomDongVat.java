@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,13 +20,13 @@ public class NhomDongVat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    private  String tenNhom;
+    private String tenNhom;
 
     @NotBlank
     @Size(max = 300)
-    private  String moTaDacDiem;
+    private String moTaDacDiem;
 
-    @OneToMany(mappedBy = "nhomDongVat",cascade = CascadeType.ALL)
-    private Set<LoaiDongVat>  loaiDongVats;
+    @OneToMany(mappedBy = "nhomDongVat", cascade = CascadeType.ALL)
+    private Set<LoaiDongVat> loaiDongVats;
 
 }

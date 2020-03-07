@@ -17,16 +17,18 @@ public class Get_Info_Nomal {
     private DongVatRepo dongVatRepo;
 
     @ResponseBody
-    @RequestMapping(value = "/getAllAnimal",method = RequestMethod.GET)
-    private List<DongVat> getDongVats(){
-            return dongVatRepo.findAll();
+    @RequestMapping(value = "/getAllAnimal", method = RequestMethod.GET)
+    private List<DongVat> getDongVats() {
+        return dongVatRepo.findAll();
     }
-    @RequestMapping(value = "/getAnimalById",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    private Optional<DongVat> getDongVatByAnimal(@PathVariable("id") final Long id){
+
+    @RequestMapping(value = "/getAnimalById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    private Optional<DongVat> getDongVatByAnimal(@PathVariable("id") final Long id) {
         return dongVatRepo.findById(id);
     }
-    @RequestMapping(value = "/deleteAnimalById",method = RequestMethod.GET)
-    private void deleteDongVat(@PathVariable("id") Long id){
+
+    @RequestMapping(value = "/deleteAnimalById", method = RequestMethod.GET)
+    private void deleteDongVat(@PathVariable("id") Long id) {
         dongVatRepo.deleteById(id);
 
     }

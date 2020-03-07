@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -40,12 +41,12 @@ public class ChuNhan {
 
     @NotBlank
     private String passWord;
-    @Size(max =50)
+    @Size(max = 50)
 
     @NotBlank
-    private  String diaChi;
+    private String diaChi;
     private boolean gioiTinh;
-    @OneToMany(mappedBy = "chuNhan",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "chuNhan", cascade = CascadeType.ALL)
     private Set<DongVat> dongVats;
 
 //    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -56,10 +57,10 @@ public class ChuNhan {
 //   )
 //    private List<DauGia>  dauGias;
 
-    @OneToMany(mappedBy = "dauGia",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dauGia", cascade = CascadeType.ALL)
     private List<DauGia_ChuNhan> dauGia_chuNhans;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "chuNhan")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "chuNhan")
     private List<User_Role> userRoses;
 
 

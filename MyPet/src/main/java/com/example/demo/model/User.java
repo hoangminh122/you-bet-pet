@@ -14,10 +14,11 @@ public class User {
     private String userName;
     private String passWord;
     private int id;
-    public User(){
-       this.id=1;
-        this.userName="minh";
-        this.passWord="123";
+
+    public User() {
+        this.id = 1;
+        this.userName = "minh";
+        this.passWord = "123";
 
     }
 

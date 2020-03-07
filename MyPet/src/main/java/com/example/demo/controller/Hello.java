@@ -6,8 +6,9 @@ import com.example.demo.model.User;
 
 @Controller
 public class Hello {
-    private String userTrue="minh hoang";
-    private String passTrue="123456";
+    private String userTrue = "minh hoang";
+    private String passTrue = "123456";
+
     @RequestMapping(value = "/login-api", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:3000")
     @ResponseBody
@@ -18,12 +19,13 @@ public class Hello {
 
         return new User();
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    @RequestMapping(value = "/hello", method = RequestMethod.POST)
     @ResponseBody
     public String sayHello() {
         return "ok";
     }
-
+//ashdgasdaysty
 
 }
