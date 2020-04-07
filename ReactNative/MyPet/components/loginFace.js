@@ -73,7 +73,6 @@ export default class Login extends Component {
             {/* <Header/> */}
             {/*Start Body */}
           <View style={[styles.body,{flex:1}]}>
-
                 </View>
           <View style={styles.body}>
             <View style={styles.bodyChild}>
