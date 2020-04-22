@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text,View,Image, Dimensions, TouchableOpacity} from 'react-native'
+import {Text,View,Image, Dimensions,StyleSheet, TouchableOpacity} from 'react-native'
 import Header from './header';
 import Footer from './footer';
 
@@ -40,10 +40,8 @@ export default class InforUser extends Component {
                             </Image>
                         </TouchableOpacity>
                     </View>
-                    
                 </View>
                 <View style={{flex:1}}>
-
                 </View>
             </View>
             <View style={styles.bodyInforDown}>
@@ -167,7 +165,7 @@ const styles = StyleSheet.create({
                 bodyInforDownViewChildRight:{
 
                 }
-    });
+});
 
 
 

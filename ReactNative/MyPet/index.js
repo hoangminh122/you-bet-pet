@@ -5,7 +5,11 @@
 import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
-// import AuctionSession from './components/auctionSession'
 import Login from './components/loginFace'
+import Database from './components/database'
+import IndexApp from './components/indexApp'
+import Email from './components/email'
+import CreateSession from './components/createSession'
+import Demo from './components/demo'
 
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, () => Demo);
