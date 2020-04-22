@@ -1,6 +1,8 @@
 import React, { Component, Children } from 'react';
-import {View,Text, TextInput, TouchableWithoutFeedback, Keyboard,ScrollView, Dimensions,StyleSheet, TouchableOpacity, DatePicker, DateTimePicker} from 'react-native'
+import {View,Text, TextInput, TouchableWithoutFeedback, Keyboard,ScrollView, Dimensions,StyleSheet, TouchableOpacity} from 'react-native'
 import Header from './header';
+import DatePicker from 'react-native-datepicker'
+
 
 const screen = Dimensions.get('window');
 
@@ -14,7 +16,9 @@ export default class componentName extends Component {
   constructor(props){
     super(props)
     this.state = {
-      pageShow: 1
+      pageShow: 1,
+      date:"",
+      time:""
     }
     // this.setOffsetPage =this.setOffsetPage.bind(this);
     // this.setOffsetPage(0);
@@ -73,21 +77,125 @@ export default class componentName extends Component {
                     </TouchableOpacity>
                   </View>
                  
-                  <View style={{flex:3}}>
+                  <View style={{flex:5}}>
                   </View>
                 </View>
-                <View style={{height:screen.height/1.5,width:screen.width,backgroundColor:'green'}}>
+                <View style={{height:screen.height/1.5,width:screen.width}}>
                   <View style={{flex:5,justifyContent:'center',alignItems:'center'}}>
                       <View style={{flex:2,justifyContent:'center',alignItems:'center'}}> 
                         <Text style={{fontWeight:'bold'}}> Set Time Auction Session ?</Text>
                       </View>
                       <View style={{flex:1,flexDirection:'row',margin:10}}>
                         
-                        <Text>sg</Text>
-                        <DateTimePicker 
+                        <View style={{flex:1}}>
+                          <DatePicker
                             style={{width: 200}}
-                            date={Date.now}
-                            placeholder="select date"/>
+                            date={this.state.date}
+                            mode="date"
+                            placeholder="Date Auction"
+                            format="YYYY-MM-DD"
+                            minDate="2020-05-01"
+                            maxDate="2020-06-01"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                              dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0
+                              },
+                              dateInput: {
+                                marginLeft: 36
+                              }
+                              // ... You can check the source to find the other keys.
+                            }}
+                            onDateChange={(date) => {this.setState({date: date})}}
+                            />
+                        </View>
+                        <View style={{flex:1,alignItems:'flex-end'}}>
+                          <DatePicker
+                              style={{width: 110}}
+                              date={this.state.time}
+                              mode="time"
+                              placeholder= "Time start"
+                              format="HH:mm"
+                              confirmBtnText="Confirm"
+                              cancelBtnText="Cancel"
+                              customStyles={{
+                                dateIcon: {
+                                  position: 'absolute',
+                                  left: 0,
+                                  top: 4,
+                                  marginLeft: 0
+                                },
+                                dateInput: {
+                                  marginLeft: 36
+                                }
+                                // ... You can check the source to find the other keys.
+                              }}
+                              onDateChange={(date) => {this.setState({time: date})}}
+                              />
+                        </View>
+                       
+                      </View>
+                      <View style={{flex:1}}></View>
+                    </View>
+                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                      <TouchableOpacity onPress={(event) => this.setOffsetPage(3)} style={{backgroundColor:'blue',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
+                        <Text style={{fontSize:12,color:'white'}}>Next</Text>
+                      </TouchableOpacity>
+                    </View>
+                  
+                    <View style={{flex:5}}>
+                    </View>
+                </View>
+                <View style={{height:screen.height/1.5,width:screen.width}}>
+                  <View style={{flex:9,justifyContent:'center',alignItems:'center',width:screen.width}}>
+                      <View style={{flex:1,width:screen.width,justifyContent:'center',alignItems:'center'}}> 
+                        <Text style={{fontWeight:'bold'}}> Add friends Session ?</Text>
+                      </View>
+                      <View style={{flex:1,flexDirection:'column',margin:10}}>
+                        
+                        <View style={{flex:1,flexDirection:'column',width:screen.width}}>
+                            <Text style={{flex:1,margin:10,fontSize:10,fontWeight:"bold"}}>Input email</Text> 
+                            <View style={{flex:4,marginHorizontal:10}}>
+                              <TextInput
+                                  style={{borderColor:'white',height:30,borderBottomWidth:1}}
+                                  placeholder="email"
+                              />
+                            </View> 
+                            
+                        </View>
+                         
+                      </View>
+                      <View style={{flex:1,width:screen.width,}}>
+                        <Text style={{flex:1,borderWidth:1,borderColor:'white',marginHorizontal:10,marginBottom:2}}>email</Text>
+                      </View>
+                    </View>
+                    <View style={{flex:1.3,justifyContent:'center',alignItems:'center'}}>
+                      <TouchableOpacity onPress={(event) => this.setOffsetPage(4)} style={{backgroundColor:'blue',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
+                        <Text style={{fontSize:12,color:'white'}}>Next</Text>
+                      </TouchableOpacity>
+                    </View>
+                  
+                    <View style={{flex:5}}>
+                    </View>
+                </View>
+                <View style={{height:screen.height/1.5,width:screen.width}}>
+                  <View style={{flex:5,justifyContent:'center',alignItems:'center'}}>
+                      <View style={{flex:2,justifyContent:'center',alignItems:'center'}}> 
+                        <Text style={{fontWeight:'bold'}}> Set Time Auction Session ?</Text>
+                      </View>
+                      <View style={{flex:1,flexDirection:'row',margin:10}}>
+                        
+                        <View style={{flex:1}}>
+                              <Text>sdfs</Text>
+                        </View>
+                        <View style={{flex:1,alignItems:'flex-end'}}>
+                          <Text>asdg</Text>
+                        </View>
+                       
                       </View>
                       <View style={{flex:1}}></View>
                     </View>
@@ -97,7 +205,7 @@ export default class componentName extends Component {
                       </TouchableOpacity>
                     </View>
                   
-                    <View style={{flex:3}}>
+                    <View style={{flex:5}}>
                     </View>
                 </View>
 
