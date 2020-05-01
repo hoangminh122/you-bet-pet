@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyPet</string>
+    <string name="facebook_app_id">249102469458754</string> <string name="fb_login_protocol_scheme">fb249102469458754</string>
+
 </resources>

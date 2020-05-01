@@ -5,9 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Collection;
 
 @Getter
 @Setter
@@ -42,7 +40,7 @@ public class DongVat {
     @JoinColumn
     @JsonIgnore
     @NonNull
-    private  ChuNhan chuNhan;
+    private ChuNhan chuNhan;
 
     @OneToOne(mappedBy = "dongVat",fetch = FetchType.LAZY)
     @JsonIgnore

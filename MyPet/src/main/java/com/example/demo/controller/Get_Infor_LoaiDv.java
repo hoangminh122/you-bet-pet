@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ChuNhan;
 import com.example.demo.model.LoaiDongVat;
-import com.example.demo.repository.ChuNhanRepo;
 import com.example.demo.repository.LoaiDongVatRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

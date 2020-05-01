@@ -6,13 +6,21 @@ public class UserDto {
     private String tenChuNhan;
     private String userName;
     private String diaChi;
-
+    private int sdt;
     public String getDiaChi() {
         return diaChi;
     }
 
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
+    }
+
+    public int getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(int sdt) {
+        this.sdt = sdt;
     }
 
     public String getUserName() {

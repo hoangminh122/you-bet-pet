@@ -21,12 +21,12 @@ public class DauGia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
-    private float tienMax;
-    @NotBlank
+    @NotNull
+    private Long tienMax;
+    @NotNull
     private boolean giaoBan;
 
-    @NotBlank
+    @NotNull
     private Long groupId;
 
     @OneToOne()
@@ -43,7 +43,7 @@ public class DauGia {
    private  List<DauGia_ChuNhan> dauGia_chuNhans;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @NotNull
+//    @NotNull
     @JsonIgnore
     @JoinColumn(name ="trend_id",nullable = false, unique = true)
     private Trend trend;

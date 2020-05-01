@@ -20,6 +20,12 @@ public class User {
         this.passWord="123";
 
     }
+    public User(String username, String pass){
+        this.id=1;
+        this.userName=username;
+        this.passWord=pass;
+
+    }
 
 
     public void setId(int id) {

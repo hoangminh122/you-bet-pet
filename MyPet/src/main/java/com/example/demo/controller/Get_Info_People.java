@@ -1,18 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ChuNhan;
-import com.example.demo.repository.ChuNhanRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
-import java.util.Optional;
-
 //@Controller
 public class Get_Info_People {
 //    @Autowired

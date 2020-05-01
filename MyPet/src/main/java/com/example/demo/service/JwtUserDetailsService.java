@@ -4,7 +4,6 @@ import com.example.demo.DTO.UserDto;
 import com.example.demo.model.ChuNhan;
 import com.example.demo.repository.ChuNhanRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,9 +40,10 @@ public class JwtUserDetailsService implements UserDetailsService {
         ChuNhan newUser = new ChuNhan();
         newUser.setEmail(user.getEmail());
         newUser.setPassWord(bcryptEncoder.encode(user.getPassword()));
-        newUser.setTenChuNhan(user.getTenChuNhan());
+//        newUser.setTenChuNhan(user.getTenChuNhan());
         newUser.setUserName(user.getUserName());
         newUser.setDiaChi(user.getDiaChi());
+        newUser.setSdt(user.getSdt());
         return userDao.save(newUser);
     }
 }
