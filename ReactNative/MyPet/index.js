@@ -9,7 +9,7 @@ import Login from './components/loginFace'
 import Database from './components/database'
 import IndexApp from './components/indexApp'
 import Email from './components/email'
-import CreateSession from './components/createSession'
-import Demo from './components/demo'
+import CreateSession1 from './components/createSession1'
+import Demo from './components/CreateSession'
 
-AppRegistry.registerComponent(appName, () => Demo);
+AppRegistry.registerComponent(appName, () => App);

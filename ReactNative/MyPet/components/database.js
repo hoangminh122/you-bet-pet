@@ -21,10 +21,8 @@ export default class componentName extends Component {
     addDB = (name) =>{
       var arr = [];
       this.itemRef.ref('demo').child('demo1').on('child_added',(dataSnapshot)=>{
-
-        
         arr.push({
-          name:dataSnapshot.val(),
+          name:dataSnapshot.val().Ngonngu,
           _key:dataSnapshot.key
         })
         this.setState({
@@ -41,12 +39,16 @@ export default class componentName extends Component {
       // })
     }
    pushDB = (name)=>{
-     
+     this.itemRef.ref('demo').child('demo1').push({
+      Ngonngu : this.state.text
+     });
 
    }
-    componentDidMount(){
+  componentDidMount(){
       this.addDB();
-    }
+  }
+
+
   render() {
     // console.log(this.state.dataSource)
     // this.addDB()
@@ -56,7 +58,7 @@ export default class componentName extends Component {
       <Text>ádgasg</Text>
       <TextInput
        
-       style={{height:100,width:100,borderColor:'gray',borderWidth:1}}
+       style={{height:100,width:50,borderColor:'gray',borderWidth:1}}
         onChangeText={(event)=>this.setState({text:event})}
         value={this.state.text}
 
@@ -68,6 +70,7 @@ export default class componentName extends Component {
         dataSource={this.state.dataSource}
         renderRow={(rowData) => <Text>{rowData.name}</Text>}
       />
+     
       </View>
     );
   }

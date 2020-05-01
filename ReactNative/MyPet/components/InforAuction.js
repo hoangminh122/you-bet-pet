@@ -1,9 +1,42 @@
 import React, { Component } from 'react';
-import {View,Text,StyleSheet} from 'react-native'
+import {View,Text,StyleSheet, Dimensions} from 'react-native'
 import Header from './header';
 import Footer from './footer';
+import firebase from 'firebase'
+import ListView from 'deprecated-react-native-listview'
 
+const screen = Dimensions.get('window')
 export default class InforAution extends Component {
+  constructor(props){
+    super(props);
+    this.itemRef = firebase.database();
+    this.state={
+      dataSource:  new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 })
+        
+    }
+
+  }
+  addDB = (name) =>{
+    let arr = [];
+    this.itemRef.ref('NewSession').child('Public').on('child_added',(dataSnapshot) => {
+      arr.push({
+        nameSession:dataSnapshot.val().nameSession,
+        date       :dataSnapshot.val().date,
+        timeStart  :dataSnapshot.val().timeStart,
+        arrEmail   :dataSnapshot.val().arrEmail,
+        moneyInit  :dataSnapshot.val().moneyInit,
+        _key: dataSnapshot.key
+
+      })
+      this.setState({
+        dataSource:this.state.dataSource.cloneWithRows(arr)
+      })
+      console.log("ok")
+    })
+  }
+  componentDidMount(){
+    this.addDB();
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -37,6 +70,23 @@ export default class InforAution extends Component {
             </View>
           </View>
           <View style={styles.footerBody}>
+            <ListView style={{width:screen.width}}
+                      dataSource={this.state.dataSource}
+                      renderRow={(rowData) => <View style={{margin:2,backgroundColor:'#F8F8FF',borderBottomWidth:2,borderRadius:5,borderColor:'gray',borderRightWidth:2,borderColor:'gray',flex:1,justifyContent:'center',alignItems:'center',flexDirection:'row',height:screen.width/4}}>
+                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                                      <Text>{rowData.nameSession} </Text>
+                                                    </View>
+                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                                     <Text></Text>
+                                                    </View>
+                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                                      <Text>{rowData.moneyInit}</Text>
+                                                    </View>
+                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                                      <Text>Đang diễn ra</Text>
+                                                    </View>
+                                              </View>}
+            />
           </View>
         </View>
         <Footer/>
@@ -65,7 +115,7 @@ const styles = StyleSheet.create({
   },
   footerBody:{
     flex:3,
-    backgroundColor:'yellow'
+    // backgroundColor:'yellow'
   },
   rowTitleBody:{
     flex:1,

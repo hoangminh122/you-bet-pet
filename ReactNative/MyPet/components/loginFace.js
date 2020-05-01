@@ -125,7 +125,7 @@ export default class Login extends Component {
                  
                 </View>
                 <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                  <Link to={'/auctionSession'} style={{margin:11,height:60,width:60,borderColor:'#EEEEEE	',borderRadius:90,borderWidth:1,backgroundColor:'blue'}}>
+                  <Link to={'/inforAuction'} style={{margin:11,height:60,width:60,borderColor:'#EEEEEE	',borderRadius:90,borderWidth:1,backgroundColor:'blue'}}>
                     <Text style={{margin:10}}>Let's Go !</Text>
                   </Link>
                 </View>
