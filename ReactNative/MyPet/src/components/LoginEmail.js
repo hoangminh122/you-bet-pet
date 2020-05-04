@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {View,Text, TextInput, Dimensions, TouchableOpacity, Alert} from 'react-native'
-import firebaseConfig from '../firebase/config'
+import firebaseConfig from '../config/ConfigFirebase'
 import firebase from 'firebase'
 
 
@@ -9,7 +9,7 @@ let screen = Dimensions.get('window');
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
-export default class email extends Component {
+export default class loginEmail extends Component {
     constructor(props){
         super(props);
         this.state = {
