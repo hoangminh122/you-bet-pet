@@ -4,8 +4,8 @@ import { StyleSheet,Text,View,ImageBackground,Image, Dimensions, TouchableOpacit
 import bgImage from '../images/background.jpg'
 import logo from '../images/logo.png'
 import {LoginManager,LoginButton,AccessToken} from 'react-native-fbsdk'
-import token from '../components/token'
-import firebaseConfig from '../firebase/config'
+import token from './token'
+import firebaseConfig from '../config/ConfigFirebase'
 import firebase from 'firebase'
 import Header from './header';
 import Footer from './footer';
@@ -28,7 +28,7 @@ var user={
   avatar:""
 }
 
-export default class Login extends Component {
+export default class LoginFace extends Component {
     constructor(props){
         super(props)
         this.state={

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {View,Text, TouchableOpacity, TextInput,} from 'react-native'
-import firebaseConfig from '../firebase/config'
+import firebaseConfig from '../../config/ConfigFirebase'
 import firebase from 'firebase'
 import ListView from 'deprecated-react-native-listview'
 

@@ -4,7 +4,7 @@ import { StyleSheet,Text,View,ImageBackground,Image, Dimensions} from 'react-nat
 import bgImage from '../images/background.jpg'
 import logo from '../images/logo.png'
 import {LoginManager,LoginButton,AccessToken} from 'react-native-fbsdk'
-import token from './token'
+import token from '../token'
 
 var screen = Dimensions.get('window');
 var user={
