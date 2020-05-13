@@ -114,18 +114,18 @@ export default class LoginFace extends Component {
                   <Text style={{fontSize:15,fontWeight:'bold',color:'gray'}}>Others</Text>
                 </View>
                 <View style={{flex:4,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-                  <TouchableOpacity style={{margin:10,height:50,width:50,borderColor:'#EEEEEE	',borderRadius:90,borderWidth:1}} onPress={()=>this.onLoginFace()}>
+                  <TouchableOpacity style={{margin:10,height:50,width:50,borderColor:'gray',borderRadius:90,borderWidth:1}} onPress={()=>this.onLoginFace()}>
                     <Image source={require('../images/face.png')}>
                     </Image>
                   </TouchableOpacity>
-                  <TouchableOpacity style={{margin:10,height:50,width:50,borderColor:'#EEEEEE	',borderRadius:90,borderWidth:1}}>
+                  <TouchableOpacity style={{margin:10,height:50,width:50,borderColor:'gray',borderRadius:90,borderWidth:1}}>
                     <Image source={require('../images/google.png')}>
                     </Image>
                   </TouchableOpacity>
                  
                 </View>
                 <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                  <Link to={'/inforAuction'} style={{margin:11,height:60,width:60,borderColor:'#EEEEEE	',borderRadius:90,borderWidth:1,backgroundColor:'blue'}}>
+                  <Link to={'/inforAuction'} style={{margin:11,height:60,width:60,borderColor:'gray',borderRadius:90,borderWidth:1,backgroundColor:'blue'}}>
                     <Text style={{margin:10}}>Let's Go !</Text>
                   </Link>
                 </View>

@@ -11,7 +11,9 @@ import {name as appName} from './app.json';
 // import Email from './components/email'
 // import CreateSession1 from './components/createSession1'
 // import Demo from './components/createSession'
-import Demo from './src/components/test/AppDemo'
+// import Demo from './src/components/test/AppDemo'
+// import Demo from  './src/databases/SaveLogin'
+import Demo from  './src/components/AuctionSession'
 
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, () => Demo);
 //ok

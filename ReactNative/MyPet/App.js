@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {NativeRouter,Route,Link,Switch} from 'react-router-native'
-import Login from './src/components/loginFace';
-import InforUser from './src/components/InforUser';
-import Login1 from './src/components/auctionSession';
-import {View} from 'react-native'
-import Demo from './src/components/createSession'
-import AuctionSession from './src/components/auctionSession';
+import Login from './src/components/LoginFace';
+// import InforUser from './src/components/InforUser';
+// import Login1 from './src/components/auctionSession';
+// import {View} from 'react-native'
+import Demo from './src/components/CreateSession'
+import AuctionSession from './src/components/AuctionSession';
 import InforAuction from './src/components/InforAuction';
 
 

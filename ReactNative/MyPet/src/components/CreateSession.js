@@ -24,29 +24,30 @@ export default class CreateSession extends Component {
       arrEmail:[],
       moneyInit:''
     }
-    // this.setOffsetPage =this.setOffsetPage.bind(this);
-    // this.setOffsetPage(0);
+    
     this.itemRef = firebase.database();
   }
  
   addEmailFriends = ()=>{
-    // console.log("vao day")
-    // console.log(e.nativeEvent.key)
-    // if(e.nativeEvent.key == 'Enter'){
-    //   console.log("ok");
-      
-        // this.setState({arrEmail:this.state.arrEmail.push(this.state.email)});
         this.setState({
            arrEmail: [...this.state.arrEmail,this.state.email],
            email:""
          })
-    
-     
-      // console.log(this.state.email);
-    // }
    
   }
   setOffsetPage = (page)=>{
+    switch(page){
+      case 1:
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      case 4:
+      default:
+        break;
+
+    }
     this._scrollView.scrollTo({x: screen.width*page, y: 0, animated: true});
     this._scrollView.setNativeProps({ scrollEnabled: false });
    
@@ -64,7 +65,6 @@ export default class CreateSession extends Component {
   }
 
   render() {
-    // console.log(this.state.nameSession)
     console.log(this.state.arrEmail)
     return (
          <DismissKeyboard >
@@ -91,7 +91,6 @@ export default class CreateSession extends Component {
                       <Text style={{fontSize:12,color:'white'}}>Next</Text>
                     </TouchableOpacity>
                   </View>
-                  
                   
                 </View>
                 <View style={{height:screen.height/1.5,width:screen.width,flex:1,flexDirection:'column'}}>
@@ -147,7 +146,6 @@ export default class CreateSession extends Component {
                               dateInput: {
                                 marginLeft: 36
                               }
-                              // ... You can check the source to find the other keys.
                             }}
                             onDateChange={(date) => {this.setState({date: date})}}
                             />
@@ -171,7 +169,6 @@ export default class CreateSession extends Component {
                                 dateInput: {
                                   marginLeft: 36
                                 }
-                                // ... You can check the source to find the other keys.
                               }}
                               onDateChange={(date) => {this.setState({timeStart: date})}}
                               />
