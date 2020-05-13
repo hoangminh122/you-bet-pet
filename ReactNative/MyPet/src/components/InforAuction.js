@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View,Text,StyleSheet, Dimensions} from 'react-native'
+import {View,Text,StyleSheet, Dimensions,ScrollView} from 'react-native'
 import Header from './header';
 import Footer from './footer';
 import firebase from 'firebase'
@@ -41,54 +41,79 @@ export default class InforAution extends Component {
     return (
       <View style={styles.container}>
         <Header/>
-        <View style={styles.body}>
-          <View style={styles.headerBody}>
-            <View style={styles.rowTitleBody}>
-              <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
-                <Text style={styles.txtColTitleBodyUp}>Đang diễn ra</Text>
+        <ScrollView 
+                          ref = {scrollView => this._scrollView = scrollView }
+                          horizontal={true}
+                          showsHorizontalScrollIndicator={false}
+                          pagingEnabled={true}
+                          decelerationRate={0}
+                          contentOffset ={false}
+                          
+                          
+                          >
+                          <View style={{width:screen.width,backgroundColor:'red'}}>
+                            <Text>
+                              sdfsdf 1
+                            </Text>
+                          </View>
+                          <View style={{width:screen.width,backgroundColor:'yellow'}}>
+                            <Text>
+                              sdfsdf 2
+                            </Text>
+                          </View>
+          {/* <View style={[styles.body,{width:screen.width}]}>
+            <View style={styles.headerBody}>
+              <View style={styles.rowTitleBody}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
+                  <Text style={styles.txtColTitleBodyUp}>Đang diễn ra</Text>
+                </View>
+                <View style={{flex:1,alignItems:'center',justifyContent:'center',height:'80%',width:'80%'}}>
+                  <Text style={styles.txtColTitleBodyUp}>Đã thắng</Text>
+                </View>
+                <View style={{flex:1,alignItems:'center',justifyContent:'center',height:'80%',width:'80%'}}>
+                  <Text style={styles.txtColTitleBodyUp}>Thua</Text>
+                </View>
               </View>
-              <View style={{flex:1,alignItems:'center',justifyContent:'center',height:'80%',width:'80%'}}>
-                <Text style={styles.txtColTitleBodyUp}>Đã thắng</Text>
-              </View>
-              <View style={{flex:1,alignItems:'center',justifyContent:'center',height:'80%',width:'80%'}}>
-                <Text style={styles.txtColTitleBodyUp}>Thua</Text>
+              <View style={styles.rowTitleBody}>
+                <View style={styles.colTitleBody}>
+                  <Text style={styles.txtColTitleBodyDown}>Tên phiên đấu giá</Text>
+                </View>
+                <View style={styles.colTitleBody}>
+                  <Text style={styles.txtColTitleBodyDown}>Kết thúc trong (thời gian)</Text>
+                </View>
+                <View style={styles.colTitleBody}>
+                  <Text style={styles.txtColTitleBodyDown}>Mức giá</Text>
+                </View>
+                <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
+                  <Text style={styles.txtColTitleBodyDown}>Tình trạng</Text>
+                </View>
               </View>
             </View>
-            <View style={styles.rowTitleBody}>
-              <View style={styles.colTitleBody}>
-                <Text style={styles.txtColTitleBodyDown}>Tên phiên đấu giá</Text>
-              </View>
-              <View style={styles.colTitleBody}>
-                <Text style={styles.txtColTitleBodyDown}>Kết thúc trong (thời gian)</Text>
-              </View>
-              <View style={styles.colTitleBody}>
-                <Text style={styles.txtColTitleBodyDown}>Mức giá</Text>
-              </View>
-              <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
-                <Text style={styles.txtColTitleBodyDown}>Tình trạng</Text>
-              </View>
+            <View style={styles.footerBody}>
+              <ListView style={{width:screen.width}}
+                        dataSource={this.state.dataSource}
+                        renderRow={(rowData) => <View style={{margin:2,backgroundColor:'#F8F8FF',borderBottomWidth:2,borderRadius:5,borderColor:'gray',borderRightWidth:2,borderColor:'gray',flex:1,justifyContent:'center',alignItems:'center',flexDirection:'row',height:screen.width/4}}>
+                                                      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                                        <Text>{rowData.nameSession} </Text>
+                                                      </View>
+                                                      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                                      <Text></Text>
+                                                      </View>
+                                                      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                                        <Text>{rowData.moneyInit}</Text>
+                                                      </View>
+                                                      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                                        <Text>Đang diễn ra</Text>
+                                                      </View>
+                                                </View>}
+              />
             </View>
           </View>
-          <View style={styles.footerBody}>
-            <ListView style={{width:screen.width}}
-                      dataSource={this.state.dataSource}
-                      renderRow={(rowData) => <View style={{margin:2,backgroundColor:'#F8F8FF',borderBottomWidth:2,borderRadius:5,borderColor:'gray',borderRightWidth:2,borderColor:'gray',flex:1,justifyContent:'center',alignItems:'center',flexDirection:'row',height:screen.width/4}}>
-                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                                                      <Text>{rowData.nameSession} </Text>
-                                                    </View>
-                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                                                     <Text></Text>
-                                                    </View>
-                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                                                      <Text>{rowData.moneyInit}</Text>
-                                                    </View>
-                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                                                      <Text>Đang diễn ra</Text>
-                                                    </View>
-                                              </View>}
-            />
-          </View>
-        </View>
+         
+        */}
+       </ScrollView>
+
+
         <Footer/>
       </View>
     );
