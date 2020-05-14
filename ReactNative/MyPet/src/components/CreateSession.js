@@ -87,7 +87,7 @@ export default class CreateSession extends Component {
                   <View style = {{flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
                     <Text style={{flex:1,fontWeight:'bold'}}>Join Auction </Text>
                     <Text  style={{flex:2,fontSize:12,color:'gray'}}> Honey, let's get ready to make a move !</Text>
-                    <TouchableOpacity onPress={(event) => this.setOffsetPage(1)} style={{backgroundColor:'blue',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
+                    <TouchableOpacity onPress={(event) => this.setOffsetPage(1)} style={{backgroundColor:'red',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
                       <Text style={{fontSize:12,color:'white'}}>Next</Text>
                     </TouchableOpacity>
                   </View>
@@ -110,7 +110,7 @@ export default class CreateSession extends Component {
                     <View style={{flex:1}}></View>
                   </View>
                   <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                    <TouchableOpacity onPress={(event) => this.setOffsetPage(2)} style={{backgroundColor:'blue',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
+                    <TouchableOpacity onPress={(event) => this.setOffsetPage(2)} style={{backgroundColor:'red',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
                       <Text style={{fontSize:12,color:'white'}}>Next</Text>
                     </TouchableOpacity>
                   </View>
@@ -178,7 +178,7 @@ export default class CreateSession extends Component {
                       <View style={{flex:1}}></View>
                     </View>
                     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                      <TouchableOpacity onPress={(event) => this.setOffsetPage(3)} style={{backgroundColor:'blue',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
+                      <TouchableOpacity onPress={(event) => this.setOffsetPage(3)} style={{backgroundColor:'red',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
                         <Text style={{fontSize:12,color:'white'}}>Next</Text>
                       </TouchableOpacity>
                     </View>
@@ -218,7 +218,7 @@ export default class CreateSession extends Component {
                       </View>
                     </View>
                     <View style={{flex:1.3,justifyContent:'center',alignItems:'center'}}>
-                      <TouchableOpacity onPress={(event) => this.setOffsetPage(4)} style={{backgroundColor:'blue',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
+                      <TouchableOpacity onPress={(event) => this.setOffsetPage(4)} style={{backgroundColor:'red',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
                         <Text style={{fontSize:12,color:'white'}}>Next</Text>
                       </TouchableOpacity>
                     </View>
@@ -247,8 +247,8 @@ export default class CreateSession extends Component {
                       <View style={{flex:1}}></View>
                     </View>
                     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                      <TouchableOpacity onPress= {() =>this.CreateOneNewSession()} style={{backgroundColor:'blue',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
-                        <Text style={{fontSize:12,color:'white'}}>Next</Text>
+                      <TouchableOpacity onPress= {() =>this.CreateOneNewSession()} style={{backgroundColor:'red',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
+                        <Text style={{fontSize:12,color:'white'}}>Finish !</Text>
                       </TouchableOpacity>
                     </View>
                   
