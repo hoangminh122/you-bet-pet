@@ -17,6 +17,7 @@
     "react-native-datepicker": "^1.7.2",
     "react-native-fbsdk": "^1.1.2",
     "react-native-sqlite-storage": "^5.0.0",
+    "react-native-video": "^4.4.5",
     "react-redux": "^7.2.0",
     "react-router-native": "^5.1.2",
     "realm": "^5.0.4",

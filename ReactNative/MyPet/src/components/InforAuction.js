@@ -41,6 +41,7 @@ export default class InforAution extends Component {
     return (
       <View style={styles.container}>
         <Header/>
+        <View style={styles.body}>
         <ScrollView 
                           ref = {scrollView => this._scrollView = scrollView }
                           horizontal={true}
@@ -51,21 +52,18 @@ export default class InforAution extends Component {
                           
                           
                           >
-                          <View style={{width:screen.width,backgroundColor:'red'}}>
-                            <Text>
-                              sdfsdf 1
-                            </Text>
-                          </View>
-                          <View style={{width:screen.width,backgroundColor:'yellow'}}>
-                            <Text>
-                              sdfsdf 2
-                            </Text>
-                          </View>
-          {/* <View style={[styles.body,{width:screen.width}]}>
+                        
+          <View style={[styles.body,{width:screen.width}]}>
             <View style={styles.headerBody}>
               <View style={styles.rowTitleBody}>
                 <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
-                  <Text style={styles.txtColTitleBodyUp}>Đang diễn ra</Text>
+                 
+                  <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
+                    <View style={{width:15,height:15,top:-5,left:"80%",backgroundColor:'red',borderWidth:1,borderColor:'white',borderRadius:90,position:'absolute'}}>
+                        <Text style={{fontSize:8,alignSelf:'center',fontWeight:'bold',color:'white'}}>1</Text>
+                    </View>
+                    <Text>Đang diễn ra</Text>
+                  </View>
                 </View>
                 <View style={{flex:1,alignItems:'center',justifyContent:'center',height:'80%',width:'80%'}}>
                   <Text style={styles.txtColTitleBodyUp}>Đã thắng</Text>
@@ -109,11 +107,85 @@ export default class InforAution extends Component {
               />
             </View>
           </View>
+          <View style={[styles.body,{width:screen.width}]}>
+            <View style={styles.headerBody}>
+              <View style={styles.rowTitleBody}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
+                  <Text style={styles.txtColTitleBodyUp}>Đang diễn ra</Text>
+                </View>
+                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
+                  <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
+                    <View style={{width:15,height:15,top:-5,left:"80%",backgroundColor:'red',borderWidth:1,borderColor:'white',borderRadius:90,position:'absolute'}}>
+                        <Text style={{fontSize:8,alignSelf:'center',fontWeight:'bold',color:'white'}}>1</Text>
+                    </View>
+                    <Text>Đã thắng</Text>
+                  </View>
+                </View>
+                <View style={{flex:1,alignItems:'center',justifyContent:'center',height:'80%',width:'80%'}}>
+                  <Text style={styles.txtColTitleBodyUp}>Thua</Text>
+                </View>
+              </View>
+              <View style={styles.rowTitleBody}>
+                <View style={styles.colTitleBody}>
+                  <Text style={styles.txtColTitleBodyDown}>Tên phiên đấu giá</Text>
+                </View>
+                <View style={styles.colTitleBody}>
+                  <Text style={styles.txtColTitleBodyDown}>Kết thúc trong (thời gian)</Text>
+                </View>
+                <View style={styles.colTitleBody}>
+                  <Text style={styles.txtColTitleBodyDown}>Mức giá</Text>
+                </View>
+                <View style={[styles.colTitleBody,{borderLeftWidth:0}]}>
+                  <Text style={styles.txtColTitleBodyDown}>Tình trạng</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.footerBody}>
+             
+            </View>
+          </View>
+          <View style={[styles.body,{width:screen.width}]}>
+            <View style={styles.headerBody}>
+              <View style={styles.rowTitleBody}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
+                  <Text style={styles.txtColTitleBodyUp}>Đang diễn ra</Text>
+                </View>
+                <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
+                  <Text style={styles.txtColTitleBodyUp}>Đã thắng</Text>
+                </View>
+                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
+                  <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
+                    <View style={{width:15,height:15,top:-5,left:"80%",backgroundColor:'red',borderWidth:1,borderColor:'white',borderRadius:90,position:'absolute'}}>
+                        <Text style={{fontSize:8,alignSelf:'center',fontWeight:'bold',color:'white'}}>1</Text>
+                    </View>
+                    <Text>Thua</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.rowTitleBody}>
+                <View style={styles.colTitleBody}>
+                  <Text style={styles.txtColTitleBodyDown}>Tên phiên đấu giá</Text>
+                </View>
+                <View style={styles.colTitleBody}>
+                  <Text style={styles.txtColTitleBodyDown}>Kết thúc trong (thời gian)</Text>
+                </View>
+                <View style={styles.colTitleBody}>
+                  <Text style={styles.txtColTitleBodyDown}>Mức giá</Text>
+                </View>
+                <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
+                  <Text style={styles.txtColTitleBodyDown}>Tình trạng</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.footerBody}>
+             
+            </View>
+          </View>
          
-        */}
        </ScrollView>
 
-
+        </View>
+       
         <Footer/>
       </View>
     );
