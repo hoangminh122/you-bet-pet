@@ -46,16 +46,16 @@ export default class InforUser extends Component {
             </View>
             <View style={styles.bodyInforDown}>
                 <View style={styles.bodyInforDownView}>
-                    <Text style={styles.bodyInforDownViewChildLeft}>Location:</Text>
-                    <Text style={styles.bodyInforDownViewChildRight}>Linh dong Thu duc</Text>
+                    <Text style={styles.bodyInforDownViewChildLeft}>Name:</Text>
+                    <Text style={styles.bodyInforDownViewChildRight}>Hoàng Minh</Text>
+                </View>
+                <View style={styles.bodyInforDownView}>
+                    <Text style={styles.bodyInforDownViewChildLeft}>Phone:</Text>
+                    <Text style={styles.bodyInforDownViewChildRight}>0465841783</Text>
                 </View>
                 <View style={styles.bodyInforDownView}>
                     <Text style={styles.bodyInforDownViewChildLeft}>Location:</Text>
-                    <Text style={styles.bodyInforDownViewChildRight}>Linh dong Thu duc</Text>
-                </View>
-                <View style={styles.bodyInforDownView}>
-                    <Text style={styles.bodyInforDownViewChildLeft}>Location:</Text>
-                    <Text style={styles.bodyInforDownViewChildRight}>Linh dong Thu duc</Text>
+                    <Text style={styles.bodyInforDownViewChildRight}>đường 36, Linh dong, Thu duc</Text>
                 </View>
             </View>
           
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
                     borderRadius:90,
                     borderWidth:1,
                     justifyContent:'center',
+                    marginTop:5,
                     backgroundColor:'green',
                     borderColor:'green'
                 },

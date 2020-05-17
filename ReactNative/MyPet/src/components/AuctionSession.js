@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View,Text, Dimensions,StyleSheet, Image,TouchableOpacity} from 'react-native'
+import {View,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,TouchableHighlight} from 'react-native'
 import Footer from './footer'
 import Header from './header'
 import Video from 'react-native-video';
@@ -71,54 +71,73 @@ export default class AuctionSession extends Component {
             <Text style={styles.bodyTittleTxt}>Người đấu giá 1</Text>
           </View>
           <View style={styles.bodyTop10}>
-            <View style={styles.bodyTop10Object}>
-              <View style={styles.bodyTop10ObjectStt}>
-                <Text>1.</Text>
-              </View>
-              <View style={styles.bodyTop10ObjectImage}>
-                <Image style={styles.bodyTop10ObjectImageChild}></Image>
-              </View>
-              <View style={styles.bodyTop10ObjectInfor}>
-                <View>
-                  <Text style={styles.bodyTop10ObjectInforTxt}>Hoang minh</Text>
+
+          <View style={{flex:4,flexDirection:'column'}}>
+            <FlatList
+            style={{height:screen.height,width:screen.width,backgroundColor:'white'}}
+            data={[
+              {key: 'Devin'},
+              {key: 'Jackson'},
+              {key: 'Jackson'},
+              {key: 'Jackson'},
+              {key: 'Jackson'},
+              {key: 'Jackson'},
+              {key: 'Jackson'},
+              {key: 'Jackson'},
+              {key: 'Jackson'},
+              {key: 'Jackson'},
+              {key: 'Jackson'},
+             
+            
+            ]}
+            renderItem={({item}) =>  
+              <View style={[styles.bodyTop10Object,{height:80}]}>
+                <View style={styles.bodyTop10ObjectStt}>
+                  <Text>1.</Text>
                 </View>
-                <View>
-                  <Text style={styles.bodyTop10ObjectInforTxt}>70.000 đ</Text>
+                <View style={styles.bodyTop10ObjectImage}>
+                  <Image style={styles.bodyTop10ObjectImageChild}></Image>
                 </View>
+                <View style={styles.bodyTop10ObjectInfor}>
+                  <View>
+                    <Text style={styles.bodyTop10ObjectInforTxt}>Hoang minh</Text>
+                  </View>
+                  <View>
+                    <Text style={styles.bodyTop10ObjectInforTxt}>70.000 đ</Text>
+                  </View>
+                </View>
+              </View>
+              } 
+            />
+          </View>
+         
+            <View style={[styles.bodyTop10Object,{margin:5,borderWidth:1}]}>
+              <View style={[styles.bodyTop10ObjectStt,{flex:1,borderRightWidth:2}]}>
+                <Text style={{fontSize:11,fontWeight:'bold'}}>Thời gian còn lại</Text>
+                <Text>00:00:40</Text>
+              </View>
+              <View style={[styles.bodyTop10ObjectImage,{flex:1,borderRightWidth:3}]}>
+                <Text style={{fontSize:11,fontWeight:'bold'}}>Đấu giá hiện tại</Text>
+                <View style={{flexDirection:'row',alignItems:'center',alignContent:'center'}}>
+                <TouchableHighlight style={{backgroundColor:'gray',width:15,height:15}}>
+                  <Image></Image>
+                </TouchableHighlight>
+                  <Text style={{margin:5}}>70000 đ</Text>
+                <TouchableHighlight style={{backgroundColor:'red',width:15,height:15}}>
+                  <Image></Image>
+                </TouchableHighlight>
+                </View>
+              </View>
+              <View style={[styles.bodyTop10ObjectInfor,{flex:1}]}>
+                <TouchableOpacity style={{width:100,height:35,backgroundColor:'red',borderRadius:5}}>
+                  <View style={{flex:1,flexDirection:'column',alignSelf:'center',justifyContent:'center'}}>
+                    <Text style={{color:'white'}}>Đấu Giá</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
-            <View style={styles.bodyTop10Object}>
-              <View style={styles.bodyTop10ObjectStt}>
-                <Text>1.</Text>
-              </View>
-              <View style={styles.bodyTop10ObjectImage}>
-                <Image style={styles.bodyTop10ObjectImageChild}></Image>
-              </View>
-              <View style={styles.bodyTop10ObjectInfor}>
-                <View>
-                  <Text style={styles.bodyTop10ObjectInforTxt}>Hoang minh</Text>
-                </View>
-                <View>
-                  <Text style={styles.bodyTop10ObjectInforTxt}>70.000 đ</Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.bodyTop10Object}>
-              <View style={styles.bodyTop10ObjectStt}>
-                <Text>1.</Text>
-              </View>
-              <View style={styles.bodyTop10ObjectImage}>
-                <Image style={styles.bodyTop10ObjectImageChild}></Image>
-              </View>
-              <View style={styles.bodyTop10ObjectInfor}>
-                <View>
-                  <Text style={styles.bodyTop10ObjectInforTxt}>Hoang minh</Text>
-                </View>
-                <View>
-                  <Text style={styles.bodyTop10ObjectInforTxt}>70.000 đ</Text>
-                </View>
-              </View>
-            </View>
+           
+           {/* //dau gia */}
            </View>
         </View>
         <Footer/>
@@ -174,8 +193,9 @@ const styles = StyleSheet.create({
         borderRadius:10,borderBottomWidth:1,
         borderLeftWidth:0.2,borderRightWidth:1,
         borderColor:'gray',
-        width:'90%',
-        height:'90%',
+        width:'95%',
+        height:'100%',
+        alignSelf:'center',
         margin:2
       },
         bodyTop10ObjectStt:{

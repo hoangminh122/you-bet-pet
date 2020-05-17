@@ -12,10 +12,9 @@ export default class InforAution extends Component {
     this.itemRef = firebase.database();
     this.state={
       dataSource:  new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 })
-        
     }
-
   }
+
   addDB = (name) =>{
     let arr = [];
     this.itemRef.ref('NewSession').child('Public').on('child_added',(dataSnapshot) => {
@@ -34,9 +33,11 @@ export default class InforAution extends Component {
       console.log("ok")
     })
   }
+
   componentDidMount(){
     this.addDB();
   }
+  
   render() {
     return (
       <View style={styles.container}>
@@ -49,26 +50,23 @@ export default class InforAution extends Component {
                           pagingEnabled={true}
                           decelerationRate={0}
                           contentOffset ={false}
-                          
-                          
                           >
-                        
           <View style={[styles.body,{width:screen.width}]}>
             <View style={styles.headerBody}>
               <View style={styles.rowTitleBody}>
                 <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
                  
                   <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
-                    <View style={{width:15,height:15,top:-5,left:"80%",backgroundColor:'red',borderWidth:1,borderColor:'white',borderRadius:90,position:'absolute'}}>
-                        <Text style={{fontSize:8,alignSelf:'center',fontWeight:'bold',color:'white'}}>1</Text>
+                    <View style={styles.iconNotifyView}>
+                        <Text style={styles.iconNotifyTxt}>1</Text>
                     </View>
                     <Text>Đang diễn ra</Text>
                   </View>
                 </View>
-                <View style={{flex:1,alignItems:'center',justifyContent:'center',height:'80%',width:'80%'}}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
                   <Text style={styles.txtColTitleBodyUp}>Đã thắng</Text>
                 </View>
-                <View style={{flex:1,alignItems:'center',justifyContent:'center',height:'80%',width:'80%'}}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
                   <Text style={styles.txtColTitleBodyUp}>Thua</Text>
                 </View>
               </View>
@@ -90,17 +88,17 @@ export default class InforAution extends Component {
             <View style={styles.footerBody}>
               <ListView style={{width:screen.width}}
                         dataSource={this.state.dataSource}
-                        renderRow={(rowData) => <View style={{margin:2,backgroundColor:'#F8F8FF',borderBottomWidth:2,borderRadius:5,borderColor:'gray',borderRightWidth:2,borderColor:'gray',flex:1,justifyContent:'center',alignItems:'center',flexDirection:'row',height:screen.width/4}}>
-                                                      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                        renderRow={(rowData) => <View style={styles.listView}>
+                                                      <View style={styles.listViewCol}>
                                                         <Text>{rowData.nameSession} </Text>
                                                       </View>
-                                                      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                                      <View style={styles.listViewCol}>
                                                       <Text></Text>
                                                       </View>
-                                                      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                                      <View style={styles.listViewCol}>
                                                         <Text>{rowData.moneyInit}</Text>
                                                       </View>
-                                                      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                                      <View style={styles.listViewCol}>
                                                         <Text>Đang diễn ra</Text>
                                                       </View>
                                                 </View>}
@@ -115,13 +113,13 @@ export default class InforAution extends Component {
                 </View>
                 <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
                   <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
-                    <View style={{width:15,height:15,top:-5,left:"80%",backgroundColor:'red',borderWidth:1,borderColor:'white',borderRadius:90,position:'absolute'}}>
-                        <Text style={{fontSize:8,alignSelf:'center',fontWeight:'bold',color:'white'}}>1</Text>
+                    <View style={styles.iconNotifyView}>
+                        <Text style={styles.iconNotifyTxt}>1</Text>
                     </View>
                     <Text>Đã thắng</Text>
                   </View>
                 </View>
-                <View style={{flex:1,alignItems:'center',justifyContent:'center',height:'80%',width:'80%'}}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
                   <Text style={styles.txtColTitleBodyUp}>Thua</Text>
                 </View>
               </View>
@@ -155,8 +153,8 @@ export default class InforAution extends Component {
                 </View>
                 <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
                   <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
-                    <View style={{width:15,height:15,top:-5,left:"80%",backgroundColor:'red',borderWidth:1,borderColor:'white',borderRadius:90,position:'absolute'}}>
-                        <Text style={{fontSize:8,alignSelf:'center',fontWeight:'bold',color:'white'}}>1</Text>
+                    <View style={styles.iconNotifyView}>
+                        <Text style={styles.iconNotifyTxt}>1</Text>
                     </View>
                     <Text>Thua</Text>
                   </View>
@@ -214,6 +212,25 @@ const styles = StyleSheet.create({
     flex:3,
     // backgroundColor:'yellow'
   },
+    listView:{
+      margin:2,
+      backgroundColor:'#F8F8FF',
+      borderBottomWidth:2,
+      borderRadius:5,
+      borderColor:'gray',
+      borderRightWidth:2,
+      borderColor:'gray',
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center',
+      flexDirection:'row',
+      height:screen.width/4
+    },
+      listViewCol:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+      },
   rowTitleBody:{
     flex:1,
     flexDirection:'row',
@@ -232,6 +249,23 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         fontSize:13
       },
+        iconNotifyView:{
+          width:15,
+          height:15,
+          top:-5,
+          left:"80%",
+          backgroundColor:'red',
+          borderWidth:1,
+          borderColor:'white',
+          borderRadius:90,
+          position:'absolute'
+        },
+          iconNotifyTxt:{
+            fontSize:8,
+            alignSelf:'center',
+            fontWeight:'bold',
+            color:'white'
+          },
       txtColTitleBodyDown:{
         maxWidth:'80%',
         fontWeight:'500',
