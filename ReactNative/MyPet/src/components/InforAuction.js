@@ -1,11 +1,32 @@
 import React, { Component } from 'react';
-import {View,Text,StyleSheet, Dimensions,ScrollView} from 'react-native'
+import {View,Text,StyleSheet, Dimensions,ScrollView, TouchableHighlight, TouchableOpacity} from 'react-native'
 import Header from './header';
 import Footer from './footer';
 import firebase from 'firebase'
 import ListView from 'deprecated-react-native-listview'
+import {Link} from 'react-router-native'
 
 const screen = Dimensions.get('window')
+class ListViewItem extends Component {
+  render(){
+    return(
+            <View style={styles.listView}>
+              <View style={styles.listViewCol}>
+                <Text>{this.props.rowData.nameSession} </Text>
+              </View>
+              <View style={styles.listViewCol}>
+                <Text></Text>
+              </View>
+              <View style={styles.listViewCol}>
+                <Text>{this.props.rowData.moneyInit}</Text>
+              </View>
+              <View style={styles.listViewCol}>
+                <Text>Đang diễn ra</Text>
+              </View>
+            </View>
+    )
+  }
+}
 export default class InforAution extends Component {
   constructor(props){
     super(props);
@@ -88,20 +109,14 @@ export default class InforAution extends Component {
             <View style={styles.footerBody}>
               <ListView style={{width:screen.width}}
                         dataSource={this.state.dataSource}
-                        renderRow={(rowData) => <View style={styles.listView}>
-                                                      <View style={styles.listViewCol}>
-                                                        <Text>{rowData.nameSession} </Text>
-                                                      </View>
-                                                      <View style={styles.listViewCol}>
-                                                      <Text></Text>
-                                                      </View>
-                                                      <View style={styles.listViewCol}>
-                                                        <Text>{rowData.moneyInit}</Text>
-                                                      </View>
-                                                      <View style={styles.listViewCol}>
-                                                        <Text>Đang diễn ra</Text>
-                                                      </View>
-                                                </View>}
+                        renderRow={(rowData) => {
+                          let url='/auctionSession/'+rowData._key;                          //sai clean code chua biet cach khac phuc
+                          return  <Link to={url}>                                                   
+                                    <ListViewItem rowData = {rowData}></ListViewItem>
+                                  </Link>
+                        }
+                        
+                         }
               />
             </View>
           </View>

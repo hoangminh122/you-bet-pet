@@ -17,7 +17,7 @@ export default class componentName extends Component {
             <Route exact path='/sdfs' component={Login} />
             <Route exact path='/' component={Login} />
             <Route exact path='/inforAuction' component={InforAuction} />
-            <Route exact path='/auctionSession' component={AuctionSession} />
+            <Route exact path='/auctionSession/:key' component={AuctionSession} />
             <Route exact path='/ok' component={Demo} />
           </Switch>
       </NativeRouter>

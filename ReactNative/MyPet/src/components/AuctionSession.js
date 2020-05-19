@@ -3,6 +3,7 @@ import {View,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,Toucha
 import Footer from './footer'
 import Header from './header'
 import Video from 'react-native-video';
+import firebase from 'firebase'
 
 
 var screen =Dimensions.get('window');
@@ -10,6 +11,7 @@ var screen =Dimensions.get('window');
 export default class AuctionSession extends Component {
   constructor(props){
     super(props);
+    this.itemRef = firebase.database();
     this.state = {
       repeat :false,
       rate:1,
@@ -25,6 +27,7 @@ export default class AuctionSession extends Component {
     };
 
   }
+
   onLoad = (data)=>{
     this.setState({duration:data.duration});
   }
@@ -32,11 +35,41 @@ export default class AuctionSession extends Component {
   onPress = (data)=>{
     this.setState({currentTime:data.currentTime})
   }
+
   onEnd = ()=>{
     this.setState({pausedText:'Play',paused:true});
     this.video.seek(0);
   }
+
+  addDB = (key) =>{
+    let arr = [];
+    // this.itemRef.ref('NewSession').child('Public').child(key).on('child_added',(dataSnapshot) => {
+    //   arr.push({
+    //     nameSession:dataSnapshot.val().nameSession,
+    //     date       :dataSnapshot.val().date,
+    //     timeStart  :dataSnapshot.val().timeStart,
+    //     arrEmail   :dataSnapshot.val().arrEmail,
+    //     moneyInit  :dataSnapshot.val().moneyInit,
+    //     _key: dataSnapshot.key
+
+    //   })
+    //   this.setState({
+    //     dataSource:this.state.dataSource.cloneWithRows(arr)
+    //   })
+    //   console.log("ok")
+    // })
+
+    let starCountRef = this.itemRef.ref('NewSession').child('Public').child(key);
+    starCountRef.on('value',function(snapshot){
+      // updateStarCount(arr, snapshot.val());
+    })
+    console.log(arr)
+
+  }
+
   render() {
+    console.log(this.props.match.params.key)
+    console.log(this.addDB(this.props.match.params.key))
     return (
       <View style={styles.container}>
         <Header/>
