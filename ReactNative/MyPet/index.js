@@ -13,7 +13,7 @@ import {name as appName} from './app.json';
 // import Demo from './components/createSession'
 // import Demo from './src/components/test/AppDemo'
 // import Demo from  './src/databases/SaveLogin'
-import Demo from  './src/components/AuctionSession'
+// import Demo from  './src/components/AuctionSession'
 // import Demo from  './src/components/test/testVideo'
 // import Demo from  './src/components/InforUser'
 // import Demo from  './src/components/test/testPosition'
