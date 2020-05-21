@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {View,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,TouchableHighlight} from 'react-native'
+import {View,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,TouchableHighlight,Alert} from 'react-native'
 import Footer from './footer'
 import Header from './header'
 import Video from 'react-native-video';
 import firebase from 'firebase'
+import CountDown from 'react-native-countdown-component'
 
 
 var screen =Dimensions.get('window');
@@ -24,6 +25,9 @@ export default class AuctionSession extends Component {
       rateText:'1.0',
       pausedText:'Play',
       hideControls:false,
+      arrayByKeyFirebase:[],
+      moneyNow:0,
+      keySession:this.props.match.params.key
     };
 
   }
@@ -41,38 +45,56 @@ export default class AuctionSession extends Component {
     this.video.seek(0);
   }
 
+  
   addDB = (key) =>{
     let arr = [];
-    // this.itemRef.ref('NewSession').child('Public').child(key).on('child_added',(dataSnapshot) => {
-    //   arr.push({
-    //     nameSession:dataSnapshot.val().nameSession,
-    //     date       :dataSnapshot.val().date,
-    //     timeStart  :dataSnapshot.val().timeStart,
-    //     arrEmail   :dataSnapshot.val().arrEmail,
-    //     moneyInit  :dataSnapshot.val().moneyInit,
-    //     _key: dataSnapshot.key
-
-    //   })
-    //   this.setState({
-    //     dataSource:this.state.dataSource.cloneWithRows(arr)
-    //   })
-    //   console.log("ok")
-    // })
-
     let starCountRef = this.itemRef.ref('NewSession').child('Public').child(key);
     starCountRef.on('value',function(snapshot){
-      // updateStarCount(arr, snapshot.val());
+       snapshot.forEach((child)=>{
+        arr.push(
+          child.val()                                                                         //chua lam dc, push 1 doi tuong child.key
+        );
+       });
+    })
+    this.setState({
+      arrayByKeyFirebase:arr,
+      moneyNow:arr[2]   //setstate money now 
     })
     console.log(arr)
+    
+    // this.setState({moneyNow:this.state.arrayByKeyFirebase[2]})
 
   }
 
+  
+  upMoneyClick = (moneykeyUp)=>{
+    this.setState({
+      moneyNow : parseInt(this.state.moneyNow) +parseInt(moneykeyUp)
+    })
+  }
+
+  clickButtonAuction =() =>{
+    let name = "minh123";
+    let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').update({
+        moneyUp:this.state.moneyNow
+    })
+    console.log(a);
+    Alert.alert("up money session completed !.");
+
+  }
+
+  componentDidMount(){
+    // this.setState({                                                                  //sai chua sua
+    //   keySession:this.props.match.params.key
+    // });
+    this.addDB(this.props.match.params.key);
+  }
   render() {
-    console.log(this.props.match.params.key)
-    console.log(this.addDB(this.props.match.params.key))
+    console.log(this.state.keySession)
+    let {arrayByKeyFirebase} =this.state
     return (
       <View style={styles.container}>
-        <Header/>
+        <Header nameTitle ={arrayByKeyFirebase[3]}/>
         <View style={styles.imagePets}>
           <View style={styles.imageChild}>
             {/* <TouchableOpacity
@@ -143,11 +165,24 @@ export default class AuctionSession extends Component {
               } 
             />
           </View>
-         
+         {/* button dau gia */}
             <View style={[styles.bodyTop10Object,{margin:5,borderWidth:1}]}>
               <View style={[styles.bodyTop10ObjectStt,{flex:1,borderRightWidth:2}]}>
                 <Text style={{fontSize:11,fontWeight:'bold'}}>Thời gian còn lại</Text>
-                <Text>00:00:40</Text>
+                <View>
+                  <CountDown
+                  size={10}
+                  until={60}
+                  onFinish={() => alert('Finished')}
+                  digitStyle={{backgroundColor: '#FFF', borderWidth: 1, borderColor: 'white'}}
+                  digitTxtStyle={{color: 'red'}}
+                  timeLabelStyle={{color: 'red', fontWeight: 'bold'}}
+                  separatorStyle={{color: 'black'}}
+                  timeToShow={['H', 'M', 'S']}
+                  timeLabels={{m: null, s: null}}
+                  showSeparator
+              />
+                </View>
               </View>
               <View style={[styles.bodyTop10ObjectImage,{flex:1,borderRightWidth:3}]}>
                 <Text style={{fontSize:11,fontWeight:'bold'}}>Đấu giá hiện tại</Text>
@@ -155,14 +190,14 @@ export default class AuctionSession extends Component {
                 <TouchableHighlight style={{backgroundColor:'gray',width:15,height:15}}>
                   <Image></Image>
                 </TouchableHighlight>
-                  <Text style={{margin:5}}>70000 đ</Text>
-                <TouchableHighlight style={{backgroundColor:'red',width:15,height:15}}>
-                  <Image></Image>
+                  <Text style={{margin:5}}>{this.state.moneyNow} vnd</Text>
+                <TouchableHighlight style={{backgroundColor:'red',width:15,height:15,flexDirection:'row',flex:1,alignItems:'center',justifyContent:'center'}} onPress= {() => this.upMoneyClick(100000)}>
+                  <Image style={{width:10,height:10,}} source={require('../images/add.png')}></Image>
                 </TouchableHighlight>
                 </View>
               </View>
               <View style={[styles.bodyTop10ObjectInfor,{flex:1}]}>
-                <TouchableOpacity style={{width:100,height:35,backgroundColor:'red',borderRadius:5}}>
+                <TouchableOpacity style={{width:100,height:35,backgroundColor:'red',borderRadius:5}} onPress={()=>this.clickButtonAuction()}>
                   <View style={{flex:1,flexDirection:'column',alignSelf:'center',justifyContent:'center'}}>
                     <Text style={{color:'white'}}>Đấu Giá</Text>
                   </View>

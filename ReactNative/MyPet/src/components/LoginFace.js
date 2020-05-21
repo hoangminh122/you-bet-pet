@@ -57,13 +57,14 @@ export default class LoginFace extends Component {
         const userFace = await firebase.auth().signInWithCredential(credential);
         console.log(user);
 
-        firebase.database().ref('users/'+userFace.user.uid+'/profile').set({
+       let a = firebase.database().ref('users/'+userFace.user.uid+'/profile').set({
           username: userFace.user.displayName,
           email: userFace.user.email,
           avatar : userFace.user.photoURL
          
         });
-        Alert.alert("Login Success !")
+        // Alert.alert(a)
+        // console.log(a)
       }
       catch(error){
         //do something here
