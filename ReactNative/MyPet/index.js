@@ -20,6 +20,6 @@ import {name as appName} from './app.json';
 import Demo from  './src/databases/SaveLogin'
 
 
-AppRegistry.registerComponent(appName, () => Demo);
+AppRegistry.registerComponent(appName, () => App);
 //ok
 //ok

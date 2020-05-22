@@ -5,7 +5,21 @@ import Footer from './footer';
 import firebase from 'firebase'
 import ListView from 'deprecated-react-native-listview'
 import {Link} from 'react-router-native'
+import {connect} from 'react-redux'
+// import {saveUserFirebase,findUserFirebase} from '../databases/saveUserLogin'                       //can't fix error warming
 
+
+
+import { ToastAndroid } from 'react-native';
+import { Sync } from 'realm';
+
+var SQLite = require('react-native-sqlite-storage');
+if (Platform.OS === 'ios') {
+    // db = SQLite.openDatabase({name: '<dbname>.db', createFromLocation: 1}, (open) => {}, (e) => {});
+}
+else {
+        var db = SQLite.openDatabase({name : "pets.db", createFromLocation : "~pets.db", location: 'Library'});
+}
 const screen = Dimensions.get('window')
 class ListViewItem extends Component {
   render(){
@@ -27,7 +41,7 @@ class ListViewItem extends Component {
     )
   }
 }
-export default class InforAution extends Component {
+class InforAution extends Component {
   constructor(props){
     super(props);
     this.itemRef = firebase.database();
@@ -51,7 +65,7 @@ export default class InforAution extends Component {
       this.setState({
         dataSource:this.state.dataSource.cloneWithRows(arr)
       })
-      console.log("ok")
+      // console.log("ok")
     })
   }
 
@@ -59,7 +73,44 @@ export default class InforAution extends Component {
     this.addDB();
   }
   
+  findUserFirebase = (userIdFirebase)=>{                                                              //not use package, error!!!!
+    var result = 0;
+      db.transaction((tx) => {
+                let sql = 'SELECT * FROM users WHERE userIdFirebase=?';
+                // console.log("vao")
+                     let a = tx.executeSql(sql,[userIdFirebase.toString()],(tx,results)=>{
+                                            let len = results.rows.length;
+                                            if(len == 0){
+                                                ToastAndroid.show('Tai khoan chua ton tai',ToastAndroid.SHORT);
+                                                result = 0;
+                                                //  return result;
+                                                // console.log("tai khoan khong ton tai")
+                                            }
+                                            else{
+                                                // console.log("Dang nhap thanh cong")
+                                                // var row = results.rows.item(0);
+                                                // console.log(row)
+                                                ToastAndroid.show('Tai khoan da ton tai',ToastAndroid.SHORT);
+                                                result = 1;
+                                                // console.log("1:"+result)
+                                                return results.rows.item
+                                                // return result;
+                                            }
+                                        },(e)=>{
+                                            console.log("error")
+                                            // return 0;
+                                    })
+                                    console.log("uujj")
+                                    console.log(a)
+                })
+                // console.log(a)
+                // console.log("result"+result )
+    return  result;
+  }
   render() {
+    console.log("id: "+this.props.myUserIdReducer)
+    console.log("login cua:"+this.findUserFirebase(this.props.myUserIdReducer))
+    
     return (
       <View style={styles.container}>
         <Header/>
@@ -289,3 +340,8 @@ const styles = StyleSheet.create({
       }
 
 });
+
+function mapStateToProps(state){
+  return {myUserIdReducer:state.userIdReducer};
+}
+export default connect(mapStateToProps)(InforAution);

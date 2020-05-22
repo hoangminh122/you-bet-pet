@@ -77,7 +77,7 @@ export default class LoginForm extends Component {
 
         db.transaction((tx) => {
             console.log("Asd")
-            tx.executeSql('INSERT INTO users(name,userIdFirebase,isLive) VALUES (?,?,?)', ["minh3","awdadasd","1"], (tx, results) => {
+            tx.executeSql('INSERT INTO users(name,userIdFirebase,isLive) VALUES (?,?,?)', ["minh3","awdadasd",1], (tx, results) => {
                 if (results.rowsAffected > 0) {
                     // msg.result = true;
                     // msg.message = 'Create new hero successfully!';
