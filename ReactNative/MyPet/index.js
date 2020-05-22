@@ -17,7 +17,7 @@ import {name as appName} from './app.json';
 // import Demo from  './src/components/test/testVideo'
 // import Demo from  './src/components/InforUser'
 // import Demo from  './src/components/test/countDown'
-import Demo from  './src/databases/SaveLogin'
+// import AuctionSession from  './src/components/AuctionSession'
 
 
 AppRegistry.registerComponent(appName, () => App);

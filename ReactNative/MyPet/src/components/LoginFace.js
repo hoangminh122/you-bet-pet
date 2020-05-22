@@ -74,15 +74,13 @@ class LoginFace extends Component {
         this.props.myClickSaveUserId('USER_ID_SAVE',userFace.user.uid);
         //end
        
-        let a = firebase.database().ref('users/'+userFace.user.uid+'/profile').push({
+       firebase.database().ref('users').child(userFace.user.uid).child('profile').set({
             username: userFace.user.displayName,
             email: userFace.user.email,
             avatar : userFace.user.photoURL
           
           });
-        Alert.alert(a)
         console.log("ok")
-        console.log(a)
       }
       catch(error){
         //do something here

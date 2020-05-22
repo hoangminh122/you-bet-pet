@@ -5,11 +5,13 @@ import Header from './header'
 import Video from 'react-native-video';
 import firebase from 'firebase'
 import CountDown from 'react-native-countdown-component'
+import {connect} from 'react-redux'
+
 
 
 var screen =Dimensions.get('window');
 
-export default class AuctionSession extends Component {
+class AuctionSession extends Component {
   constructor(props){
     super(props);
     this.itemRef = firebase.database();
@@ -60,7 +62,7 @@ export default class AuctionSession extends Component {
       arrayByKeyFirebase:arr,
       moneyNow:arr[2]   //setstate money now 
     })
-    console.log(arr)
+    // console.log(arr)
     
     // this.setState({moneyNow:this.state.arrayByKeyFirebase[2]})
 
@@ -74,8 +76,8 @@ export default class AuctionSession extends Component {
   }
 
   clickButtonAuction =() =>{
-    let name = "minh123";
-    let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').update({
+    let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
+    let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').child(this.props.myUserIdReducer).update({
         moneyUp:this.state.moneyNow
     })
     console.log(a);
@@ -83,11 +85,18 @@ export default class AuctionSession extends Component {
 
   }
 
+  
   componentDidMount(){
     // this.setState({                                                                  //sai chua sua
     //   keySession:this.props.match.params.key
     // });
-    this.addDB(this.props.match.params.key);
+    
+    this.addDB(this.props.match.params.key);                                         //ok dung roi
+    
+    // if(this.props.myUserIdReducer != '0')                                             //check is login
+    //   this.addDB(this.props.myUserIdReducer)
+
+
   }
   render() {
     console.log(this.state.keySession)
@@ -293,6 +302,10 @@ const styles = StyleSheet.create({
         }
  });
 
+ function mapStateToProps(state){
+  return {myUserIdReducer:state.userIdReducer};
+}
+ export default connect(mapStateToProps)(AuctionSession);
         
 
 
