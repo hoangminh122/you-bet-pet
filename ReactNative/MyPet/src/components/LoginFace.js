@@ -10,6 +10,10 @@ import firebase from 'firebase'
 import Header from './header';
 import Footer from './footer';
 import { Link } from 'react-router-native';
+import {saveUserFirebase,findUserFirebase} from '../databases/saveUserLogin'
+import {connect} from 'react-redux'
+import {clickSaveUserId} from '../redux/action/ActionSaveIdUser'
+
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -28,7 +32,7 @@ var user={
   avatar:""
 }
 
-export default class LoginFace extends Component {
+class LoginFace extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -55,19 +59,34 @@ export default class LoginFace extends Component {
         // this.initUser(token);
         const credential = new firebase.auth.FacebookAuthProvider.credential(token);
         const userFace = await firebase.auth().signInWithCredential(credential);
-        console.log(user);
-
-        firebase.database().ref('users/'+userFace.user.uid+'/profile').set({
-          username: userFace.user.displayName,
-          email: userFace.user.email,
-          avatar : userFace.user.photoURL
-         
-        });
-        Alert.alert("Login Success !")
+        // console.log(tokenData)
+        console.log(userFace.user.uid)
+        // console.log(userFace)
+        //save database sqlite some infor 
+        try{                                                                                  //when in session , we save state idUserFirebase
+            if(findUserFirebase(userFace.user.uid) == 0)
+            saveUserFirebase(userFace.user.displayName,userFace.user.uid,'1');
+          //end
+        }catch(e){
+          console.log(e)
+        }
+        //save state iduerFirebase -redux
+        this.props.myClickSaveUserId('USER_ID_SAVE',userFace.user.uid);
+        //end
+       
+        let a = firebase.database().ref('users/'+userFace.user.uid+'/profile').push({
+            username: userFace.user.displayName,
+            email: userFace.user.email,
+            avatar : userFace.user.photoURL
+          
+          });
+        Alert.alert(a)
+        console.log("ok")
+        console.log(a)
       }
       catch(error){
         //do something here
-        console.log(error.message);
+        console.log("error"+error.message);
       }
     }
    
@@ -191,6 +210,14 @@ const styles = StyleSheet.create({
   
 });
 
+function mapStateToProps(state){
+    return {myUserIdReducer:state.userIdReducer};
+}
+// function mapDispatchToProps(state){
+//   return {myClickSaveUserId:clickSaveUserId};
+// }
+
+export default connect(mapStateToProps,{myClickSaveUserId:clickSaveUserId})(LoginFace)
 
 
 
