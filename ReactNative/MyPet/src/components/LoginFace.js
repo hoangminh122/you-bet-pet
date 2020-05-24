@@ -13,6 +13,7 @@ import { Link } from 'react-router-native';
 import {saveUserFirebase,findUserFirebase} from '../databases/saveUserLogin'
 import {connect} from 'react-redux'
 import {clickSaveUserId} from '../redux/action/ActionSaveIdUser'
+import {clickSaveInforUser} from '../redux/action/ActionSaveInforUser'
 
 
 if (!firebase.apps.length) {
@@ -70,9 +71,11 @@ class LoginFace extends Component {
         }catch(e){
           console.log(e)
         }
-        //save state iduerFirebase -redux
+        //save state id user Firebase -redux
         this.props.myClickSaveUserId('USER_ID_SAVE',userFace.user.uid);
         //end
+
+       
        
        firebase.database().ref('users').child(userFace.user.uid).child('profile').set({
             username: userFace.user.displayName,
@@ -81,6 +84,14 @@ class LoginFace extends Component {
           
           });
         console.log("ok")
+         //save state infor user take session
+         this.props.myClickSaveInforUser('USER_INFOR_SAVE',{
+                                                              username: userFace.user.displayName,
+                                                              email: userFace.user.email,
+                                                              avatar : userFace.user.photoURL
+                                                            
+                                                            })    //use temp, I will fix after
+         //end  
       }
       catch(error){
         //do something here
@@ -211,11 +222,14 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
     return {myUserIdReducer:state.userIdReducer};
 }
-// function mapDispatchToProps(state){
-//   return {myClickSaveUserId:clickSaveUserId};
+// function mapDispatchToProps(dispatch){
+//   return {
+//     myClickSaveUserId:clickSaveUserId,
+//     myClickSaveInforUser:clickSaveInforUser
+//   }
 // }
 
-export default connect(mapStateToProps,{myClickSaveUserId:clickSaveUserId})(LoginFace)
+export default connect(mapStateToProps,{myClickSaveUserId:clickSaveUserId,myClickSaveInforUser:clickSaveInforUser})(LoginFace)
 
 
 
