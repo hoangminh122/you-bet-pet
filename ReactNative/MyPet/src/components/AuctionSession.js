@@ -5,15 +5,18 @@ import Header from './header'
 import Video from 'react-native-video';
 import firebase from 'firebase'
 import CountDown from 'react-native-countdown-component'
+import {connect} from 'react-redux'
+
 
 
 var screen =Dimensions.get('window');
 
-export default class AuctionSession extends Component {
+class AuctionSession extends Component {
   constructor(props){
     super(props);
     this.itemRef = firebase.database();
     this.state = {
+      dataSource:[],
       repeat :false,
       rate:1,
       volume:1,
@@ -27,32 +30,33 @@ export default class AuctionSession extends Component {
       hideControls:false,
       arrayByKeyFirebase:[],
       moneyNow:0,
-      keySession:this.props.match.params.key
+      keySession:this.props.match.params.key,
+      dataInforUser:[]
     };
 
   }
 
-  onLoad = (data)=>{
+  onLoad = (data)=>{                                                                              //method video
     this.setState({duration:data.duration});
   }
 
-  onPress = (data)=>{
+  onPress = (data)=>{                                                                             //method video
     this.setState({currentTime:data.currentTime})
   }
 
-  onEnd = ()=>{
+  onEnd = ()=>{                                                                                   //method video
     this.setState({pausedText:'Play',paused:true});
     this.video.seek(0);
   }
 
   
-  addDB = (key) =>{
+  addDB = (key) =>{                                                                               // pull information session from firebase
     let arr = [];
     let starCountRef = this.itemRef.ref('NewSession').child('Public').child(key);
     starCountRef.on('value',function(snapshot){
        snapshot.forEach((child)=>{
         arr.push(
-          child.val()                                                                         //chua lam dc, push 1 doi tuong child.key
+          child.val()                                                                             //chua lam dc, push 1 doi tuong child.key
         );
        });
     })
@@ -60,13 +64,39 @@ export default class AuctionSession extends Component {
       arrayByKeyFirebase:arr,
       moneyNow:arr[2]   //setstate money now 
     })
-    console.log(arr)
+    // console.log(arr)
     
     // this.setState({moneyNow:this.state.arrayByKeyFirebase[2]})
 
   }
 
-  
+  addDbFlatlist = (name) =>{                                                                     //get information user take part in session has up money
+    // let arr = [];
+    // let arrInfor = [];
+    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').on('child_changed',(dataSnapshot) => {
+      let arrInfor = [];
+      let arr = [];
+      arr.push({
+        moneyUp:dataSnapshot.val().moneyUp,
+        _key: dataSnapshot.key
+      })
+      console.log("ok"+dataSnapshot.key)
+      //get information user
+      let starCountRef = this.itemRef.ref('users').child(dataSnapshot.key).child('profile');
+      starCountRef.on('value',function(snapshot){
+
+        arrInfor.push({
+                        username:snapshot.val().username,
+                        email   :snapshot.val().email,
+                        avatar  :snapshot.val().avatar
+        })
+      })
+      this.setState({
+        dataSource:arr,
+        dataInforUser:arrInfor
+      })
+    })
+  }
   upMoneyClick = (moneykeyUp)=>{
     this.setState({
       moneyNow : parseInt(this.state.moneyNow) +parseInt(moneykeyUp)
@@ -74,27 +104,37 @@ export default class AuctionSession extends Component {
   }
 
   clickButtonAuction =() =>{
-    let name = "minh123";
-    let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').update({
+    let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
+    let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').child(this.props.myUserIdReducer).update({
         moneyUp:this.state.moneyNow
     })
-    console.log(a);
+    // console.log(a);
     Alert.alert("up money session completed !.");
 
   }
 
+  
   componentDidMount(){
     // this.setState({                                                                  //sai chua sua
     //   keySession:this.props.match.params.key
     // });
-    this.addDB(this.props.match.params.key);
+    
+    this.addDB(this.props.match.params.key); 
+    this.addDbFlatlist()                                        //ok dung roi
+    
+    // if(this.props.myUserIdReducer != '0')                                             //check is login
+    //   this.addDB(this.props.myUserIdReducer)
+
+
   }
   render() {
-    console.log(this.state.keySession)
+    console.log(this.state.dataInforUser)
+    console.log(this.state.dataSource)
+    
     let {arrayByKeyFirebase} =this.state
     return (
       <View style={styles.container}>
-        <Header nameTitle ={arrayByKeyFirebase[3]}/>
+        <Header nameTitle ={arrayByKeyFirebase[4]}/>
         <View style={styles.imagePets}>
           <View style={styles.imageChild}>
             {/* <TouchableOpacity
@@ -130,35 +170,21 @@ export default class AuctionSession extends Component {
           <View style={{flex:4,flexDirection:'column'}}>
             <FlatList
             style={{height:screen.height,width:screen.width,backgroundColor:'white'}}
-            data={[
-              {key: 'Devin'},
-              {key: 'Jackson'},
-              {key: 'Jackson'},
-              {key: 'Jackson'},
-              {key: 'Jackson'},
-              {key: 'Jackson'},
-              {key: 'Jackson'},
-              {key: 'Jackson'},
-              {key: 'Jackson'},
-              {key: 'Jackson'},
-              {key: 'Jackson'},
-             
-            
-            ]}
-            renderItem={({item}) =>  
+            data={this.state.dataSource}
+            renderItem={({item,index}) =>  
               <View style={[styles.bodyTop10Object,{height:80}]}>
                 <View style={styles.bodyTop10ObjectStt}>
-                  <Text>1.</Text>
+                  <Text>{index+1}</Text>
                 </View>
                 <View style={styles.bodyTop10ObjectImage}>
                   <Image style={styles.bodyTop10ObjectImageChild}></Image>
                 </View>
                 <View style={styles.bodyTop10ObjectInfor}>
                   <View>
-                    <Text style={styles.bodyTop10ObjectInforTxt}>Hoang minh</Text>
+                    <Text style={styles.bodyTop10ObjectInforTxt}>{this.state.dataInforUser[index].username}</Text>
                   </View>
                   <View>
-                    <Text style={styles.bodyTop10ObjectInforTxt}>70.000 đ</Text>
+                    <Text style={styles.bodyTop10ObjectInforTxt}>{item.moneyUp} đ</Text>
                   </View>
                 </View>
               </View>
@@ -293,6 +319,18 @@ const styles = StyleSheet.create({
         }
  });
 
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     myClickSaveUserId:clickSaveUserId,
+//     myClickSaveInforUser:clickSaveInforUser
+    
+//   }
+// }
+function mapStateToProps(state){
+  return {myUserIdReducer:state.userIdReducer};
+}
+ export default connect(mapStateToProps)(AuctionSession);
         
 
 

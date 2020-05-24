@@ -9,7 +9,7 @@ import {name as appName} from './app.json';
 // import Database from './components/database'
 // import IndexApp from './components/indexApp'
 // import Email from './components/email'
-// import CreateSession1 from './components/createSession1'
+// import CreateSession1 from './components/creadteSession1'
 // import Demo from './components/createSession'
 // import Demo from './src/components/test/AppDemo'
 // import Demo from  './src/databases/SaveLogin'
@@ -17,7 +17,7 @@ import {name as appName} from './app.json';
 // import Demo from  './src/components/test/testVideo'
 // import Demo from  './src/components/InforUser'
 // import Demo from  './src/components/test/countDown'
-import Demo from  './src/databases/SaveLogin'
+// import AuctionSession from  './src/components/AuctionSession'
 
 
 AppRegistry.registerComponent(appName, () => App);
