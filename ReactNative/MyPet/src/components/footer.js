@@ -17,12 +17,12 @@ export default class componentName extends Component {
             </Link>
           </View>
           <View style={styles.iconView}>
-            <Link to={'/'} style={styles.linkView}>
+            <Link to={'/createSession'} style={styles.linkView}>
               <Image source={require('../images/home.png')}></Image>
             </Link>
           </View>
           <View style={styles.iconView}>
-            <Link to={'/'} style={styles.linkView}>
+            <Link to={'/inforUser'} style={styles.linkView}>
               <Image style={styles.imageUser} source={require('../images/user.png')}></Image>
             </Link>
           </View>
