@@ -73,7 +73,7 @@ class AuctionSession extends Component {
   addDbFlatlist = (name) =>{                                                                     //get information user take part in session has up money
     // let arr = [];
     // let arrInfor = [];
-    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').on('child_changed',(dataSnapshot) => {
+    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').on('child_changed',(dataSnapshot) => {         //sai rồi, login bi sai
       let arrInfor = [];
       let arr = [];
       arr.push({
@@ -215,11 +215,11 @@ class AuctionSession extends Component {
               </View>
               <View style={[styles.bodyTop10ObjectImage,{flex:1,borderRightWidth:3}]}>
                 <Text style={{fontSize:11,fontWeight:'bold'}}>Đấu giá hiện tại</Text>
-                <View style={{flexDirection:'row',alignItems:'center',alignContent:'center'}}>
+                <View style={{flexDirection:'row',flex:1,alignItems:'center',alignContent:'center'}}>
                 <TouchableHighlight style={{backgroundColor:'gray',width:15,height:15}}>
                   <Image></Image>
                 </TouchableHighlight>
-                  <Text style={{margin:5}}>{this.state.moneyNow} vnd</Text>
+                  <Text style={{margin:5,width:"60%",fontSize:12}}>{this.state.moneyNow}vnd</Text>
                 <TouchableHighlight style={{backgroundColor:'red',width:15,height:15,flexDirection:'row',flex:1,alignItems:'center',justifyContent:'center'}} onPress= {() => this.upMoneyClick(100000)}>
                   <Image style={{width:10,height:10,}} source={require('../images/add.png')}></Image>
                 </TouchableHighlight>

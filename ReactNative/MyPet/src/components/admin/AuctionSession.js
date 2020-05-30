@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {View,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,TouchableHighlight,Alert} from 'react-native'
-import Footer from '../footer'
+import Footer from '../admin/footer'
 import Header from '../header'
 import Video from 'react-native-video';
 import firebase from 'firebase'
@@ -164,7 +164,7 @@ export default class AdminAuctionSession extends Component {
         </View>
         <View style={styles.body}>
           <View style={styles.bodyTittle}>
-            <Text style={styles.bodyTittleTxt}>Người đấu giá 1</Text>
+            <Text style={styles.bodyTittleTxt}>Người xxxxxxxxxxxxxxxxxx</Text>
           </View>
           <View style={styles.bodyTop10}>
 
@@ -213,21 +213,20 @@ export default class AdminAuctionSession extends Component {
               </View>
               <View style={[styles.bodyTop10ObjectImage,{flex:1,borderRightWidth:3}]}>
                 <Text style={{fontSize:11,fontWeight:'bold'}}>Đấu giá hiện tại</Text>
-                <View style={{flexDirection:'row',alignItems:'center',alignContent:'center'}}>
+                <View style={{flexDirection:'row',flex:1,alignItems:'center',alignContent:'center'}}>
                 <TouchableHighlight style={{backgroundColor:'gray',width:15,height:15}}>
                   <Image></Image>
                 </TouchableHighlight>
-                  {/* <Text style={{margin:5}}>{this.state.moneyNow} vnd</Text> */}
-                  <Text style={{margin:5}}>2000000 vnd</Text>
+                  <Text style={{margin:5,width:"60%",fontSize:12}}>{this.state.moneyNow}200000 vnd</Text>
                 <TouchableHighlight style={{backgroundColor:'red',width:15,height:15,flexDirection:'row',flex:1,alignItems:'center',justifyContent:'center'}} onPress= {() => this.upMoneyClick(100000)}>
-                  <Image style={{width:10,height:10,}} source={require('../../images/add.png')}></Image>
+                  <Image style={{width:10,height:10}} source={require('../../images/add.png')}></Image>
                 </TouchableHighlight>
                 </View>
               </View>
               <View style={[styles.bodyTop10ObjectInfor,{flex:1}]}>
                 <TouchableOpacity style={{width:100,height:35,backgroundColor:'red',borderRadius:5}} onPress={()=>this.clickButtonAuction()}>
                   <View style={{flex:1,flexDirection:'column',alignSelf:'center',justifyContent:'center'}}>
-                    <Text style={{color:'white'}}>Đấu Giá</Text>
+                    <Text style={{color:'white'}}>xxxxxxxx</Text>
                   </View>
                 </TouchableOpacity>
               </View>

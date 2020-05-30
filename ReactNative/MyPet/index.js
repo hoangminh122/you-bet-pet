@@ -18,10 +18,10 @@ import {name as appName} from './app.json';
 // import Demo from  './src/components/InforUser'
 // import Demo from  './src/components/test/countDown'
 // import AuctionSession from  './src/components/AuctionSession'
-// import Demo from  './src/components/admin/AuctionSession'
-import Demo from  './src/components/UserWinSession'
+import Demo from  './src/components/admin/AuctionSession'
+// import Demo from  './src/components/UserWinSession'
 
 
-AppRegistry.registerComponent(appName, () => Demo);
+AppRegistry.registerComponent(appName, () => App);
 //ok
 //ok
