@@ -11,7 +11,7 @@ const DismissKeyboard = ({children}) => (
     {children}
   </TouchableWithoutFeedback>
 )
-//ok
+
 export default class CreateSession extends Component {
   constructor(props){
     super(props)
