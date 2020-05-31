@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {View,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,TouchableHighlight,Alert} from 'react-native'
-import Footer from './footer'
-import Header from './header'
+import Footer from '../footer'
+import Header from '../header'
 import Video from 'react-native-video';
 import firebase from 'firebase'
 import CountDown from 'react-native-countdown-component'
@@ -11,12 +11,12 @@ import {connect} from 'react-redux'
 
 var screen =Dimensions.get('window');
 
-class AuctionSession extends Component {
+export default class AdminAuctionSession extends Component {
   constructor(props){
     super(props);
     this.itemRef = firebase.database();
     this.state = {
-      dataSource:[],
+    //   dataSource:[],
       repeat :false,
       rate:1,
       volume:1,
@@ -28,10 +28,10 @@ class AuctionSession extends Component {
       rateText:'1.0',
       pausedText:'Play',
       hideControls:false,
-      arrayByKeyFirebase:[],
-      moneyNow:0,
-      keySession:this.props.match.params.key,
-      dataInforUser:[]
+    //   arrayByKeyFirebase:[],
+    //   moneyNow:0,
+    //   keySession:this.props.match.params.key,
+    //   dataInforUser:[]
     };
 
   }
@@ -51,19 +51,19 @@ class AuctionSession extends Component {
 
   
   addDB = (key) =>{                                                                               // pull information session from firebase
-    let arr = [];
-    let starCountRef = this.itemRef.ref('NewSession').child('Public').child(key);
-    starCountRef.on('value',function(snapshot){
-       snapshot.forEach((child)=>{
-        arr.push(
-          child.val()                                                                             //chua lam dc, push 1 doi tuong child.key
-        );
-       });
-    })
-    this.setState({
-      arrayByKeyFirebase:arr,
-      moneyNow:arr[2]   //setstate money now 
-    })
+    // let arr = [];
+    // let starCountRef = this.itemRef.ref('NewSession').child('Public').child(key);
+    // starCountRef.on('value',function(snapshot){
+    //    snapshot.forEach((child)=>{
+    //     arr.push(
+    //       child.val()                                                                             //chua lam dc, push 1 doi tuong child.key
+    //     );
+    //    });
+    // })
+    // this.setState({
+    //   arrayByKeyFirebase:arr,
+    //   moneyNow:arr[2]   //setstate money now 
+    // })
     // console.log(arr)
     
     // this.setState({moneyNow:this.state.arrayByKeyFirebase[2]})
@@ -73,29 +73,29 @@ class AuctionSession extends Component {
   addDbFlatlist = (name) =>{                                                                     //get information user take part in session has up money
     // let arr = [];
     // let arrInfor = [];
-    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').on('child_changed',(dataSnapshot) => {
-      let arrInfor = [];
-      let arr = [];
-      arr.push({
-        moneyUp:dataSnapshot.val().moneyUp,
-        _key: dataSnapshot.key
-      })
-      console.log("ok"+dataSnapshot.key)
-      //get information user
-      let starCountRef = this.itemRef.ref('users').child(dataSnapshot.key).child('profile');
-      starCountRef.on('value',function(snapshot){
+    // this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').on('child_changed',(dataSnapshot) => {
+    //   let arrInfor = [];
+    //   let arr = [];
+    //   arr.push({
+    //     moneyUp:dataSnapshot.val().moneyUp,
+    //     _key: dataSnapshot.key
+    //   })
+    //   console.log("ok"+dataSnapshot.key)
+    //   //get information user
+    //   let starCountRef = this.itemRef.ref('users').child(dataSnapshot.key).child('profile');
+    //   starCountRef.on('value',function(snapshot){
 
-        arrInfor.push({
-                        username:snapshot.val().username,
-                        email   :snapshot.val().email,
-                        avatar  :snapshot.val().avatar
-        })
-      })
-      this.setState({
-        dataSource:arr,
-        dataInforUser:arrInfor
-      })
-    })
+    //     arrInfor.push({
+    //                     username:snapshot.val().username,
+    //                     email   :snapshot.val().email,
+    //                     avatar  :snapshot.val().avatar
+    //     })
+    //   })
+    //   this.setState({
+    //     dataSource:arr,
+    //     dataInforUser:arrInfor
+    //   })
+    // })
   }
   upMoneyClick = (moneykeyUp)=>{
     this.setState({
@@ -105,14 +105,11 @@ class AuctionSession extends Component {
 
   clickButtonAuction =() =>{
     let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
-    if(this.props.myUserIdReducer != 0){
-      let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').child(this.props.myUserIdReducer).update({
+    let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').child(this.props.myUserIdReducer).update({
         moneyUp:this.state.moneyNow
-      })
-      // console.log(a);
-      Alert.alert("up money session completed !.");
-    }
-   
+    })
+    // console.log(a);
+    Alert.alert("up money session completed !.");
 
   }
 
@@ -122,8 +119,8 @@ class AuctionSession extends Component {
     //   keySession:this.props.match.params.key
     // });
     
-    this.addDB(this.props.match.params.key); 
-    this.addDbFlatlist()                                        //ok dung roi
+    // this.addDB(this.props.match.params.key); 
+    // this.addDbFlatlist()                                        //ok dung roi
     
     // if(this.props.myUserIdReducer != '0')                                             //check is login
     //   this.addDB(this.props.myUserIdReducer)
@@ -131,16 +128,17 @@ class AuctionSession extends Component {
 
   }
   render() {
-    console.log(this.state.dataInforUser)
-    console.log(this.state.dataSource)
+    // console.log(this.state.dataInforUser)
+    // console.log(this.state.dataSource)
     
-    let {arrayByKeyFirebase} =this.state
+    // let {arrayByKeyFirebase} =this.state
     return (
       <View style={styles.container}>
-        <Header nameTitle ={arrayByKeyFirebase[4]}/>
+        {/* <Header nameTitle ={arrayByKeyFirebase[4]}/> */}
+        <Header nameTitle = ' '/>
         <View style={styles.imagePets}>
           <View style={styles.imageChild}>
-            <TouchableOpacity
+            {/* <TouchableOpacity
             style={{backgroundColor:'yellow',width:'100%',height:"100%"}}
               onPress={() => this.setState({paused:!this.state.paused})}
             >
@@ -160,7 +158,7 @@ class AuctionSession extends Component {
                 paused={this.state.paused}
               
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
           </View>
         </View>
@@ -184,7 +182,7 @@ class AuctionSession extends Component {
                 </View>
                 <View style={styles.bodyTop10ObjectInfor}>
                   <View>
-                    <Text style={styles.bodyTop10ObjectInforTxt}>{(this.state.dataInforUser.length != 0) ? this.state.dataInforUser[index].username:"sd"}</Text>
+                    <Text style={styles.bodyTop10ObjectInforTxt}>{this.state.dataInforUser[index].username}</Text>
                   </View>
                   <View>
                     <Text style={styles.bodyTop10ObjectInforTxt}>{item.moneyUp} đ</Text>
@@ -219,9 +217,10 @@ class AuctionSession extends Component {
                 <TouchableHighlight style={{backgroundColor:'gray',width:15,height:15}}>
                   <Image></Image>
                 </TouchableHighlight>
-                  <Text style={{margin:5}}>{this.state.moneyNow} vnd</Text>
+                  {/* <Text style={{margin:5}}>{this.state.moneyNow} vnd</Text> */}
+                  <Text style={{margin:5}}>2000000 vnd</Text>
                 <TouchableHighlight style={{backgroundColor:'red',width:15,height:15,flexDirection:'row',flex:1,alignItems:'center',justifyContent:'center'}} onPress= {() => this.upMoneyClick(100000)}>
-                  <Image style={{width:10,height:10,}} source={require('../images/add.png')}></Image>
+                  <Image style={{width:10,height:10,}} source={require('../../images/add.png')}></Image>
                 </TouchableHighlight>
                 </View>
               </View>
@@ -330,10 +329,10 @@ const styles = StyleSheet.create({
     
 //   }
 // }
-function mapStateToProps(state){
-  return {myUserIdReducer:state.userIdReducer};
-}
- export default connect(mapStateToProps)(AuctionSession);
+// function mapStateToProps(state){
+//   return {myUserIdReducer:state.userIdReducer};
+// }
+//  export default connect()(AdminAuctionSession);
         
 
 

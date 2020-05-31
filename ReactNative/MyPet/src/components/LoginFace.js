@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
     return {myUserIdReducer:state.userIdReducer};
 }
-// function mapDispatchToProps(dispatch){
+// function mapDispatchToProps(dispatch){                             //error cann'y fix !!! help me
 //   return {
 //     myClickSaveUserId:clickSaveUserId,
 //     myClickSaveInforUser:clickSaveInforUser
