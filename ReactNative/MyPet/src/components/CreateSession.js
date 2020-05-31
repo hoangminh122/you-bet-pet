@@ -11,7 +11,7 @@ const DismissKeyboard = ({children}) => (
     {children}
   </TouchableWithoutFeedback>
 )
-//ok
+
 export default class CreateSession extends Component {
   constructor(props){
     super(props)
@@ -36,10 +36,12 @@ export default class CreateSession extends Component {
    
   }
   setOffsetPage = (page)=>{
+    let ischeckNull = true ;                                            //check input is null
     switch(page){
       case 1:
         break;
       case 2:
+        // if()
         break;
       case 3:
         break;
@@ -65,7 +67,7 @@ export default class CreateSession extends Component {
   }
 
   render() {
-    console.log(this.state.arrEmail)
+    // console.log(this.state.arrEmail)
     return (
          <DismissKeyboard >
          <View style={styles.container}>
@@ -80,26 +82,24 @@ export default class CreateSession extends Component {
                           contentOffset ={false}
                           scrollEnabled={false}
                           >
-                <View style={{height:screen.height/1.5,width:screen.width,flex:1,flexDirection:'column'}}>
+                <View style={styles.viewScene1}>
                   <View style = {{flex:2}}>
                   <Image source={require('../images/pets.png')}/>
                   </View>
-                  <View style = {{flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+                  <View style = {styles.viewBody}>
                     <Text style={{flex:1,fontWeight:'bold'}}>Join Auction </Text>
                     <Text  style={{flex:2,fontSize:12,color:'gray'}}> Honey, let's get ready to make a move !</Text>
-                    <TouchableOpacity onPress={(event) => this.setOffsetPage(1)} style={{backgroundColor:'red',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
-                      <Text style={{fontSize:12,color:'white'}}>Next</Text>
+                    <TouchableOpacity onPress={(event) => this.setOffsetPage(1)} style={styles.touchBody}>
+                      <Text style={styles.btnNext}>Next</Text>
                     </TouchableOpacity>
                   </View>
-                  
                 </View>
-                <View style={{height:screen.height/1.5,width:screen.width,flex:1,flexDirection:'column'}}>
-                  
-                  <View style={{flex:5,justifyContent:'center',alignItems:'center'}}>
-                    <View style={{flex:2,justifyContent:'center',alignItems:'center'}}> 
+                <View style={styles.viewScene1}>
+                  <View style={styles.viewBody2}>
+                    <View style={styles.viewNameSession}> 
                       <Text style={{fontWeight:'bold'}}> Name Session ?</Text>
                     </View>
-                    <View style={{flex:1,flexDirection:'row',margin:10}}>
+                    <View style={styles.viewInput}>
                       <TextInput
                         style={{flex:1,borderBottomWidth:1}}
                         placeholder="Create Name"
@@ -109,22 +109,20 @@ export default class CreateSession extends Component {
                     </View>
                     <View style={{flex:1}}></View>
                   </View>
-                  <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                    <TouchableOpacity onPress={(event) => this.setOffsetPage(2)} style={{backgroundColor:'red',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
-                      <Text style={{fontSize:12,color:'white'}}>Next</Text>
+                  <View style={[styles.viewBody2,{flex:1}]}>
+                    <TouchableOpacity onPress={(event) => this.setOffsetPage(2)} style={styles.touchBody}>
+                      <Text style={styles.btnNext}>Next</Text>
                     </TouchableOpacity>
                   </View>
-                 
                   <View style={{flex:5}}>
                   </View>
                 </View>
-                <View style={{height:screen.height/1.5,width:screen.width}}>
-                  <View style={{flex:5,justifyContent:'center',alignItems:'center'}}>
-                      <View style={{flex:2,justifyContent:'center',alignItems:'center'}}> 
+                <View style={styles.viewScene3}>
+                  <View style={styles.viewBody2}>
+                      <View style={[styles.viewBody2,{flex:2}]}> 
                         <Text style={{fontWeight:'bold'}}> Set Time Auction Session ?</Text>
                       </View>
-                      <View style={{flex:1,flexDirection:'row',margin:10}}>
-                        
+                      <View style={styles.viewDateTimePicker}>
                         <View style={{flex:1}}>
                           <DatePicker
                             style={{width: 200}}
@@ -173,30 +171,27 @@ export default class CreateSession extends Component {
                               onDateChange={(date) => {this.setState({timeStart: date})}}
                               />
                         </View>
-                       
                       </View>
                       <View style={{flex:1}}></View>
                     </View>
-                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                      <TouchableOpacity onPress={(event) => this.setOffsetPage(3)} style={{backgroundColor:'red',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
-                        <Text style={{fontSize:12,color:'white'}}>Next</Text>
+                    <View style={[styles.viewBody2,{flex:1}]}>
+                      <TouchableOpacity onPress={(event) => this.setOffsetPage(3)} style={styles.touchBody}>
+                        <Text style={styles.btnNext}>Next</Text>
                       </TouchableOpacity>
                     </View>
-                  
                     <View style={{flex:5}}>
                     </View>
                 </View>
-                <View style={{height:screen.height/1.5,width:screen.width}}>
-                  <View style={{flex:9,justifyContent:'center',alignItems:'center',width:screen.width}}>
-                      <View style={{flex:1,width:screen.width,justifyContent:'center',alignItems:'center'}}> 
+                <View style={styles.viewScene3}>
+                  <View style={[styles.viewBody2,{flex:9,width:screen.width}]}>
+                      <View style={[styles.viewBody2,{flex:1,width:screen.width}]}> 
                         <Text style={{fontWeight:'bold'}}> Add friends Session ?</Text>
                       </View>
-                      <View style={{flex:1,flexDirection:'column',margin:10}}>
-                        
-                        <View style={{flex:1,flexDirection:'column',width:screen.width}}>
-                            <View style={{flex:4,marginHorizontal:10}}>
+                      <View style={styles.viewEmailBody}>
+                        <View style={styles.viewEmail}>
+                            <View style={styles.viewEmailChild}>
                               <TextInput
-                                  style={{borderColor:'white',height:30,borderBottomWidth:1}}
+                                  style={styles.emailInput}
                                   placeholder="Please enter a valid email address"
                                   placeholderTextColor="gray"
                                   onSubmitEditing={this.searchSubmit}
@@ -209,26 +204,24 @@ export default class CreateSession extends Component {
                                   } 
                               />
                             </View> 
-                            
                         </View>
-                         
                       </View>
-                      <View style={{flex:1,width:screen.width,}}>
-                        <Text style={{flex:1,borderWidth:1,borderColor:'white',marginHorizontal:10,marginBottom:2}}>email</Text>
+                      <View style={styles.viewShowEmail}>
+                        <Text style={styles.emailShowTxt}>email</Text>
                       </View>
                     </View>
-                    <View style={{flex:1.3,justifyContent:'center',alignItems:'center'}}>
-                      <TouchableOpacity onPress={(event) => this.setOffsetPage(4)} style={{backgroundColor:'red',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
-                        <Text style={{fontSize:12,color:'white'}}>Next</Text>
+                    <View style={[styles.viewBody2,{flex:1.3}]}>
+                      <TouchableOpacity onPress={(event) => this.setOffsetPage(4)} style={styles.touchBody}>
+                        <Text style={styles.btnNext}>Next</Text>
                       </TouchableOpacity>
                     </View>
                   
                     <View style={{flex:5}}>
                     </View>
                 </View>
-                <View style={{height:screen.height/1.5,width:screen.width}}>
-                  <View style={{flex:5,justifyContent:'center',alignItems:'center'}}>
-                      <View style={{flex:2,justifyContent:'center',alignItems:'center'}}> 
+                <View style={styles.viewScene3}>
+                  <View style={styles.viewBody2}>
+                      <View style={[styles.viewBody2,{flex:2}]}> 
                         {/* <Text style={{fontWeight:'bold'}}></Text> */}
                          <TextInput
                             style={{borderBottomWidth:1,height:30}}
@@ -237,18 +230,16 @@ export default class CreateSession extends Component {
                             onChangeText ={ (value) =>this.setState({moneyInit:value})}
                           />           
                       </View>
-                      <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center',margin:10}}>
-                        
+                      <View style={styles.viewLetGo}>
                         <View style={{flex:1}}>
-                              <Text style={{fontSize:14,fontWeight:'bold',color:'#000000'}}>Let's Go !</Text>
+                              <Text style={styles.letGoTxt}>Let's Go !</Text>
                         </View>
-                       
                       </View>
                       <View style={{flex:1}}></View>
                     </View>
-                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                      <TouchableOpacity onPress= {() =>this.CreateOneNewSession()} style={{backgroundColor:'red',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',borderWidth:1,width:screen.width/1.1,borderColor:'white',borderRadius:5}}>
-                        <Text style={{fontSize:12,color:'white'}}>Finish !</Text>
+                    <View style={[styles.viewBody2,{flex:1}]}>
+                      <TouchableOpacity onPress= {() =>this.CreateOneNewSession()} style={styles.touchBody}>
+                        <Text style={styles.btnNext}>Next</Text>
                       </TouchableOpacity>
                     </View>
                   
@@ -261,8 +252,6 @@ export default class CreateSession extends Component {
            
         </View>
       </DismissKeyboard>
-      
-     
       
     );
   }
@@ -285,6 +274,99 @@ const styles = StyleSheet.create({
       alignItems:'center',
      
     },
+  viewScene1:{
+    height:screen.height/1.5,
+    width:screen.width,
+    flex:1,
+    flexDirection:'column'
+  },
+    viewBody:{
+      flex:1,
+      flexDirection:'column',
+      alignItems:'center',
+      justifyContent:'center'
+    },
+      touchBody:{
+        backgroundColor:'blue',
+        flex:1,
+        flexDirection:'column',
+        alignItems:'center',
+        justifyContent:'center',
+        borderWidth:1,
+        width:screen.width/1.1,
+        borderColor:'white',
+        borderRadius:5
+      },
+        btnNext:{
+          fontSize:12,
+          color:'white'
+        },
+    viewBody2:{
+      flex:5,
+      justifyContent:'center',
+      alignItems:'center'
+    },
+      viewLetGo:{
+        flex:1,
+        flexDirection:'column',
+        justifyContent:'center',
+        alignItems:'center',
+        margin:10
+      },
+        letGoTxt:{
+          fontSize:14,
+          fontWeight:'bold',
+          color:'#000000'
+        },
+      viewNameSession:{
+        flex:2,
+        justifyContent:'center',
+        alignItems:'center'
+      },
+      viewInput:{
+        flex:1,
+        flexDirection:'row',
+        margin:10
+      },
+      viewDateTimePicker:{
+        flex:1,
+        flexDirection:'row',
+        margin:10
+      },
+      viewShowEmail:{
+        flex:1,
+        width:screen.width
+      },
+        emailShowTxt:{
+          flex:1,
+          borderWidth:1,
+          borderColor:'white',
+          marginHorizontal:10,
+          marginBottom:2
+        },
+      viewEmailBody:{
+        flex:1,
+        flexDirection:'column',
+        width:screen.width
+      },
+        viewEmail:{
+          flex:1,
+          flexDirection:'column',
+          width:screen.width
+        },
+          viewEmailChild:{
+            flex:4,
+            marginHorizontal:10
+          },
+            emailInput:{
+              borderColor:'white',
+              height:30,
+              borderBottomWidth:1
+            },
+  viewScene3:{
+    height:screen.height/1.5,
+    width:screen.width
+  }
    
  });
  import React, { Component, Children } from 'react';
