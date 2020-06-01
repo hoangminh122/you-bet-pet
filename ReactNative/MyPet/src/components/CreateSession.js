@@ -1,4 +1,4 @@
-import React, { Component, Children } from 'react';
+import React, { Component } from 'react';
 import {View,Text, TextInput, TouchableWithoutFeedback,Image, Keyboard,ScrollView, Dimensions,StyleSheet, TouchableOpacity, Alert} from 'react-native'
 import Header from './header';
 import DatePicker from 'react-native-datepicker'
@@ -369,3 +369,4 @@ const styles = StyleSheet.create({
   }
    
  });
+ 

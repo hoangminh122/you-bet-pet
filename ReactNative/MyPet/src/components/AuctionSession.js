@@ -91,10 +91,11 @@ class AuctionSession extends Component {
                         avatar  :snapshot.val().avatar
         })
       })
-      this.setState({
-        dataSource:arr,
-        dataInforUser:arrInfor
-      })
+      if(arr.length > 0  && arrInfor.length > 0)
+        this.setState({
+          dataSource:arr,
+          dataInforUser:arrInfor
+        })
     })
   }
   upMoneyClick = (moneykeyUp)=>{
