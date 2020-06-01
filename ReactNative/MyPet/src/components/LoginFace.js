@@ -89,7 +89,6 @@ class LoginFace extends Component {
                                                               username: userFace.user.displayName,
                                                               email: userFace.user.email,
                                                               avatar : userFace.user.photoURL
-                                                            
                                                             })    //use temp, I will fix after
          //end  
       }
@@ -224,12 +223,13 @@ function mapStateToProps(state){
 }
 // function mapDispatchToProps(dispatch){                             //error cann'y fix !!! help me
 //   return {
-//     myClickSaveUserId:clickSaveUserId,
-//     myClickSaveInforUser:clickSaveInforUser
+//     myClickSaveUserId:()=>clickSaveUserId,
+//     myClickSaveInforUser: ()=>clickSaveInforUser
 //   }
 // }
 
 export default connect(mapStateToProps,{myClickSaveUserId:clickSaveUserId,myClickSaveInforUser:clickSaveInforUser})(LoginFace)
+// export default connect(mapStateToProps,mapDispatchToProps)(LoginFace)
 
 
 
