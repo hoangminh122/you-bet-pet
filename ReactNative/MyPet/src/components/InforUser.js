@@ -29,8 +29,8 @@ class InforUser extends Component {
     }
   render() {
     return (
-        <View style={styles.container}>
-        <Header/>
+        <View style={(Platform.OS === 'android') ? styles.container : [styles.container,{marginTop:30}]}>
+        <Header nameTitle = "Thông Tin Người Dùng"/>
         <View style={styles.body}>
             <View style={styles.bodyIconUp}>
                 <View style={styles.bodyIconUpImageView}>       
