@@ -30,8 +30,12 @@ class AdminAuctionSession extends Component {
       pausedText:'Play',
       hideControls:false,
       longTimeSetup:0,                                                                                             //set time long in session
-      toggleBtnAuction:true,
-      time:0                                                                                  //on/off button auction                                                                           
+      toggleBtnAuction:false,
+      time:'0',
+      pausedVideo:false,
+      startSession:false,
+      endSession:false
+                                                                                     //on/off button auction                                                                           
     //   arrayByKeyFirebase:[],
     //   moneyNow:0,
     //   keySession:this.props.match.params.key,
@@ -108,12 +112,12 @@ class AdminAuctionSession extends Component {
   }
 
   clickButtonAuction =() =>{
-   
         let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
-        if(this.props.myUserIdReducer != 0 && this.props.myKeyLoginedReducer != 0){
+        if(this.props.myUserIdReducer != 0 && this.props.myKeyLoginedReducer != 0 && this.state.time != '0'){
         let a = this.itemRef.ref('NewSession').child('Public').child(this.props.myKeyLoginedReducer).child('admin').update({
-          toggleBtnAuction:this.state.toggleBtnAuction
-      })
+          toggleBtnAuction:this.state.toggleBtnAuction,
+          time:this.state.time
+        })
       // console.log(a);
       Alert.alert("Start  session completed !.");
     }
@@ -123,7 +127,25 @@ class AdminAuctionSession extends Component {
    
   }
 
+  clickStartBtb = (name)=>{
+    if(name === 'start'){
+      this.setState({
+        startSession:true
+      });
+      console.log(this.state.startSession)
+      if(this.props.myUserIdReducer != 0){
+        let a = this.itemRef.ref('NewSession').child('Public').child(this.props.myKeyLoginedReducer).child('admin').update({
+          // startSession:this.state.startSession
+          startSession:true
+        })
+      }
+      console.log("okkkeee")
+    }
+   
+
+  }
   render() {
+    console.log("star"+this.state.startSession)
     console.log("time: "+typeof(this.state.time))
    console.log("toggleBtnAuction : "+this.props.myKeyLoginedReducer)
     return (
@@ -194,7 +216,9 @@ class AdminAuctionSession extends Component {
                 <View>
                 <DatePicker
                             style={{width: 100}}
-                            date={this.state.date}
+                            // time={this.state.time}
+                            date = {this.state.time}
+                            timeZoneOffsetInMinutes={true}
                             mode="time"
                             // placeholder="Time"
                             format="HH:mm"
@@ -244,7 +268,7 @@ class AdminAuctionSession extends Component {
            {/* //dau gia */}
            </View>
         </View>
-        <Footer/>
+        <Footer clickBtn = {(name)=>this.clickStartBtb(name)}/>
       </View>
     );
   }

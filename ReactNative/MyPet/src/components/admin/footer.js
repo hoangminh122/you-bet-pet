@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View,Text,Image, StyleSheet, TouchableHighlight,Dimensions} from 'react-native'
+import {View,Text,Image, StyleSheet, TouchableOpacity,Dimensions} from 'react-native'
 
 
 var screen =Dimensions.get('window');
@@ -8,14 +8,14 @@ export default class componentName extends Component {
     return (
         <View style={styles.container}>
           <View style={styles.iconView}>
-            <TouchableHighlight style={styles.linkView}>
+            <TouchableOpacity style={styles.linkView}>
               <Text style={[styles.imageUser,{backgroundColor:'gray'}]} >End</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
           <View style={styles.iconView}>
-            <TouchableHighlight style={styles.linkView}>
+            <TouchableOpacity style={styles.linkView} onPress={()=>this.props.clickBtn('start')}>
               <Text style={styles.imageUser}>Start</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
     );
