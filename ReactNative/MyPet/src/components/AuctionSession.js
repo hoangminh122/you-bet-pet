@@ -31,7 +31,10 @@ class AuctionSession extends Component {
       arrayByKeyFirebase:[],
       moneyNow:0,
       keySession:this.props.match.params.key,
-      dataInforUser:[]
+      dataInforUser:[],
+      // longTimeSetup:10,                                                                                             //set time long in session
+      toggleBtnAuction:false                                                                                        //on/off button auction                                                                           
+   
     };
 
   }
@@ -70,6 +73,14 @@ class AuctionSession extends Component {
 
   }
 
+  setToggleBtnAuction =() =>{
+    if(!this.state.toggleBtnAuction){
+      return {width:100,height:35,backgroundColor:'gray',borderRadius:5};
+    } else {
+      return {width:100,height:35,backgroundColor:'red',borderRadius:5};
+    }
+  }
+
   addDbFlatlist = (name) =>{                                                                     //get information user take part in session has up money
     // let arr = [];
     // let arrInfor = [];
@@ -105,26 +116,33 @@ class AuctionSession extends Component {
   }
 
   clickButtonAuction =() =>{
-    let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
-    if(this.props.myUserIdReducer != 0){
-      let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').child(this.props.myUserIdReducer).update({
+    if(!this.state.toggleBtnAuction){
+      return;
+    } else {
+        let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
+        if(this.props.myUserIdReducer != 0){
+        let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').child(this.props.myUserIdReducer).update({
         moneyUp:this.state.moneyNow
       })
       // console.log(a);
       Alert.alert("up money session completed !.");
     }
-   
-
+    }
   }
 
-  
   componentDidMount(){
     // this.setState({                                                                  //sai chua sua
     //   keySession:this.props.match.params.key
     // });
-    
+    if(this.props.myLongTimeReducer > 0)
+      this.setState({
+        toggleBtnAuction:true
+      })
+    // this.setState({
+    //   longTimeSetup:this.props.myLongTimeReducer
+    // })
     this.addDB(this.props.match.params.key); 
-    this.addDbFlatlist()                                        //ok dung roi
+    this.addDbFlatlist() ;                                       //ok dung roi
     
     // if(this.props.myUserIdReducer != '0')                                             //check is login
     //   this.addDB(this.props.myUserIdReducer)
@@ -132,8 +150,7 @@ class AuctionSession extends Component {
 
   }
   render() {
-    console.log(this.state.dataInforUser)
-    console.log(this.state.dataSource)
+    console.log(this.state.toggleBtnAuction)
     
     let {arrayByKeyFirebase} =this.state
     return (
@@ -167,7 +184,7 @@ class AuctionSession extends Component {
         </View>
         <View style={styles.body}>
           <View style={styles.bodyTittle}>
-            <Text style={styles.bodyTittleTxt}>Người đấu giá 1</Text>
+            <Text style={styles.bodyTittleTxt}>Người đấu giá </Text>
           </View>
           <View style={styles.bodyTop10}>
 
@@ -202,8 +219,12 @@ class AuctionSession extends Component {
                 <View>
                   <CountDown
                   size={10}
-                  until={60}
-                  onFinish={() => alert('Finished')}
+                  until={this.props.myLongTimeReducer}
+                  onFinish={() => {
+                    this.setState({
+                      toggleBtnAuction:false
+                    })
+                  }}                  
                   digitStyle={{backgroundColor: '#FFF', borderWidth: 1, borderColor: 'white'}}
                   digitTxtStyle={{color: 'red'}}
                   timeLabelStyle={{color: 'red', fontWeight: 'bold'}}
@@ -227,7 +248,7 @@ class AuctionSession extends Component {
                 </View>
               </View>
               <View style={[styles.bodyTop10ObjectInfor,{flex:1}]}>
-                <TouchableOpacity style={{width:100,height:35,backgroundColor:'red',borderRadius:5}} onPress={()=>this.clickButtonAuction()}>
+                <TouchableOpacity style={this.setToggleBtnAuction()} onPress={()=>this.clickButtonAuction()}>
                   <View style={{flex:1,flexDirection:'column',alignSelf:'center',justifyContent:'center'}}>
                     <Text style={{color:'white'}}>Đấu Giá</Text>
                   </View>
@@ -332,7 +353,10 @@ const styles = StyleSheet.create({
 //   }
 // }
 function mapStateToProps(state){
-  return {myUserIdReducer:state.userIdReducer};
+  return {
+    myUserIdReducer:state.userIdReducer,
+    myLongTimeReducer: state.longTimeReducer
+  };
 }
  export default connect(mapStateToProps)(AuctionSession);
         

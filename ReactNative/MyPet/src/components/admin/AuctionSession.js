@@ -6,12 +6,13 @@ import Video from 'react-native-video';
 import firebase from 'firebase'
 import CountDown from 'react-native-countdown-component'
 import {connect} from 'react-redux'
+import DatePicker from 'react-native-datepicker'
 
 
 
 var screen =Dimensions.get('window');
 
-export default class AdminAuctionSession extends Component {
+class AdminAuctionSession extends Component {
   constructor(props){
     super(props);
     this.itemRef = firebase.database();
@@ -28,6 +29,9 @@ export default class AdminAuctionSession extends Component {
       rateText:'1.0',
       pausedText:'Play',
       hideControls:false,
+      longTimeSetup:0,                                                                                             //set time long in session
+      toggleBtnAuction:true,
+      time:0                                                                                  //on/off button auction                                                                           
     //   arrayByKeyFirebase:[],
     //   moneyNow:0,
     //   keySession:this.props.match.params.key,
@@ -104,48 +108,38 @@ export default class AdminAuctionSession extends Component {
   }
 
   clickButtonAuction =() =>{
-    let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
-    let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').child(this.props.myUserIdReducer).update({
-        moneyUp:this.state.moneyNow
-    })
-    // console.log(a);
-    Alert.alert("up money session completed !.");
-
+   
+        let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
+        if(this.props.myUserIdReducer != 0 && this.props.myKeyLoginedReducer != 0){
+        let a = this.itemRef.ref('NewSession').child('Public').child(this.props.myKeyLoginedReducer).child('admin').update({
+          toggleBtnAuction:this.state.toggleBtnAuction
+      })
+      // console.log(a);
+      Alert.alert("Start  session completed !.");
+    }
   }
-
-  
+ 
   componentDidMount(){
-    // this.setState({                                                                  //sai chua sua
-    //   keySession:this.props.match.params.key
-    // });
-    
-    // this.addDB(this.props.match.params.key); 
-    // this.addDbFlatlist()                                        //ok dung roi
-    
-    // if(this.props.myUserIdReducer != '0')                                             //check is login
-    //   this.addDB(this.props.myUserIdReducer)
-
-
+   
   }
+
   render() {
-    // console.log(this.state.dataInforUser)
-    // console.log(this.state.dataSource)
-    
-    // let {arrayByKeyFirebase} =this.state
+    console.log("time: "+typeof(this.state.time))
+   console.log("toggleBtnAuction : "+this.props.myKeyLoginedReducer)
     return (
       <View style={styles.container}>
         {/* <Header nameTitle ={arrayByKeyFirebase[4]}/> */}
         <Header nameTitle = ' '/>
         <View style={styles.imagePets}>
           <View style={styles.imageChild}>
-            {/* <TouchableOpacity
+          <TouchableOpacity
             style={{backgroundColor:'yellow',width:'100%',height:"100%"}}
               onPress={() => this.setState({paused:!this.state.paused})}
             >
               <Video
               style={{width:"100%",height:"100%"}}
                 
-                source={require('../components/test/big_buck_bunny.mp4')}
+                source={require('../test/big_buck_bunny.mp4')}
                 // source={{uri:'https://www.youtube.com/watch?v=dQHUK2MfXvI'}}
                 ref={(ref) => {
                     this.player = ref
@@ -158,13 +152,14 @@ export default class AdminAuctionSession extends Component {
                 paused={this.state.paused}
               
               />
-            </TouchableOpacity> */}
+            </TouchableOpacity>
+
 
           </View>
         </View>
         <View style={styles.body}>
           <View style={styles.bodyTittle}>
-            <Text style={styles.bodyTittleTxt}>Người xxxxxxxxxxxxxxxxxx</Text>
+            <Text style={styles.bodyTittleTxt}>Người đấu giá</Text>
           </View>
           <View style={styles.bodyTop10}>
 
@@ -197,18 +192,32 @@ export default class AdminAuctionSession extends Component {
               <View style={[styles.bodyTop10ObjectStt,{flex:1,borderRightWidth:2}]}>
                 <Text style={{fontSize:11,fontWeight:'bold'}}>Thời gian còn lại</Text>
                 <View>
-                  <CountDown
-                  size={10}
-                  until={60}
-                  onFinish={() => alert('Finished')}
-                  digitStyle={{backgroundColor: '#FFF', borderWidth: 1, borderColor: 'white'}}
-                  digitTxtStyle={{color: 'red'}}
-                  timeLabelStyle={{color: 'red', fontWeight: 'bold'}}
-                  separatorStyle={{color: 'black'}}
-                  timeToShow={['H', 'M', 'S']}
-                  timeLabels={{m: null, s: null}}
-                  showSeparator
-              />
+                <DatePicker
+                            style={{width: 100}}
+                            date={this.state.date}
+                            mode="time"
+                            // placeholder="Time"
+                            format="HH:mm"
+                            // minDate="05-01"
+                            // maxDate="2020-06-01"
+                            showIcon = {false}
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                              dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 10,
+                                marginLeft: 0,
+                              },
+                              dateInput: {
+                                margin: 15,
+                                borderRadius:10,
+                                marginBottom:20
+                              }
+                            }}
+                            onDateChange={(time) => {this.setState({time: time})}}
+                            />
                 </View>
               </View>
               <View style={[styles.bodyTop10ObjectImage,{flex:1,borderRightWidth:3}]}>
@@ -226,7 +235,7 @@ export default class AdminAuctionSession extends Component {
               <View style={[styles.bodyTop10ObjectInfor,{flex:1}]}>
                 <TouchableOpacity style={{width:100,height:35,backgroundColor:'red',borderRadius:5}} onPress={()=>this.clickButtonAuction()}>
                   <View style={{flex:1,flexDirection:'column',alignSelf:'center',justifyContent:'center'}}>
-                    <Text style={{color:'white'}}>xxxxxxxx</Text>
+                    <Text style={{color:'white'}}>NEXT</Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -328,10 +337,10 @@ const styles = StyleSheet.create({
     
 //   }
 // }
-// function mapStateToProps(state){
-//   return {myUserIdReducer:state.userIdReducer};
-// }
-//  export default connect()(AdminAuctionSession);
+function mapStateToProps(state){
+  return {myKeyLoginedReducer:state.keyLoginedReducer};
+}
+ export default connect(mapStateToProps)(AdminAuctionSession);
         
 
 

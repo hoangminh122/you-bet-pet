@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View,Text,Image} from 'react-native'
+import {View,Text, TouchableHighlight,Image, TouchableOpacity} from 'react-native'
 import {Link} from 'react-router-native'
 
 
@@ -25,6 +25,9 @@ export default class componentName extends Component {
    
     return (
         <View style={{ flex:1,backgroundColor:'#F8F8FF',justifyContent:'flex-start',alignItems:'flex-start',flexDirection:'row'}}>
+          <TouchableOpacity style={{margin:13,width:30,height:30}}>
+            <Image source ={require('../images/back.png')}/>
+          </TouchableOpacity>
           <Text style={{margin:10,fontSize:20,fontWeight:'bold',color:'#000000'}}>{this.changeTitleName(this.props.nameTitle)}</Text>
         </View>
     );

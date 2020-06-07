@@ -3,6 +3,8 @@ import {View,Text, TextInput, TouchableWithoutFeedback,Image, Keyboard,ScrollVie
 import Header from './header';
 import DatePicker from 'react-native-datepicker'
 import firebase from 'firebase'
+import {connect} from 'react-redux'
+
 
 const screen = Dimensions.get('window');
 
@@ -12,7 +14,7 @@ const DismissKeyboard = ({children}) => (
   </TouchableWithoutFeedback>
 )
 
-export default class CreateSession extends Component {
+class CreateSession extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -24,7 +26,6 @@ export default class CreateSession extends Component {
       arrEmail:[],
       moneyInit:''
     }
-    
     this.itemRef = firebase.database();
   }
  
@@ -33,40 +34,48 @@ export default class CreateSession extends Component {
            arrEmail: [...this.state.arrEmail,this.state.email],
            email:""
          })
-   
   }
+
   setOffsetPage = (page)=>{
     let ischeckNull = true ;                                            //check input is null
     switch(page){
       case 1:
         break;
       case 2:
-        // if()
+        // if(this.state.nameSession == "") return;                        //fail clean code ,help!!!!
         break;
       case 3:
+        // if(this.state.date == "" || this.state.timeStart == "") return ;
         break;
       case 4:
+        if(this.state.arrEmail.length <= 0) return ;
+        break;
       default:
         break;
-
     }
     this._scrollView.scrollTo({x: screen.width*page, y: 0, animated: true});
     this._scrollView.setNativeProps({ scrollEnabled: false });
-   
   }
+
   CreateOneNewSession =() =>{
-    this.itemRef.ref('NewSession').child('Public').push({
-      nameSession:this.state.nameSession,
-      date:this.state.date,
-      timeStart:this.state.timeStart,
-      // email:this.state.email,
-      arrEmail:this.state.arrEmail,
-      moneyInit:this.state.moneyInit
-    })
-    Alert.alert("Create new session completed !.");
+    if(this.state.moneyInit != ""){
+      this.itemRef.ref('NewSession').child('Public').push({
+        nameSession:this.state.nameSession,
+        date:this.state.date,
+        timeStart:this.state.timeStart,
+        // email:this.state.email,
+        arrEmail:this.state.arrEmail,
+        moneyInit:this.state.moneyInit,
+        owner: this.props.myUserIdReducer
+      })
+      Alert.alert("Create new session completed !.");
+      //go to page Infor session
+    }
+    return ;
   }
 
   render() {
+    // console.log(this.state.arrEmail)
     // console.log(this.state.arrEmail)
     return (
          <DismissKeyboard >
@@ -200,14 +209,25 @@ export default class CreateSession extends Component {
                                   onChangeText ={(name)=>{
                                     this.setState({email:name});
                                   }}
-                                  onSubmitEditing={()=>this.addEmailFriends()  // called only when multiline is false
+                                  onSubmitEditing={()=>this.addEmailFriends()
                                   } 
                               />
                             </View> 
                         </View>
                       </View>
-                      <View style={styles.viewShowEmail}>
-                        <Text style={styles.emailShowTxt}>email</Text>
+                                                                                                                          {/* CANNOT FIX BORDER FOR EMAIL MANY */}
+                      <View style={styles.viewShowEmail}>                                                                 
+                        {/* <Text style={styles.emailShowTxt}> */}
+                        {this.state.arrEmail.map((email,index)=>{
+                          return(
+                                 <View style={{margin:10,borderWidth:1,borderColor:'black',padding:5}}>
+                                    <Text>
+                                      {email+'\n'}
+                                    </Text>
+                                  </View>
+                                  )
+                        })}
+                        {/* </Text> */}
                       </View>
                     </View>
                     <View style={[styles.viewBody2,{flex:1.3}]}>
@@ -369,4 +389,10 @@ const styles = StyleSheet.create({
   }
    
  });
- 
+
+ function mapStateToProps(state){
+  return {
+    myUserIdReducer:state.userIdReducer,
+  };
+}
+ export default connect(mapStateToProps)(CreateSession);

@@ -100,8 +100,8 @@ class LoginFace extends Component {
     
   render() {
     return (
-        <View style={styles.container}>
-        <Header/>
+        <View style={(Platform.OS === 'android') ? styles.container : [styles.container,{marginTop:30}]}>
+        <Header nameTitle = "Đăng Nhập"/>
             {/* <Header/> */}
             {/*Start Body */}
           
@@ -111,11 +111,11 @@ class LoginFace extends Component {
               <View style={{flex:1, flexDirection:"column",backgroundColor:""}}>
                 <View style={{flex:1,margin:10}}>
                   <Text style={{marginHorizontal:10,color:'black'}}>Tên đăng nhập, địa chỉ email</Text>
-                  <TextInput placeholder="Nhập email"  textContentType="emailAddress" style={{borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10,}}/>
+                  <TextInput placeholder="Nhập email"  textContentType="emailAddress" style={(Platform.OS === 'android')?{borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10}:{height:'50%',borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10}}/>
                 </View>
                 <View style={{flex:1,margin:10}}>
                   <Text style={{marginHorizontal:10,color:'black'}}>Mật Khẩu</Text>
-                  <TextInput placeholder="Nhập email"  textContentType="emailAddress" style={{borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10,}}/>
+                  <TextInput placeholder="Nhập email"  textContentType="emailAddress" style={(Platform.OS === 'android')?{borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10,}:{height:'50%',borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10}}/>
                 </View>
                 <View style={{flex:1,justifyContent:'center',marginLeft:10}}>
                   <View style={{flexDirection:"row",flex:1}}>
@@ -172,7 +172,8 @@ const styles = StyleSheet.create({
   container:{
     display:'flex',
     flexDirection:'column',
-    flex:1,
+    // flex:1,
+    height:screen.height-16,
     backgroundColor:'#F8F8FF'
   },
   body:{
