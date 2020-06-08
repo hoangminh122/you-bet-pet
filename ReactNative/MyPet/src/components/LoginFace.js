@@ -83,7 +83,6 @@ class LoginFace extends Component {
             avatar : userFace.user.photoURL
           
           });
-        console.log("ok")
          //save state infor user take session
          this.props.myClickSaveInforUser('USER_INFOR_SAVE',{
                                                               username: userFace.user.displayName,
