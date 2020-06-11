@@ -172,7 +172,8 @@ const styles = StyleSheet.create({
   container:{
     display:'flex',
     flexDirection:'column',
-    flex:1,
+    // flex:1,
+    height:screen.height-16,
     backgroundColor:'#F8F8FF'
   },
   body:{
