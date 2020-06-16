@@ -2,24 +2,47 @@ import React, { Component } from 'react';
 import {Text,View,Image, Dimensions,StyleSheet, TouchableOpacity} from 'react-native'
 import Header from './header';
 import Footer from './footer';
+import {connect} from 'react-redux'
 
 const screen = Dimensions.get('window');
-export default class InforUser extends Component {
+class InforUser extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            isLive:false,
+            username:'',
+            email:'',
+            avatar:''
+        }
+    }
+    componentDidMount(){
+        console.log(this.props.myUserInforReducer)
+        // console.log(this.props.myUserInforReducer)
+        if(this.props.myUserInforReducer != 0){
+            this.setState({
+                isLive:true,
+                username:this.props.myUserInforReducer.username,
+                email:this.props.myUserInforReducer.email,
+                avatar:this.props.myUserInforReducer.avatar
+            });
+        }
+    }
   render() {
     return (
-        <View style={styles.container}>
-        <Header/>
+        <View style={(Platform.OS === 'android') ? styles.container : [styles.container,{marginTop:30}]}>
+        <Header nameTitle = "Thông Tin Người Dùng"/>
         <View style={styles.body}>
             <View style={styles.bodyIconUp}>
-                <View style={styles.bodyIconUpImageView}>
-                    <Image style={styles.bodyIconUpImageViewChild}></Image>
+                <View style={styles.bodyIconUpImageView}>       
+                 {/* style={styles.bodyIconUpImageViewChild} */}
+                    <Image source={{uri:(this.state.avatar != '')?this.state.avatar :'' }} style={styles.bodyIconUpImageViewChild}></Image>
                 </View>
                 <View style={styles.bodyIconUpOnlineView}>
-                    <Text style={styles.bodyIconUpOnlineViewIconChild}></Text>
+                    <Text style={(this.state.isLive)?styles.bodyIconUpOnlineViewIconChild: [styles.bodyIconUpOnlineViewIconChild,{backgroundColor:'red'}]}></Text>
                     <Text >is Active</Text>
                 </View>
-                <View style={{flex:1}}>
-                    <Text style={{width:screen.width/1.5, height:50}}>sahdgashsdfsgsgsdsgsdgsdgadsasdghasgddgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggghasgdahsdgashgd</Text>
+                <View style={{flex:1,flexDirection:'row',height:100,alignSelf:'stretch',alignItems:'center',justifyContent:'center'}}>
+                    <Text style={{flex:1}}>Nerver give Up !!!!! Success .............................3</Text>
                 </View>
                 <View style={styles.bodyIconUpContactView}>
                     <View style={styles.bodyIconUpContactViewPhone}>
@@ -47,11 +70,15 @@ export default class InforUser extends Component {
             <View style={styles.bodyInforDown}>
                 <View style={styles.bodyInforDownView}>
                     <Text style={styles.bodyInforDownViewChildLeft}>Name:</Text>
-                    <Text style={styles.bodyInforDownViewChildRight}>Hoàng Minh</Text>
+                    <Text style={styles.bodyInforDownViewChildRight}>{(this.state.username != '')? this.state.username :''}</Text>
                 </View>
                 <View style={styles.bodyInforDownView}>
                     <Text style={styles.bodyInforDownViewChildLeft}>Phone:</Text>
                     <Text style={styles.bodyInforDownViewChildRight}>0465841783</Text>
+                </View>
+                <View style={styles.bodyInforDownView}>
+                    <Text style={styles.bodyInforDownViewChildLeft}>Email:</Text>
+                    <Text style={styles.bodyInforDownViewChildRight}>{(this.state.email != '')? this.state.email :''}</Text>
                 </View>
                 <View style={styles.bodyInforDownView}>
                     <Text style={styles.bodyInforDownViewChildLeft}>Location:</Text>
@@ -149,14 +176,15 @@ const styles = StyleSheet.create({
             flexDirection:'column',
             justifyContent:'center',
             alignItems:'center',
-            borderWidth:1,
-            borderColor:'gray',
+            borderWidth:0.3,
+            borderColor:'black',
             margin:2
         },
             bodyInforDownView:{
                 flex:1,
                 flexDirection:'row',
-                alignItems:'flex-start'
+                alignItems:'flex-start',
+                margin:10
             },
                 bodyInforDownViewChildLeft:{
                     flex:1,
@@ -168,6 +196,9 @@ const styles = StyleSheet.create({
                 }
 });
 
+function mapStateToProps(state){
+    return {myUserInforReducer:state.userInforReducer};
+}
 
-
+export default connect(mapStateToProps)(InforUser);
 

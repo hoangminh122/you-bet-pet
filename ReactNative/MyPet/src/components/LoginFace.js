@@ -4,7 +4,7 @@ import { StyleSheet,Text,View,ImageBackground,Image, Dimensions, TouchableOpacit
 import bgImage from '../images/background.jpg'
 import logo from '../images/logo.png'
 import {LoginManager,LoginButton,AccessToken} from 'react-native-fbsdk'
-import token from './token'
+// import token from './token'
 import firebaseConfig from '../config/ConfigFirebase'
 import firebase from 'firebase'
 import Header from './header';
@@ -37,30 +37,36 @@ class LoginFace extends Component {
     constructor(props){
         super(props)
         this.state={
-          valToken:token,
+          valToken:"",
           isLoadUser:false,
           logged:false
         }
       }
     
-    showButtonLoginFace =()=>{
-      let arr =[];
-      if(this.state.valToken !=""){
-        arr.push(
-          <Text key="1">ok</Text>
-        )
-      }
-      return arr;
-    }
-    onLoginFace = async () => {
+    // showButtonLoginFace =()=>{
+    //   let arr =[];
+    //   if(this.state.valToken !=""){
+    //     arr.push(
+    //       <Text key="1">ok</Text>
+    //     )
+    //   }
+    //   return arr;
+    // }
+    onLoginFace = async (tokenValue) => {
       try{
-        const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+        const result = await LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+          function (){
+
+          }
+        )
+        // const tokenData = await AccessToken.getCurrentAccessToken();
         const tokenData = await AccessToken.getCurrentAccessToken();
         // const token = tokenData.accessToken.toString();
         // this.initUser(token);
-        const credential = new firebase.auth.FacebookAuthProvider.credential(token);
+        const credential = new firebase.auth.FacebookAuthProvider.credential(tokenData);
         const userFace = await firebase.auth().signInWithCredential(credential);
-        // console.log(tokenData)
+        console.log("userFace")
+        console.log(tokenData)
         console.log(userFace.user.uid)
         // console.log(userFace)
         //save database sqlite some infor 
@@ -71,27 +77,33 @@ class LoginFace extends Component {
         }catch(e){
           console.log(e)
         }
+        console.log(userFace)
         //save state id user Firebase -redux
+        //test thu thoi
+        // let arrTest = ["6fg2aw1pNgUg6Ly5tRNsRMMRo5z1","6fg2aw1pNgUg6Ly5tRNsRMMRo5z2","6fg2aw1pNgUg6Ly5tRNsRMMRo5z3"];
+        // let random = Math.floor(Math.random()*3);
+        // // console.log(random)
+        // // console.log("oksd"+arrTest[random])
+        // this.props.myClickSaveUserId('USER_ID_SAVE',arrTest[random]);
+       //ket thuc test
         this.props.myClickSaveUserId('USER_ID_SAVE',userFace.user.uid);
         //end
 
-       
-       
        firebase.database().ref('users').child(userFace.user.uid).child('profile').set({
             username: userFace.user.displayName,
             email: userFace.user.email,
             avatar : userFace.user.photoURL
           
           });
-        console.log("ok")
          //save state infor user take session
          this.props.myClickSaveInforUser('USER_INFOR_SAVE',{
                                                               username: userFace.user.displayName,
                                                               email: userFace.user.email,
                                                               avatar : userFace.user.photoURL
-                                                            
                                                             })    //use temp, I will fix after
          //end  
+         //direction to inforAuction
+         this.props.history.push('/inforAuction')
       }
       catch(error){
         //do something here
@@ -102,8 +114,8 @@ class LoginFace extends Component {
     
   render() {
     return (
-        <View style={styles.container}>
-        <Header/>
+        <View style={(Platform.OS === 'android') ? styles.container : [styles.container,{marginTop:30}]}>
+        <Header nameTitle = "Đăng Nhập"/>
             {/* <Header/> */}
             {/*Start Body */}
           
@@ -113,11 +125,11 @@ class LoginFace extends Component {
               <View style={{flex:1, flexDirection:"column",backgroundColor:""}}>
                 <View style={{flex:1,margin:10}}>
                   <Text style={{marginHorizontal:10,color:'black'}}>Tên đăng nhập, địa chỉ email</Text>
-                  <TextInput placeholder="Nhập email"  textContentType="emailAddress" style={{borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10,}}/>
+                  <TextInput placeholder="Nhập email"  textContentType="emailAddress" style={(Platform.OS === 'android')?{borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10}:{height:'50%',borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10}}/>
                 </View>
                 <View style={{flex:1,margin:10}}>
                   <Text style={{marginHorizontal:10,color:'black'}}>Mật Khẩu</Text>
-                  <TextInput placeholder="Nhập email"  textContentType="emailAddress" style={{borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10,}}/>
+                  <TextInput placeholder="Nhập email"  textContentType="emailAddress" style={(Platform.OS === 'android')?{borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10,}:{height:'50%',borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10}}/>
                 </View>
                 <View style={{flex:1,justifyContent:'center',marginLeft:10}}>
                   <View style={{flexDirection:"row",flex:1}}>
@@ -142,6 +154,24 @@ class LoginFace extends Component {
                   <Text style={{fontSize:15,fontWeight:'bold',color:'gray'}}>Others</Text>
                 </View>
                 <View style={{flex:4,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
+
+                  {/* <LoginButton style={{margin:10,height:50,width:50,borderColor:'gray',borderRadius:90,borderWidth:1}} onLoginFinished={
+                    (error,result) =>{
+                      if(error){
+                        console.log("login has error:"+result.error);
+                      } else if (result.isCancelled){
+                        console.log("login is cancelled.");
+                      }else{
+                        this.onLoginFace();
+                      }
+                    }
+                  }
+                  onLogoutFinished={()=>console.log("logout")}
+                  /> */}
+
+
+
+
                   <TouchableOpacity style={{margin:10,height:50,width:50,borderColor:'gray',borderRadius:90,borderWidth:1}} onPress={()=>this.onLoginFace()}>
                     <Image source={require('../images/face.png')}>
                     </Image>
@@ -174,7 +204,8 @@ const styles = StyleSheet.create({
   container:{
     display:'flex',
     flexDirection:'column',
-    flex:1,
+    // flex:1,
+    height:screen.height-16,
     backgroundColor:'#F8F8FF'
   },
   body:{
@@ -224,12 +255,13 @@ function mapStateToProps(state){
 }
 // function mapDispatchToProps(dispatch){                             //error cann'y fix !!! help me
 //   return {
-//     myClickSaveUserId:clickSaveUserId,
-//     myClickSaveInforUser:clickSaveInforUser
+//     myClickSaveUserId:()=>clickSaveUserId,
+//     myClickSaveInforUser: ()=>clickSaveInforUser
 //   }
 // }
 
 export default connect(mapStateToProps,{myClickSaveUserId:clickSaveUserId,myClickSaveInforUser:clickSaveInforUser})(LoginFace)
+// export default connect(mapStateToProps,mapDispatchToProps)(LoginFace)
 
 
 
