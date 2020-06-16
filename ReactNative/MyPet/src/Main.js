@@ -25,7 +25,7 @@ class Main extends Component {
           </Switch>
         </NativeRouter>
     );
-  }
+  }s
 }
 
 export default connect()(Main);

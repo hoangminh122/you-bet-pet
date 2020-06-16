@@ -216,19 +216,19 @@ class CreateSession extends Component {
                         </View>
                       </View>
                                                                                                                           {/* CANNOT FIX BORDER FOR EMAIL MANY */}
-                      <View style={styles.viewShowEmail}>                                                                 
-                        {/* <Text style={styles.emailShowTxt}> */}
+                      <ScrollView style={styles.viewShowEmail}>                                                                       
+                        <View style={styles.emailShowTxt}>
                         {this.state.arrEmail.map((email,index)=>{
                           return(
-                                 <View style={{margin:10,borderWidth:1,borderColor:'black',padding:5}}>
+                                 <View style={{margin:2,borderWidth:1,borderColor:'black',padding:5}}>
                                     <Text>
-                                      {email+'\n'}
+                                      {email}
                                     </Text>
                                   </View>
                                   )
                         })}
-                        {/* </Text> */}
-                      </View>
+                        </View>
+                      </ScrollView>
                     </View>
                     <View style={[styles.viewBody2,{flex:1.3}]}>
                       <TouchableOpacity onPress={(event) => this.setOffsetPage(4)} style={styles.touchBody}>
@@ -355,7 +355,8 @@ const styles = StyleSheet.create({
       },
       viewShowEmail:{
         flex:1,
-        width:screen.width
+        width:screen.width,
+        height:screen.height/4.5
       },
         emailShowTxt:{
           flex:1,
@@ -376,7 +377,8 @@ const styles = StyleSheet.create({
         },
           viewEmailChild:{
             flex:4,
-            marginHorizontal:10
+            marginHorizontal:10,
+            margin:10
           },
             emailInput:{
               borderColor:'white',

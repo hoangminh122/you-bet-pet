@@ -8,7 +8,7 @@ export default class componentName extends Component {
     return (
         <View style={styles.container}>
           <View style={styles.iconView}>
-            <TouchableOpacity style={styles.linkView}>
+            <TouchableOpacity style={styles.linkView} onPress={()=>this.props.clickBtn('end')}>
               <Text style={[styles.imageUser,{backgroundColor:'gray'}]} >End</Text>
             </TouchableOpacity>
           </View>

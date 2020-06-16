@@ -110,13 +110,13 @@ class InforAution extends Component {
   directToAuction = (key,owner) => {
     this.props.myClickSaveKeyAuction('AUCTION_KEY_SAVE',key)     
     console.log("key: "+key)                                                     //Save key session is running 
-    if(this.props.myUserIdReducer === owner){
-      let url='/auctionSession-admin/'+key;                                                                           //error cannot use param sercure
-      this.props.history.push(url)
-    } else {
+    // if(this.props.myUserIdReducer === owner){                                 //test
+    //   let url='/auctionSession-admin/'+key;                                                                           //error cannot use param sercure
+    //   this.props.history.push(url)
+    // } else {
       let url='/auctionSession/'+key;
       this.props.history.push(url)
-    }
+    // }
    
   }
 
@@ -138,7 +138,7 @@ class InforAution extends Component {
           <View style={[styles.body,{width:screen.width}]}>
             <View style={styles.headerBody}>
               <View style={styles.rowTitleBody}>
-                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:3,borderColor:'gray'}]}>
                  
                   <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
                     <View style={styles.iconNotifyView}>
@@ -188,7 +188,7 @@ class InforAution extends Component {
                 <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
                   <Text style={styles.txtColTitleBodyUp}>Đang diễn ra</Text>
                 </View>
-                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:3,borderColor:'gray'}]}>
                   <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
                     <View style={styles.iconNotifyView}>
                         <Text style={styles.iconNotifyTxt}>1</Text>
@@ -228,7 +228,7 @@ class InforAution extends Component {
                 <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
                   <Text style={styles.txtColTitleBodyUp}>Đã thắng</Text>
                 </View>
-                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:3,borderColor:'gray'}]}>
                   <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
                     <View style={styles.iconNotifyView}>
                         <Text style={styles.iconNotifyTxt}>1</Text>
@@ -316,8 +316,8 @@ const styles = StyleSheet.create({
   },
     colTitleBody:{
       flex:1,
-      borderRightWidth:1,
-      height:'80%',width:'80%',
+      borderRightWidth:0.8,
+      height:'60%',width:'80%',
       justifyContent:'center',
       alignItems:'center'
     },
