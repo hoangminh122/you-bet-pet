@@ -33,7 +33,7 @@ class AuctionSession extends Component {
       keySession:this.props.match.params.key,
       dataInforUser:[],
       // longTimeSetup:10,                                                                                             //set time long in session
-      toggleBtnAuction:false                                                                                        //on/off button auction                                                                           
+      toggleBtnAuction:true                                                                                        //on/off button auction                                                                           
    
     };
 
@@ -119,7 +119,7 @@ class AuctionSession extends Component {
     if(!this.state.toggleBtnAuction){
       return;
     } else {
-        let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
+        // let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
         if(this.props.myUserIdReducer != 0){
         let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').child(this.props.myUserIdReducer).update({
         moneyUp:this.state.moneyNow
@@ -130,18 +130,22 @@ class AuctionSession extends Component {
     }
   }
 
+  setValueInitSession = () =>{
+    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('')
+  }
+
   componentDidMount(){
     // this.setState({                                                                  //sai chua sua
     //   keySession:this.props.match.params.key
     // });
-    if(this.props.myLongTimeReducer > 0)
+    if(this.props.myLongTimeReducer > 0)                                                //sai roi
       this.setState({
         toggleBtnAuction:true
       })
     // this.setState({
     //   longTimeSetup:this.props.myLongTimeReducer
     // })
-    this.addDB(this.props.match.params.key); 
+    // this.addDB(this.props.match.params.key);                                            //sai roi
     this.addDbFlatlist() ;                                       //ok dung roi
     
     // if(this.props.myUserIdReducer != '0')                                             //check is login
@@ -219,7 +223,8 @@ class AuctionSession extends Component {
                 <View>
                   <CountDown
                   size={10}
-                  until={this.props.myLongTimeReducer}
+                  // until={this.props.myLongTimeReducer}
+                  until={60}
                   onFinish={() => {
                     this.setState({
                       toggleBtnAuction:false

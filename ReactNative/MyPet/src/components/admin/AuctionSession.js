@@ -25,7 +25,7 @@ class AdminAuctionSession extends Component {
       resizeMode:'contain',
       duration:0.0,
       currentTime:0.0,
-      paused:false,
+      paused:true,
       rateText:'1.0',
       pausedText:'Play',
       hideControls:false,
@@ -34,10 +34,10 @@ class AdminAuctionSession extends Component {
       time:'0',
       pausedVideo:false,
       startSession:false,
-      endSession:false
+      endSession:false,
                                                                                      //on/off button auction                                                                           
     //   arrayByKeyFirebase:[],
-    //   moneyNow:0,
+      moneyNow:0,
     //   keySession:this.props.match.params.key,
     //   dataInforUser:[]
     };
@@ -105,18 +105,78 @@ class AdminAuctionSession extends Component {
     //   })
     // })
   }
+
+  toggleTimeCount = () => {
+    if(!this.state.toggleBtnAuction  || this.state.time ==='0')
+    return (
+      <DatePicker
+        style={{width: 100}}
+        // time={this.state.time}
+        date = {this.state.time}
+        timeZoneOffsetInMinutes={true}
+        mode="time"
+       // placeholder="Time"
+       format="HH:mm"
+       // minDate="05-01"
+       // maxDate="2020-06-01"
+       showIcon = {false}
+       confirmBtnText="Confirm"
+       cancelBtnText="Cancel"
+       customStyles={{
+       dateIcon: {
+       position: 'absolute',
+       left: 0,
+       top: 10,
+       marginLeft: 0,
+       },
+       dateInput: {
+       margin: 15,
+       borderRadius:10,
+       marginBottom:20
+       }
+       }}
+       onDateChange={(time) => {this.setState({time: time})}}
+      />
+    )
+    else if(this.state.toggleBtnAuction && this.state.time !=='0')
+    return (
+      <CountDown
+        size={10}
+        // until={this.props.myLongTimeReducer}
+        until={60}
+        onFinish={() => {
+          this.setState({
+            toggleBtnAuction:false
+          })
+        }}  
+        onDateChange ={Alert.alert("ok")}               
+        digitStyle={{backgroundColor: '#FFF', borderWidth: 1, borderColor: 'white'}}
+        digitTxtStyle={{color: 'red'}}
+        timeLabelStyle={{color: 'red', fontWeight: 'bold'}}
+        separatorStyle={{color: 'black'}}
+        timeToShow={['H', 'M', 'S']}
+        timeLabels={{m: null, s: null}}
+        showSeparator
+      />
+    )
+  }
+
   upMoneyClick = (moneykeyUp)=>{
     this.setState({
       moneyNow : parseInt(this.state.moneyNow) +parseInt(moneykeyUp)
     })
   }
 
-  clickButtonAuction =() =>{
+  clickButtonAuction =(toggleValue) =>{
+        this.setState({
+          toggleBtnAuction:toggleValue
+        })
         let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
         if(this.props.myUserIdReducer != 0 && this.props.myKeyLoginedReducer != 0 && this.state.time != '0'){
         let a = this.itemRef.ref('NewSession').child('Public').child(this.props.myKeyLoginedReducer).child('admin').update({
           toggleBtnAuction:this.state.toggleBtnAuction,
-          time:this.state.time
+          time:this.state.time,
+          moneyNow:this.state.moneyNow
         })
       // console.log(a);
       Alert.alert("Start  session completed !.");
@@ -130,7 +190,8 @@ class AdminAuctionSession extends Component {
   clickStartBtb = (name)=>{
     if(name === 'start'){
       this.setState({
-        startSession:true
+        startSession:true,
+        paused:false
       });
       console.log(this.state.startSession)
       if(this.props.myUserIdReducer != 0){
@@ -140,13 +201,25 @@ class AdminAuctionSession extends Component {
         })
       }
       console.log("okkkeee")
+    } else {
+      this.setState({
+        startSession:false,
+        paused:true
+      });
+      console.log(this.state.endSession)
+      if(this.props.myUserIdReducer != 0){
+        let a = this.itemRef.ref('NewSession').child('Public').child(this.props.myKeyLoginedReducer).child('admin').update({
+          // startSession:this.state.startSession
+          startSession:false
+        })
+      }
+      console.log("okkkeee")
     }
-   
-
   }
+  
   render() {
-    console.log("star"+this.state.startSession)
-    console.log("time: "+typeof(this.state.time))
+    console.log("end"+this.state.endSession)
+    console.log("time: "+this.state.time)
    console.log("toggleBtnAuction : "+this.props.myKeyLoginedReducer)
     return (
       <View style={styles.container}>
@@ -214,34 +287,7 @@ class AdminAuctionSession extends Component {
               <View style={[styles.bodyTop10ObjectStt,{flex:1,borderRightWidth:2}]}>
                 <Text style={{fontSize:11,fontWeight:'bold'}}>Thời gian còn lại</Text>
                 <View>
-                <DatePicker
-                            style={{width: 100}}
-                            // time={this.state.time}
-                            date = {this.state.time}
-                            timeZoneOffsetInMinutes={true}
-                            mode="time"
-                            // placeholder="Time"
-                            format="HH:mm"
-                            // minDate="05-01"
-                            // maxDate="2020-06-01"
-                            showIcon = {false}
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
-                            customStyles={{
-                              dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 10,
-                                marginLeft: 0,
-                              },
-                              dateInput: {
-                                margin: 15,
-                                borderRadius:10,
-                                marginBottom:20
-                              }
-                            }}
-                            onDateChange={(time) => {this.setState({time: time})}}
-                            />
+                  {this.toggleTimeCount()}
                 </View>
               </View>
               <View style={[styles.bodyTop10ObjectImage,{flex:1,borderRightWidth:3}]}>
@@ -250,14 +296,14 @@ class AdminAuctionSession extends Component {
                 <TouchableHighlight style={{backgroundColor:'gray',width:15,height:15}}>
                   <Image></Image>
                 </TouchableHighlight>
-                  <Text style={{margin:5,width:"60%",fontSize:12}}>{this.state.moneyNow}200000 vnd</Text>
-                <TouchableHighlight style={{backgroundColor:'red',width:15,height:15,flexDirection:'row',flex:1,alignItems:'center',justifyContent:'center'}} onPress= {() => this.upMoneyClick(100000)}>
+                  <Text style={{margin:5,width:"60%",fontSize:12}}>{this.state.moneyNow} vnd</Text>
+                <TouchableHighlight style={{backgroundColor:'red',width:15,height:15,flexDirection:'row',flex:1,alignItems:'center',justifyContent:'center'}} onPress= {() => this.upMoneyClick(10000)}>
                   <Image style={{width:10,height:10}} source={require('../../images/add.png')}></Image>
                 </TouchableHighlight>
                 </View>
               </View>
               <View style={[styles.bodyTop10ObjectInfor,{flex:1}]}>
-                <TouchableOpacity style={{width:100,height:35,backgroundColor:'red',borderRadius:5}} onPress={()=>this.clickButtonAuction()}>
+                <TouchableOpacity style={{width:100,height:35,backgroundColor:'red',borderRadius:5}} onPress={()=>this.clickButtonAuction(true)}>
                   <View style={{flex:1,flexDirection:'column',alignSelf:'center',justifyContent:'center'}}>
                     <Text style={{color:'white'}}>NEXT</Text>
                   </View>
