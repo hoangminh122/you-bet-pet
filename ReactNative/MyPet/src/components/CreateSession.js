@@ -60,13 +60,15 @@ class CreateSession extends Component {
   CreateOneNewSession =() =>{
     if(this.state.moneyInit != ""){
       this.itemRef.ref('NewSession').child('Public').push({
-        nameSession:this.state.nameSession,
-        date:this.state.date,
-        timeStart:this.state.timeStart,
-        // email:this.state.email,
-        arrEmail:this.state.arrEmail,
-        moneyInit:this.state.moneyInit,
-        owner: this.props.myUserIdReducer
+        create:{
+          nameSession:this.state.nameSession,
+          date:this.state.date,
+          timeStart:this.state.timeStart,
+          // email:this.state.email,
+          arrEmail:this.state.arrEmail,
+          moneyInit:this.state.moneyInit,
+          owner: this.props.myUserIdReducer
+        }
       })
       Alert.alert("Create new session completed !.");
       //go to page Infor session

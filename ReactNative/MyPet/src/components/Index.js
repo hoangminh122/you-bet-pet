@@ -115,44 +115,18 @@ class LoginFace extends Component {
   render() {
     return (
         <View style={(Platform.OS === 'android') ? styles.container : [styles.container,{marginTop:30}]}>
-        <Header nameTitle = "Login"/>
-            {/* <Header/> */}
-            {/*Start Body */}
           
           <View style={styles.body}>
          
             <View style={styles.bodyChild}>
-              <View style={{flex:1, flexDirection:"column",backgroundColor:""}}>
-                <View style={{flex:1,margin:5}}>
-                  {/* <Text style={{marginHorizontal:10,color:'black'}}>Tên đăng nhập, địa chỉ email</Text> */}
-                  <TextInput placeholder="Username or Email"  textContentType="emailAddress" style={(Platform.OS === 'android')?{borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10}:{height:'50%',borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10}}/>
-                </View>
-                <View style={{flex:1,margin:5}}>
-                  {/* <Text style={{marginHorizontal:10,color:'black'}}>Mật Khẩu</Text> */}
-                  <TextInput placeholder="Password"  textContentType="emailAddress" style={(Platform.OS === 'android')?{borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10,}:{height:'50%',borderColor:"gray",borderWidth:1,margin:10,paddingHorizontal:10,borderRadius:10}}/>
-                </View>
-                <View style={{flex:1,justifyContent:'center',marginLeft:10}}>
-                  <View style={{flexDirection:"row",flex:1}}>
-                    <CheckBox name ="memory"/>
-                    <Text style={{marginTop:5}}>Remember</Text>
-                  </View>
-                  <View style={{flex:2,alignItems:'center',width:"100%"}} >
-                    <TouchableOpacity style={{borderColor:"gray",flex:1,borderWidth:1,width:"35%",margin:5,justifyContent:'center',backgroundColor:'red',borderRadius:20,alignItems:'center'}} >
-                      <Text style={{color:"white"}}>LOGIN</Text>
-                    </TouchableOpacity>
-                  </View>
-                  
-                </View>
+              <View style={{flex:1, flexDirection:"column",backgroundColor:"#6699FF",borderBottomLeftRadius:90,borderBottomRightRadius:90}}>
+               
+                
+               
 
               </View>
             {/* start image background index page */}
-              <View style={{flex:1,flexDirection:'column',margin:10}}>
-                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                  <Text style={{textDecorationLine: "underline",color:'red',fontSize:12,}}>Forget password ?</Text>
-                </View>
-                <View style={{flex:1,justifyContent:'flex-end',alignItems:'center'}}>
-                  <Text style={{fontSize:15,fontWeight:'bold',color:'gray'}}>Others</Text>
-                </View>
+              <View style={{flex:1,flexDirection:'column',margin:10,backgroundColor:''}}>
                 <View style={{flex:4,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
 
                   {/* <LoginButton style={{margin:10,height:50,width:50,borderColor:'gray',borderRadius:90,borderWidth:1}} onLoginFinished={
@@ -170,14 +144,9 @@ class LoginFace extends Component {
                   /> */}
 
 
-
-
-                  <TouchableOpacity style={{margin:10,height:50,width:50,borderColor:'gray',borderRadius:90,borderWidth:1}} onPress={()=>this.onLoginFace()}>
-                    <Image source={require('../images/face.png')}>
-                    </Image>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={{margin:10,height:50,width:50,borderColor:'gray',borderRadius:90,borderWidth:1}}>
-                    <Image source={require('../images/google.png')}>
+                  
+                  <TouchableOpacity style={{margin:10,height:screen.width/6,width:screen.width/6,borderColor:'gray',borderRadius:90,borderWidth:1}} onPress={()=>this.onLoginFace()}>
+                    <Image style= {{height:screen.width/6,width:screen.width/6}} source={require('../images/face.png')}>
                     </Image>
                   </TouchableOpacity>
                  
@@ -192,7 +161,7 @@ class LoginFace extends Component {
             {/* end image background index page */}
             </View>
           </View>
-          <Footer/>
+          {/* <Footer/> */}
                 {/*End Body */}
                 {/* <Footer/> */}
         </View>
