@@ -54,12 +54,12 @@ class InforAution extends Component {
     let arr = [];
     this.itemRef.ref('NewSession').child('Public').on('child_added',(dataSnapshot) => {
       arr.push({
-        owner:dataSnapshot.val().owner,
-        nameSession:dataSnapshot.val().nameSession,
-        date       :dataSnapshot.val().date,
-        timeStart  :dataSnapshot.val().timeStart,
-        arrEmail   :dataSnapshot.val().arrEmail,
-        moneyInit  :dataSnapshot.val().moneyInit,
+        owner:dataSnapshot.val().create.owner,
+        nameSession:dataSnapshot.val().create.nameSession,
+        date       :dataSnapshot.val().create.date,
+        timeStart  :dataSnapshot.val().create.timeStart,
+        arrEmail   :dataSnapshot.val().create.arrEmail,
+        moneyInit  :dataSnapshot.val().create.moneyInit,
         _key: dataSnapshot.key
       })
       this.setState({
@@ -109,14 +109,19 @@ class InforAution extends Component {
 
   directToAuction = (key,owner) => {
     this.props.myClickSaveKeyAuction('AUCTION_KEY_SAVE',key)     
-    console.log("key: "+key)                                                     //Save key session is running 
-    // if(this.props.myUserIdReducer === owner){                                 //test
-    //   let url='/auctionSession-admin/'+key;                                                                           //error cannot use param sercure
-    //   this.props.history.push(url)
-    // } else {
+    console.log("test")
+    console.log(this.props.myUserIdReducer)   
+    console.log(owner)       
+    console.log(this.props.myUserIdReducer === owner)  
+    console.log("test")          
+                                   //Save key session is running 
+    if(this.props.myUserIdReducer === owner){                                 //test
+      let url='/auctionSession-admin/'+key;                                                                           //error cannot use param sercure
+      this.props.history.push(url)
+    } else {
       let url='/auctionSession/'+key;
       this.props.history.push(url)
-    // }
+    }
    
   }
 

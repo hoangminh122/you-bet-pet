@@ -17,7 +17,7 @@ class AdminAuctionSession extends Component {
     super(props);
     this.itemRef = firebase.database();
     this.state = {
-    //   dataSource:[],
+      dataSource:[],
       repeat :false,
       rate:1,
       volume:1,
@@ -35,11 +35,12 @@ class AdminAuctionSession extends Component {
       pausedVideo:false,
       startSession:false,
       endSession:false,
+      timeFormat:'',
                                                                                      //on/off button auction                                                                           
-    //   arrayByKeyFirebase:[],
+      arrayByKeyFirebase:[],
       moneyNow:0,
-    //   keySession:this.props.match.params.key,
-    //   dataInforUser:[]
+      keySession:this.props.match.params.key,
+      dataInforUser:[]
     };
 
   }
@@ -57,99 +58,118 @@ class AdminAuctionSession extends Component {
     this.video.seek(0);
   }
 
-  
+  changeColorBtnNext = () =>{
+    if(!this.state.toggleBtnAuction && this.state.time !== '0') {
+      return {width:100,height:35,backgroundColor:'red',borderRadius:5};
+    }
+    if(!this.state.toggleBtnAuction ){
+      return {width:100,height:35,backgroundColor:'gray',borderRadius:5};
+    } 
+   
+    if(this.state.toggleBtnAuction) {
+      return {width:100,height:35,backgroundColor:'red',borderRadius:5};
+    }
+  }
   addDB = (key) =>{                                                                               // pull information session from firebase
-    // let arr = [];
-    // let starCountRef = this.itemRef.ref('NewSession').child('Public').child(key);
-    // starCountRef.on('value',function(snapshot){
-    //    snapshot.forEach((child)=>{
-    //     arr.push(
-    //       child.val()                                                                             //chua lam dc, push 1 doi tuong child.key
-    //     );
-    //    });
-    // })
-    // this.setState({
-    //   arrayByKeyFirebase:arr,
-    //   moneyNow:arr[2]   //setstate money now 
-    // })
-    // console.log(arr)
-    
-    // this.setState({moneyNow:this.state.arrayByKeyFirebase[2]})
+    let arr = [];
+    let starCountRef = this.itemRef.ref('NewSession').child('Public').child(key);
+    starCountRef.on('value',function(snapshot){
+       snapshot.forEach((child)=>{
+        arr.push(
+          child.val()                                                                             //chua lam dc, push 1 doi tuong child.key
+        );
+       });
+    })
+    this.setState({
+      arrayByKeyFirebase:arr,
+      moneyNow:arr[2]   //setstate money now 
+    })
 
   }
 
-  addDbFlatlist = (name) =>{                                                                     //get information user take part in session has up money
-    // let arr = [];
-    // let arrInfor = [];
-    // this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').on('child_changed',(dataSnapshot) => {
-    //   let arrInfor = [];
-    //   let arr = [];
-    //   arr.push({
-    //     moneyUp:dataSnapshot.val().moneyUp,
-    //     _key: dataSnapshot.key
-    //   })
-    //   console.log("ok"+dataSnapshot.key)
-    //   //get information user
-    //   let starCountRef = this.itemRef.ref('users').child(dataSnapshot.key).child('profile');
-    //   starCountRef.on('value',function(snapshot){
+ 
 
-    //     arrInfor.push({
-    //                     username:snapshot.val().username,
-    //                     email   :snapshot.val().email,
-    //                     avatar  :snapshot.val().avatar
-    //     })
-    //   })
-    //   this.setState({
-    //     dataSource:arr,
-    //     dataInforUser:arrInfor
-    //   })
-    // })
+  addDbFlatlist = (name) =>{                                                                     //get information user take part in session has up money
+    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').on('child_changed',(dataSnapshot) => {         //sai rồi, login bi sai
+      let arrInfor = [];
+      let arr = [];
+      arr.push({
+        moneyUp:dataSnapshot.val().moneyUp,
+        _key: dataSnapshot.key
+      })
+      console.log(arr)
+      //get information user
+      let starCountRef = this.itemRef.ref('users').child(dataSnapshot.key).child('profile');
+      starCountRef.on('value',function(snapshot){
+
+        arrInfor.push({
+                        username:snapshot.val().username,
+                        email   :snapshot.val().email,
+                        avatar  :snapshot.val().avatar
+        })
+      })
+
+      if(arr.length > 0  && arrInfor.length > 0){
+        this.setState({
+          dataSource:arr,
+          dataInforUser:arrInfor
+        })
+      }
+
+    })
+  }
+
+  formatTimeCountToInt = (time) => {
+    let valueSplit = time.split(':');
+    let resultTime = parseInt(valueSplit[0])*60 +parseInt(valueSplit[1]);
+    return resultTime;
   }
 
   toggleTimeCount = () => {
-    if(!this.state.toggleBtnAuction  || this.state.time ==='0')
-    return (
-      <DatePicker
-        style={{width: 100}}
-        // time={this.state.time}
-        date = {this.state.time}
-        timeZoneOffsetInMinutes={true}
-        mode="time"
-       // placeholder="Time"
-       format="HH:mm"
-       // minDate="05-01"
-       // maxDate="2020-06-01"
-       showIcon = {false}
-       confirmBtnText="Confirm"
-       cancelBtnText="Cancel"
-       customStyles={{
-       dateIcon: {
-       position: 'absolute',
-       left: 0,
-       top: 10,
-       marginLeft: 0,
-       },
-       dateInput: {
-       margin: 15,
-       borderRadius:10,
-       marginBottom:20
-       }
-       }}
-       onDateChange={(time) => {this.setState({time: time})}}
-      />
-    )
-    else if(this.state.toggleBtnAuction && this.state.time !=='0')
+    if(!this.state.toggleBtnAuction  || this.state.time ==='0'){
+      return (
+        <DatePicker
+          style={{width: 100}}
+          // time={this.state.time}
+          date = {this.state.time}
+          timeZoneOffsetInMinutes={true}
+          mode="time"
+        // placeholder="Time"
+        format="HH:mm"
+        // minDate="05-01"
+        // maxDate="2020-06-01"
+        showIcon = {false}
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        customStyles={{
+        dateIcon: {
+        position: 'absolute',
+        left: 0,
+        top: 10,
+        marginLeft: 0,
+        },
+        dateInput: {
+        margin: 15,
+        borderRadius:10,
+        marginBottom:20
+        }
+        }}
+        onDateChange={(time) => {this.setState({time: time})}}
+        />
+      )
+    }
+    if(this.state.toggleBtnAuction && this.state.time !=='0')
     return (
       <CountDown
         size={10}
         // until={this.props.myLongTimeReducer}
-        until={60}
+        until={this.state.timeFormat}
         onFinish={() => {
           this.setState({
             toggleBtnAuction:false
           })
         }}  
-        onDateChange ={Alert.alert("ok")}               
+        // onDateChange ={ Alert.alert("ok")}               
         digitStyle={{backgroundColor: '#FFF', borderWidth: 1, borderColor: 'white'}}
         digitTxtStyle={{color: 'red'}}
         timeLabelStyle={{color: 'red', fontWeight: 'bold'}}
@@ -168,15 +188,18 @@ class AdminAuctionSession extends Component {
   }
 
   clickButtonAuction =(toggleValue) =>{
-        this.setState({
-          toggleBtnAuction:toggleValue
-        })
+       
         let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
+        console.log("btn hien tai:"+this.state.toggleBtnAuction)
         if(this.props.myUserIdReducer != 0 && this.props.myKeyLoginedReducer != 0 && this.state.time != '0'){
         let a = this.itemRef.ref('NewSession').child('Public').child(this.props.myKeyLoginedReducer).child('admin').update({
-          toggleBtnAuction:this.state.toggleBtnAuction,
+          toggleBtnAuction:true,
           time:this.state.time,
           moneyNow:this.state.moneyNow
+        })
+        this.setState({
+          toggleBtnAuction:toggleValue,
+          timeFormat:this.formatTimeCountToInt(this.state.time)
         })
       // console.log(a);
       Alert.alert("Start  session completed !.");
@@ -184,7 +207,8 @@ class AdminAuctionSession extends Component {
   }
  
   componentDidMount(){
-   
+    this.addDbFlatlist() ; 
+    // this.addDbFlatlist();
   }
 
   clickStartBtb = (name)=>{
@@ -218,7 +242,7 @@ class AdminAuctionSession extends Component {
   }
   
   render() {
-    console.log("end"+this.state.endSession)
+    console.log("btn"+this.state.dataSource.length)
     console.log("time: "+this.state.time)
    console.log("toggleBtnAuction : "+this.props.myKeyLoginedReducer)
     return (
@@ -272,6 +296,7 @@ class AdminAuctionSession extends Component {
                 </View>
                 <View style={styles.bodyTop10ObjectInfor}>
                   <View>
+                  {/* {this.state.dataInforUser[index].username} */}
                     <Text style={styles.bodyTop10ObjectInforTxt}>{this.state.dataInforUser[index].username}</Text>
                   </View>
                   <View>
@@ -303,7 +328,7 @@ class AdminAuctionSession extends Component {
                 </View>
               </View>
               <View style={[styles.bodyTop10ObjectInfor,{flex:1}]}>
-                <TouchableOpacity style={{width:100,height:35,backgroundColor:'red',borderRadius:5}} onPress={()=>this.clickButtonAuction(true)}>
+                <TouchableOpacity style={this.changeColorBtnNext()} onPress={()=>this.clickButtonAuction(true)}>
                   <View style={{flex:1,flexDirection:'column',alignSelf:'center',justifyContent:'center'}}>
                     <Text style={{color:'white'}}>NEXT</Text>
                   </View>

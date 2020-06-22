@@ -17,6 +17,7 @@ class AuctionSession extends Component {
     this.itemRef = firebase.database();
     this.state = {
       dataSource:[],
+      dataSourceAdmin:[],
       repeat :false,
       rate:1,
       volume:1,
@@ -32,12 +33,22 @@ class AuctionSession extends Component {
       moneyNow:0,
       keySession:this.props.match.params.key,
       dataInforUser:[],
+      top3DataSource: new Map(),
       // longTimeSetup:10,                                                                                             //set time long in session
-      toggleBtnAuction:true                                                                                        //on/off button auction                                                                           
-   
+      toggleBtnAuction:true,
+      timeFormat:60, 
+      endSession:false,
+      moneyNow:0,
+      startSession:false,
+      time  :0,
     };
-
   }
+
+  // formatTimeCountToInt = (time) => {
+  //   let valueSplit = time.split(':');
+  //   let resultTime = parseInt(valueSplit[0])*60 +parseInt(valueSplit[1]);
+  //   return resultTime;
+  // }
 
   onLoad = (data)=>{                                                                              //method video
     this.setState({duration:data.duration});
@@ -52,7 +63,6 @@ class AuctionSession extends Component {
     this.video.seek(0);
   }
 
-  
   addDB = (key) =>{                                                                               // pull information session from firebase
     let arr = [];
     let starCountRef = this.itemRef.ref('NewSession').child('Public').child(key);
@@ -67,13 +77,13 @@ class AuctionSession extends Component {
       arrayByKeyFirebase:arr,
       moneyNow:arr[2]   //setstate money now 
     })
-    // console.log(arr)
-    
     // this.setState({moneyNow:this.state.arrayByKeyFirebase[2]})
 
   }
 
   setToggleBtnAuction =() =>{
+    console.log("ashdgahsdgahsgdhsag"+this.state.toggleBtnAuction)
+    console.log(this.state.toggleBtnAuction)
     if(!this.state.toggleBtnAuction){
       return {width:100,height:35,backgroundColor:'gray',borderRadius:5};
     } else {
@@ -81,10 +91,40 @@ class AuctionSession extends Component {
     }
   }
 
+  listenToggleBtnAuction = () =>{
+    console.log("vao1")
+    let arr = [];
+    let timeFormat = '';
+    let temp = 0;
+    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('admin').on('child_changed',(dataSnapshot) => {
+      console.log(dataSnapshot)
+      console.log("vao2")
+      // arr.push({
+      //   endSession:dataSnapshot.endSession,
+      //   moneyNow:dataSnapshot.moneyNow,
+      //   startSession:dataSnapshot.startSession,
+      //   time:dataSnapshot.time,
+      //   toggleBtnAuction:dataSnapshot.toggleBtnAuction
+      // })
+      // timeFormat = this.formatTimeCountToInt(dataSnapshot.time)
+
+      // temp = dataSnapshot ;
+      
+    //   this.setState({
+    //     toggleBtnAuction:!this.state.toggleBtnAuction
+    // })
+    })
+    
+   
+console.log("ketthuc")
+  }
+
   addDbFlatlist = (name) =>{                                                                     //get information user take part in session has up money
     // let arr = [];
     // let arrInfor = [];
     this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').on('child_changed',(dataSnapshot) => {         //sai rồi, login bi sai
+
+      console.log("vao roi1")
       let arrInfor = [];
       let arr = [];
       arr.push({
@@ -102,13 +142,28 @@ class AuctionSession extends Component {
                         avatar  :snapshot.val().avatar
         })
       })
-      if(arr.length > 0  && arrInfor.length > 0)
+
+      if(this.state.dataSource.length === 3) {
+        this.state.dataSource.splice(2, 1);
+        this.state.dataInforUser.splice(2, 1);
+      }
+      if(arr.length > 0  && arrInfor.length > 0){
+        console.log("Vao roi 2")
+        let result = [] ;
+        let resultInfor = [];
+        result.push(arr,...this.state.dataSource);
+        result.sort((a,b) => a[0].moneyUp < b[0].moneyUp);
+        resultInfor.push(arrInfor,...this.state.dataInforUser);
+
         this.setState({
-          dataSource:arr,
-          dataInforUser:arrInfor
+          dataSource:result,
+          dataInforUser:resultInfor
         })
+      }
     })
   }
+
+  
   upMoneyClick = (moneykeyUp)=>{
     this.setState({
       moneyNow : parseInt(this.state.moneyNow) +parseInt(moneykeyUp)
@@ -117,7 +172,7 @@ class AuctionSession extends Component {
 
   clickButtonAuction =() =>{
     if(!this.state.toggleBtnAuction){
-      return;
+      console.log("s");
     } else {
         // let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
         if(this.props.myUserIdReducer != 0){
@@ -131,21 +186,23 @@ class AuctionSession extends Component {
   }
 
   setValueInitSession = () =>{
-    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('')
+    // this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('')
   }
 
   componentDidMount(){
     // this.setState({                                                                  //sai chua sua
     //   keySession:this.props.match.params.key
     // });
-    if(this.props.myLongTimeReducer > 0)                                                //sai roi
-      this.setState({
-        toggleBtnAuction:true
-      })
+    // if(this.props.myLongTimeReducer > 0)                                                //sai roi
+    //   this.setState({
+    //     toggleBtnAuction:true
+    //   })
     // this.setState({
     //   longTimeSetup:this.props.myLongTimeReducer
     // })
-    // this.addDB(this.props.match.params.key);                                            //sai roi
+    // this.addDB(this.props.match.params.key);  
+    this.listenToggleBtnAuction();
+                                            //sai roi
     this.addDbFlatlist() ;                                       //ok dung roi
     
     // if(this.props.myUserIdReducer != '0')                                             //check is login
@@ -154,8 +211,11 @@ class AuctionSession extends Component {
 
   }
   render() {
-    console.log(this.state.toggleBtnAuction)
-    
+    console.log("test1")
+    console.log("Asda"+this.state.toggleBtnAuction)
+    console.log("test1")
+
+
     let {arrayByKeyFirebase} =this.state
     return (
       <View style={styles.container}>
@@ -206,10 +266,14 @@ class AuctionSession extends Component {
                 </View>
                 <View style={styles.bodyTop10ObjectInfor}>
                   <View>
-                    <Text style={styles.bodyTop10ObjectInforTxt}>{(this.state.dataInforUser.length != 0) ? this.state.dataInforUser[index].username:"sd"}</Text>
+                  {/* {(this.state.dataInforUser.length != 0) ? this.state.dataInforUser[index].username:"sd"} */}
+                  {
+                    console.log(this.state.dataInforUser[index])
+                  }
+                    <Text style={styles.bodyTop10ObjectInforTxt}>{(this.state.dataInforUser.length != 0) ? this.state.dataInforUser[index][0].username:"sd"}</Text>
                   </View>
                   <View>
-                    <Text style={styles.bodyTop10ObjectInforTxt}>{item.moneyUp} đ</Text>
+                    <Text style={styles.bodyTop10ObjectInforTxt}>{item[0].moneyUp}</Text>
                   </View>
                 </View>
               </View>
@@ -224,7 +288,7 @@ class AuctionSession extends Component {
                   <CountDown
                   size={10}
                   // until={this.props.myLongTimeReducer}
-                  until={60}
+                  until={this.state.timeFormat}
                   onFinish={() => {
                     this.setState({
                       toggleBtnAuction:false

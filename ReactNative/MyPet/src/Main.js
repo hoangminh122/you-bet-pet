@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {NativeRouter,Route,Link,Switch,View,Text} from 'react-router-native'
-import Login from './components/LoginFace';
+import Login from './components/Index';
 import InforUser from './components/InforUser';
 // import Login1 from './src/components/auctionSession';
 // import {View} from 'react-native'
