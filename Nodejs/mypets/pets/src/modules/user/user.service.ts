@@ -1,11 +1,11 @@
 import { Injectable, Controller, HttpException, HttpStatus, BadRequestException, Logger, UseFilters } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from '../entities/user/user.entity';
+import { UserEntity } from '../../entities/user/user.entity';
 import { Repository } from 'typeorm';
 import { UserDTO } from './dto/user.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { ForbiddenException } from '../shared/ForbiddenException';
-import { HttpExceptionFilter } from '../shared/http-exception.filter';
+import { ForbiddenException } from '../../shared/errors/ForbiddenException';
+import { HttpExceptionFilter } from '../../shared/filters/http-exception.filter';
 
 @Injectable()
 export class UserService {
@@ -17,8 +17,12 @@ export class UserService {
     }
 
     @ApiOperation({ summary: "Get all user" })
-    async showAll() :Promise<UserEntity[]>{
-        return await this.userRepository.find({relations:['sessions']});
+    async showAll(page: number = 1) :Promise<UserEntity[]>{
+        return await this.userRepository.find({
+            relations:['sessions'],
+            take:10,
+            skip:10 * (page-1)
+    });
     }
 
     async create(data:UserDTO){
