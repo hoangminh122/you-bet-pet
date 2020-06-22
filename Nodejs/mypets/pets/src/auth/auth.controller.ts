@@ -1,10 +1,9 @@
 import { Controller, Post,Body,Request, UseGuards, Get } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { LocalAuthGuard } from "./local-auth.guard";
 import {AuthService} from './auth.service'
 import { LoginDTO } from "./dto/auth.dto";
-import { UserService } from "../user/user.service";
-import { UserDTO } from "../user/dto/user.dto";
+import { UserService } from "../modules/user/user.service";
+import { UserDTO } from "../modules/user/dto/user.dto";
 import { ApiTags, ApiBody } from "@nestjs/swagger";
 import { UserEntity } from "../entities/index.entity";
 
