@@ -42,10 +42,10 @@ class CreateSession extends Component {
       case 1:
         break;
       case 2:
-        // if(this.state.nameSession == "") return;                        //fail clean code ,help!!!!
+        if(this.state.nameSession == "") return;                        //fail clean code ,help!!!!
         break;
       case 3:
-        // if(this.state.date == "" || this.state.timeStart == "") return ;
+        if(this.state.date == "" || this.state.timeStart == "") return ;
         break;
       case 4:
         if(this.state.arrEmail.length <= 0) return ;
@@ -71,14 +71,13 @@ class CreateSession extends Component {
         }
       })
       Alert.alert("Create new session completed !.");
+      this.props.history.push('/inforAuction')
       //go to page Infor session
     }
     return ;
   }
 
   render() {
-    // console.log(this.state.arrEmail)
-    // console.log(this.state.arrEmail)
     return (
          <DismissKeyboard >
          <View style={styles.container}>
@@ -142,7 +141,7 @@ class CreateSession extends Component {
                             placeholder="Date Auction"
                             format="YYYY-MM-DD"
                             minDate="2020-05-01"
-                            maxDate="2020-06-01"
+                            maxDate="2025-06-01"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
                             customStyles={{

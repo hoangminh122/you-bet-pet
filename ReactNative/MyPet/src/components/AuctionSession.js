@@ -41,7 +41,13 @@ class AuctionSession extends Component {
       moneyNow:0,
       startSession:false,
       time  :0,
+      toggleBtnAuctionAdmin:[]
     };
+    //sai roi
+    this.addDbFlatlist() ;    
+    this.listenToggleBtnAuction();
+    // this.setValueInitSession()
+
   }
 
   // formatTimeCountToInt = (time) => {
@@ -63,27 +69,26 @@ class AuctionSession extends Component {
     this.video.seek(0);
   }
 
-  addDB = (key) =>{                                                                               // pull information session from firebase
-    let arr = [];
-    let starCountRef = this.itemRef.ref('NewSession').child('Public').child(key);
-    starCountRef.on('value',function(snapshot){
-       snapshot.forEach((child)=>{
-        arr.push(
-          child.val()                                                                             //chua lam dc, push 1 doi tuong child.key
-        );
-       });
-    })
-    this.setState({
-      arrayByKeyFirebase:arr,
-      moneyNow:arr[2]   //setstate money now 
-    })
-    // this.setState({moneyNow:this.state.arrayByKeyFirebase[2]})
+  // addDB = (key) =>{                                                                               // pull information session from firebase
+  //   let arr = [];
+  //   let starCountRef = this.itemRef.ref('NewSession').child('Public').child(key);
+  //   starCountRef.on('value',function(snapshot){
+  //      snapshot.forEach((child)=>{
+  //       arr.push(
+  //         child.val()                                                                             //chua lam dc, push 1 doi tuong child.key
+  //       );
+  //      });
+  //   })
+  //   this.setState({
+  //     arrayByKeyFirebase:arr,
+  //     moneyNow:arr[2]   //setstate money now 
+  //   })
+  //   // this.setState({moneyNow:this.state.arrayByKeyFirebase[2]})
 
-  }
+  // }
 
   setToggleBtnAuction =() =>{
-    console.log("ashdgahsdgahsgdhsag"+this.state.toggleBtnAuction)
-    console.log(this.state.toggleBtnAuction)
+    
     if(!this.state.toggleBtnAuction){
       return {width:100,height:35,backgroundColor:'gray',borderRadius:5};
     } else {
@@ -92,46 +97,52 @@ class AuctionSession extends Component {
   }
 
   listenToggleBtnAuction = () =>{
-    console.log("vao1")
-    let arr = [];
-    let timeFormat = '';
-    let temp = 0;
-    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('admin').on('child_changed',(dataSnapshot) => {
-      console.log(dataSnapshot)
-      console.log("vao2")
+    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('admin').on('child_changed',(dataSnapshot) => {         //sai rồi, login bi sai
+      // let arrInfor = [];
+      // let arr = [];
       // arr.push({
-      //   endSession:dataSnapshot.endSession,
-      //   moneyNow:dataSnapshot.moneyNow,
-      //   startSession:dataSnapshot.startSession,
-      //   time:dataSnapshot.time,
-      //   toggleBtnAuction:dataSnapshot.toggleBtnAuction
+      //   moneyUp:dataSnapshot.val().moneyUp,
+      //   _key: dataSnapshot.key
       // })
-      // timeFormat = this.formatTimeCountToInt(dataSnapshot.time)
+      // console.log(arr)
+      // //get information user
+      // let starCountRef = this.itemRef.ref('users').child(dataSnapshot.key).child('profile');
+      // starCountRef.on('value',function(snapshot){
 
-      // temp = dataSnapshot ;
-      
-    //   this.setState({
-    //     toggleBtnAuction:!this.state.toggleBtnAuction
-    // })
+      //   arrInfor.push({
+      //                   username:snapshot.val().username,
+      //                   email   :snapshot.val().email,
+      //                   avatar  :snapshot.val().avatar
+      //   })
+      // })
+
+      // if(arr.length > 0  && arrInfor.length > 0){
+      //   this.setState({
+      //     dataSource:arr,
+      //     dataInforUser:arrInfor
+      //   })
+      // }
+      let arr =[];
+      arr.push({
+        value:dataSnapshot.val(),
+        _key: dataSnapshot.key
+      })
+      this.setState({
+        toggleBtnAuction:dataSnapshot.val()
+      })
     })
-    
-   
-console.log("ketthuc")
   }
 
   addDbFlatlist = (name) =>{                                                                     //get information user take part in session has up money
     // let arr = [];
     // let arrInfor = [];
     this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').on('child_changed',(dataSnapshot) => {         //sai rồi, login bi sai
-
-      console.log("vao roi1")
       let arrInfor = [];
       let arr = [];
       arr.push({
         moneyUp:dataSnapshot.val().moneyUp,
         _key: dataSnapshot.key
       })
-      console.log("ok"+dataSnapshot.key)
       //get information user
       let starCountRef = this.itemRef.ref('users').child(dataSnapshot.key).child('profile');
       starCountRef.on('value',function(snapshot){
@@ -148,7 +159,6 @@ console.log("ketthuc")
         this.state.dataInforUser.splice(2, 1);
       }
       if(arr.length > 0  && arrInfor.length > 0){
-        console.log("Vao roi 2")
         let result = [] ;
         let resultInfor = [];
         result.push(arr,...this.state.dataSource);
@@ -162,7 +172,6 @@ console.log("ketthuc")
       }
     })
   }
-
   
   upMoneyClick = (moneykeyUp)=>{
     this.setState({
@@ -172,24 +181,93 @@ console.log("ketthuc")
 
   clickButtonAuction =() =>{
     if(!this.state.toggleBtnAuction){
-      console.log("s");
     } else {
         // let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
         if(this.props.myUserIdReducer != 0){
         let a = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').child(this.props.myUserIdReducer).update({
         moneyUp:this.state.moneyNow
+        
       })
-      // console.log(a);
+      let b = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('MaxMoney').update({
+        maxMoney:this.state.moneyNow
+      })
       Alert.alert("up money session completed !.");
     }
     }
   }
 
+  listenMaxMoney = () => {
+    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('MaxMoney').on('child_changed',(dataSnapshot) => {         //sai rồi, login bi sai
+      let arr = [];
+      arr.push({
+        maxMoney:dataSnapshot.val(),
+        _key: dataSnapshot.key
+      })
+      this.setState({
+        moneyNow:dataSnapshot.val(),
+      });
+     
+    })
+  }
+
   setValueInitSession = () =>{
-    // this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('')
+    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('admin').on('value',(dataSnapshot) => {   
+      let arr = new Array();
+      arr.push({
+        minMoney:dataSnapshot.val().minMoney,
+        moneyNow:dataSnapshot.val().moneyNow,
+        startSession:dataSnapshot.val().startSession,
+        time:dataSnapshot.val().time,
+        toggleBtnAuction:dataSnapshot.val().toggleBtnAuction,
+        _key: dataSnapshot.key
+      })
+
+      this.setState({
+        timeFormat:this.formatTimeCountToInt(dataSnapshot.val().time),
+        moneyNow:dataSnapshot.val().minMoney,
+        dataSourceAdmin:arr
+      })
+    })
+
+  }
+
+  showTimeCount = () =>{
+    if(this.state.dataSourceAdmin.length >0){
+     return (
+                <CountDown
+                size={10}
+                // until={this.props.myLongTimeReducer}
+                
+                until={this.state.timeFormat}
+                onFinish={() => {
+                  this.setState({
+                    toggleBtnAuction:false
+                  })
+                }}                  
+                digitStyle={{backgroundColor: '#FFF', borderWidth: 1, borderColor: 'white'}}
+                digitTxtStyle={{color: 'red'}}
+                timeLabelStyle={{color: 'red', fontWeight: 'bold'}}
+                separatorStyle={{color: 'black'}}
+                timeToShow={['H', 'M', 'S']}
+                timeLabels={{m: null, s: null}}
+                showSeparator
+            />
+            )
+    }
+  }
+
+  formatTimeCountToInt = (time) => {
+      let valueSplit = time.split(':');
+      let resultTime = parseInt(valueSplit[0])*60 +parseInt(valueSplit[1]);
+      return resultTime;
+    // return 120;
+    
   }
 
   componentDidMount(){
+    this.setValueInitSession();
+    this.listenMaxMoney();
+   
     // this.setState({                                                                  //sai chua sua
     //   keySession:this.props.match.params.key
     // });
@@ -201,9 +279,7 @@ console.log("ketthuc")
     //   longTimeSetup:this.props.myLongTimeReducer
     // })
     // this.addDB(this.props.match.params.key);  
-    this.listenToggleBtnAuction();
-                                            //sai roi
-    this.addDbFlatlist() ;                                       //ok dung roi
+                                      //ok dung roi
     
     // if(this.props.myUserIdReducer != '0')                                             //check is login
     //   this.addDB(this.props.myUserIdReducer)
@@ -211,10 +287,6 @@ console.log("ketthuc")
 
   }
   render() {
-    console.log("test1")
-    console.log("Asda"+this.state.toggleBtnAuction)
-    console.log("test1")
-
 
     let {arrayByKeyFirebase} =this.state
     return (
@@ -267,9 +339,6 @@ console.log("ketthuc")
                 <View style={styles.bodyTop10ObjectInfor}>
                   <View>
                   {/* {(this.state.dataInforUser.length != 0) ? this.state.dataInforUser[index].username:"sd"} */}
-                  {
-                    console.log(this.state.dataInforUser[index])
-                  }
                     <Text style={styles.bodyTop10ObjectInforTxt}>{(this.state.dataInforUser.length != 0) ? this.state.dataInforUser[index][0].username:"sd"}</Text>
                   </View>
                   <View>
@@ -285,23 +354,7 @@ console.log("ketthuc")
               <View style={[styles.bodyTop10ObjectStt,{flex:1,borderRightWidth:2}]}>
                 <Text style={{fontSize:11,fontWeight:'bold'}}>Thời gian còn lại</Text>
                 <View>
-                  <CountDown
-                  size={10}
-                  // until={this.props.myLongTimeReducer}
-                  until={this.state.timeFormat}
-                  onFinish={() => {
-                    this.setState({
-                      toggleBtnAuction:false
-                    })
-                  }}                  
-                  digitStyle={{backgroundColor: '#FFF', borderWidth: 1, borderColor: 'white'}}
-                  digitTxtStyle={{color: 'red'}}
-                  timeLabelStyle={{color: 'red', fontWeight: 'bold'}}
-                  separatorStyle={{color: 'black'}}
-                  timeToShow={['H', 'M', 'S']}
-                  timeLabels={{m: null, s: null}}
-                  showSeparator
-              />
+                 {this.showTimeCount()}
                 </View>
               </View>
               <View style={[styles.bodyTop10ObjectImage,{flex:1,borderRightWidth:3}]}>
