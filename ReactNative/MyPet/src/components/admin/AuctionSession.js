@@ -40,8 +40,10 @@ class AdminAuctionSession extends Component {
       arrayByKeyFirebase:[],
       moneyNow:0,
       keySession:this.props.match.params.key,
-      dataInforUser:[]
+      dataInforUser:[],
+      minMonney:0
     };
+    this.addDbFlatlist() ;
 
   }
 
@@ -195,7 +197,8 @@ class AdminAuctionSession extends Component {
         let a = this.itemRef.ref('NewSession').child('Public').child(this.props.myKeyLoginedReducer).child('admin').update({
           toggleBtnAuction:true,
           time:this.state.time,
-          moneyNow:this.state.moneyNow
+          moneyNow:this.state.moneyNow,
+          minMoney:this.state.minMonney
         })
         this.setState({
           toggleBtnAuction:toggleValue,
@@ -207,7 +210,7 @@ class AdminAuctionSession extends Component {
   }
  
   componentDidMount(){
-    this.addDbFlatlist() ; 
+    
     // this.addDbFlatlist();
   }
 

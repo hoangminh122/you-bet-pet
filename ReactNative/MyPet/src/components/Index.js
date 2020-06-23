@@ -143,10 +143,8 @@ class LoginFace extends Component {
                   onLogoutFinished={()=>console.log("logout")}
                   /> */}
 
-
-                  
-                  <TouchableOpacity style={{margin:10,height:screen.width/6,width:screen.width/6,borderColor:'gray',borderRadius:90,borderWidth:1}} onPress={()=>this.onLoginFace()}>
-                    <Image style= {{height:screen.width/6,width:screen.width/6}} source={require('../images/face.png')}>
+                  <TouchableOpacity style={{padding:5,height:screen.width/6,width:screen.width/6,borderColor:'gray',borderRadius:90,borderWidth:1,backgroundColor:'#F8F8FF'}} onPress={()=>this.onLoginFace()}>
+                    <Image style= {{height:screen.width/6,width:screen.width/6,marginRight:100}} source={require('../images/face.png')}>
                     </Image>
                   </TouchableOpacity>
                  
@@ -171,11 +169,15 @@ class LoginFace extends Component {
 
 const styles = StyleSheet.create({
   container:{
+    margin:10,
     display:'flex',
     flexDirection:'column',
-    // flex:1,
-    height:screen.height-16,
-    backgroundColor:'#F8F8FF'
+    flex:1,
+    // height:screen.height-16,
+    backgroundColor:'#C6E2FF',
+    borderBottomLeftRadius:20,
+    borderBottomRightRadius:20,
+    
   },
   body:{
     flex:7,
@@ -187,8 +189,8 @@ const styles = StyleSheet.create({
   bodyChild:{
     flex:1,
     flexDirection:'column',
-    height:screen.height,
-    width:screen.width
+    height:screen.height-5,
+    width:screen.width-5
   },
   backgroundContainer : {
     flex : 1,
