@@ -27,10 +27,16 @@ class InforUser extends Component {
             });
         }
     }
-  render() {
+
+    goBack = () => {
+        this.props.history.goBack();
+        // history.goBack();
+    }
+
+    render() {
     return (
         <View style={(Platform.OS === 'android') ? styles.container : [styles.container,{marginTop:30}]}>
-        <Header nameTitle = "Thông Tin Người Dùng"/>
+        <Header nameTitle = "Thông Tin Người Dùng" goBack = {this.goBack}/>
         <View style={styles.body}>
             <View style={styles.bodyIconUp}>
                 <View style={styles.bodyIconUpImageView}>       

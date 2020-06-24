@@ -125,12 +125,17 @@ class InforAution extends Component {
    
   }
 
+  goBack = () => {
+    this.props.history.goBack();
+    // history.goBack();
+  }
+
   render() {
     console.log("id: "+this.props.myUserIdReducer)
     console.log("login cua:"+this.findUserFirebase(this.props.myUserIdReducer))
     return (
       <View style={styles.container}>
-        <Header/>
+        <Header goBack = {this.goBack}/>
         <View style={styles.body}>
         <ScrollView 
                           ref = {scrollView => this._scrollView = scrollView }
