@@ -3,17 +3,23 @@ import { Injectable,UnauthorizedException, HttpException, HttpStatus} from "@nes
 import {PassportStrategy} from '@nestjs/passport'
 import { Strategy, ExtractJwt, VerifiedCallback } from "passport-jwt";
 import { doesNotMatch } from "assert";
+import { async } from "rxjs/internal/scheduler/async";
+import * as passport from "passport";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(private authService: AuthService){
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: 'secretKey',
-        });
+            passReqToCallback:true,
+            secretOrKey: process.env.SECRET || 'MINH123',
+        },
+        async (req, payload,next) => await this.verify(req,payload,next)
+        );
+        passport.use(this);
     }
 
-    async validate(payload: any,done:VerifiedCallback){
+    async verify(req,payload: any,done:VerifiedCallback){
         const user = await this.authService.validateUser(payload);
         if(!user){
             return done(

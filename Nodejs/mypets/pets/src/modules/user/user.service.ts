@@ -1,4 +1,4 @@
-import { Injectable, Controller, HttpException, HttpStatus, BadRequestException, Logger, UseFilters } from '@nestjs/common';
+import { Injectable, Controller, HttpException, HttpStatus, BadRequestException, Logger, UseFilters, Inject, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../../entities/user/user.entity';
 import { Repository } from 'typeorm';
@@ -6,12 +6,16 @@ import { UserDTO } from './dto/user.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { ForbiddenException } from '../../shared/errors/ForbiddenException';
 import { HttpExceptionFilter } from '../../shared/filters/http-exception.filter';
-
+import { LoginDTO } from 'src/modules/auth/dto/auth.dto';
+import { toUserLoginDto } from '../../shared/mapper/user.mapper';
+import {AuthService} from '../auth/auth.service'
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(UserEntity)
-        private userRepository: Repository<UserEntity>
+        private userRepository: Repository<UserEntity>,
+        @Inject(forwardRef(() => AuthService))
+        private authService: AuthService
     ) {
 
     }
@@ -27,6 +31,8 @@ export class UserService {
 
     async create(data:UserDTO){
         const user = await this.userRepository.create(data);
+        //hash password
+        user.password = await this.authService.getHash(user.password);
         await this.userRepository.save(user);
         return user;
     }
@@ -66,8 +72,18 @@ export class UserService {
     }
 
     async findByPayload(payload: any){
-        const { username } = payload;
-        return await this. userRepository.findOne({username})
+        const { email } = payload;
+        return await this. userRepository.findOne({email})
     }
+
+    async findByEmail(email: any): Promise<UserDTO> {
+        const user = await this.userRepository.findOne({where:{email:email}});
+        // if(!user){
+        //     throw new HttpException('User not found',HttpStatus.UNAUTHORIZED);
+        // }
+        return user;
+    }
+
+   
 
 }

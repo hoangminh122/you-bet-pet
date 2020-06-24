@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import {TypeOrmModule} from '@nestjs/typeorm'
 import { UserModule } from './modules/user/user.module';
 import { SessionModule } from './modules/session/session.module';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { APP_FILTER } from '@nestjs/core';
 import { ForbiddenException } from './shared/errors/ForbiddenException';
 import { LoggerMiddleware } from './shared/middleware/logger.middleware';

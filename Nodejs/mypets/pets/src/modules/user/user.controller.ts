@@ -13,7 +13,7 @@ import { JoiValidationPipe } from '../../shared/pipes/JoiValidationPipe';
 import Joi from '@hapi/joi';
 import { CreateUserDto } from './dto/create.cat.dto';
 import {FileInterceptor, FilesInterceptor, FileFieldsInterceptor} from '@nestjs/platform-express/multer'
-import { AuthGuards } from '../../auth/jwt/local-auth.guard';
+// import { AuthGuards } from '../auth/jwt/local-auth.guard';
 
 @ApiTags('user')
 // @UseFilters(HttpExceptionFilter)
@@ -29,7 +29,7 @@ export class UserController {
     }
 
     @Get()
-    @UseGuards(new AuthGuards())
+    // @UseGuards(new AuthGuards())
     // @UseFilters(new HttpExceptionFilter())
     // @UseFilters(HttpExceptionFilter)
     showAllUser(@Query('page') page: number){
