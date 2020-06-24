@@ -27,10 +27,16 @@ class InforUser extends Component {
             });
         }
     }
-  render() {
+
+    goBack = () => {
+        this.props.history.goBack();
+        // history.goBack();
+    }
+
+    render() {
     return (
         <View style={(Platform.OS === 'android') ? styles.container : [styles.container,{marginTop:30}]}>
-        <Header nameTitle = "Thông Tin Người Dùng"/>
+        <Header nameTitle = "Thông Tin Người Dùng" goBack = {this.goBack}/>
         <View style={styles.body}>
             <View style={styles.bodyIconUp}>
                 <View style={styles.bodyIconUpImageView}>       
@@ -41,8 +47,8 @@ class InforUser extends Component {
                     <Text style={(this.state.isLive)?styles.bodyIconUpOnlineViewIconChild: [styles.bodyIconUpOnlineViewIconChild,{backgroundColor:'red'}]}></Text>
                     <Text >is Active</Text>
                 </View>
-                <View style={{flex:1}}>
-                    <Text style={{ width:100,height:50,alignSelf:'stretch'}}>Nerver give Up !!!!! Success .............................</Text>
+                <View style={{flex:1,flexDirection:'row',height:100,alignSelf:'stretch',alignItems:'center',justifyContent:'center'}}>
+                    <Text style={{flex:1}}>Nerver give Up !!!!! Success .............................3</Text>
                 </View>
                 <View style={styles.bodyIconUpContactView}>
                     <View style={styles.bodyIconUpContactViewPhone}>
@@ -176,14 +182,15 @@ const styles = StyleSheet.create({
             flexDirection:'column',
             justifyContent:'center',
             alignItems:'center',
-            borderWidth:1,
-            borderColor:'gray',
+            borderWidth:0.3,
+            borderColor:'black',
             margin:2
         },
             bodyInforDownView:{
                 flex:1,
                 flexDirection:'row',
-                alignItems:'flex-start'
+                alignItems:'flex-start',
+                margin:10
             },
                 bodyInforDownViewChildLeft:{
                     flex:1,

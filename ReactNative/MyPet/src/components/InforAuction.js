@@ -6,12 +6,13 @@ import firebase from 'firebase'
 import ListView from 'deprecated-react-native-listview'
 import {Link} from 'react-router-native'
 import {connect} from 'react-redux'
+import {clickSaveKeyAuction} from '../redux/action/ActionSaveKeyLogined'
 // import {saveUserFirebase,findUserFirebase} from '../databases/saveUserLogin'                       //can't fix error warming
-
-
 
 import { ToastAndroid } from 'react-native';
 import { Sync } from 'realm';
+
+const screen = Dimensions.get('window')
 
 var SQLite = require('react-native-sqlite-storage');
 if (Platform.OS === 'ios') {
@@ -20,7 +21,6 @@ if (Platform.OS === 'ios') {
 else {
         var db = SQLite.openDatabase({name : "pets.db", createFromLocation : "~pets.db", location: 'Library'});
 }
-const screen = Dimensions.get('window')
 class ListViewItem extends Component {
   render(){
     return(
@@ -54,18 +54,17 @@ class InforAution extends Component {
     let arr = [];
     this.itemRef.ref('NewSession').child('Public').on('child_added',(dataSnapshot) => {
       arr.push({
-        nameSession:dataSnapshot.val().nameSession,
-        date       :dataSnapshot.val().date,
-        timeStart  :dataSnapshot.val().timeStart,
-        arrEmail   :dataSnapshot.val().arrEmail,
-        moneyInit  :dataSnapshot.val().moneyInit,
+        owner:dataSnapshot.val().create.owner,
+        nameSession:dataSnapshot.val().create.nameSession,
+        date       :dataSnapshot.val().create.date,
+        timeStart  :dataSnapshot.val().create.timeStart,
+        arrEmail   :dataSnapshot.val().create.arrEmail,
+        moneyInit  :dataSnapshot.val().create.moneyInit,
         _key: dataSnapshot.key
-
       })
       this.setState({
         dataSource:this.state.dataSource.cloneWithRows(arr)
       })
-      // console.log("ok")
     })
   }
 
@@ -107,13 +106,36 @@ class InforAution extends Component {
                 // console.log("result"+result )
     return  result;
   }
+
+  directToAuction = (key,owner) => {
+    this.props.myClickSaveKeyAuction('AUCTION_KEY_SAVE',key)     
+    console.log("test")
+    console.log(this.props.myUserIdReducer)   
+    console.log(owner)       
+    console.log(this.props.myUserIdReducer === owner)  
+    console.log("test")          
+                                   //Save key session is running 
+    if(this.props.myUserIdReducer === owner){                                 //test
+      let url='/auctionSession-admin/'+key;                                                                           //error cannot use param sercure
+      this.props.history.push(url)
+    } else {
+      let url='/auctionSession/'+key;
+      this.props.history.push(url)
+    }
+   
+  }
+
+  goBack = () => {
+    this.props.history.goBack();
+    // history.goBack();
+  }
+
   render() {
     console.log("id: "+this.props.myUserIdReducer)
     console.log("login cua:"+this.findUserFirebase(this.props.myUserIdReducer))
-    
     return (
       <View style={styles.container}>
-        <Header/>
+        <Header goBack = {this.goBack}/>
         <View style={styles.body}>
         <ScrollView 
                           ref = {scrollView => this._scrollView = scrollView }
@@ -126,7 +148,7 @@ class InforAution extends Component {
           <View style={[styles.body,{width:screen.width}]}>
             <View style={styles.headerBody}>
               <View style={styles.rowTitleBody}>
-                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:3,borderColor:'gray'}]}>
                  
                   <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
                     <View style={styles.iconNotifyView}>
@@ -161,12 +183,11 @@ class InforAution extends Component {
               <ListView style={{width:screen.width}}
                         dataSource={this.state.dataSource}
                         renderRow={(rowData) => {
-                          let url='/auctionSession/'+rowData._key;                          //sai clean code chua biet cach khac phuc
-                          return  <Link to={url}>                                                   
+                          // let url='/auctionSession/'+rowData._key;                          //sai clean code chua biet cach khac phuc
+                          return  <TouchableOpacity onPress={() => this.directToAuction(rowData._key,rowData.owner)} >                                                   
                                     <ListViewItem rowData = {rowData}></ListViewItem>
-                                  </Link>
+                                  </TouchableOpacity>
                         }
-                        
                          }
               />
             </View>
@@ -177,7 +198,7 @@ class InforAution extends Component {
                 <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
                   <Text style={styles.txtColTitleBodyUp}>Đang diễn ra</Text>
                 </View>
-                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:3,borderColor:'gray'}]}>
                   <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
                     <View style={styles.iconNotifyView}>
                         <Text style={styles.iconNotifyTxt}>1</Text>
@@ -217,7 +238,7 @@ class InforAution extends Component {
                 <View style={[styles.colTitleBody,{borderRightWidth:0}]}>
                   <Text style={styles.txtColTitleBodyUp}>Đã thắng</Text>
                 </View>
-                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:1}]}>
+                <View style={[styles.colTitleBody,{borderRightWidth:0,borderBottomWidth:3,borderColor:'gray'}]}>
                   <View style={[styles.txtColTitleBodyUp,{position:'relative'}]}>
                     <View style={styles.iconNotifyView}>
                         <Text style={styles.iconNotifyTxt}>1</Text>
@@ -305,8 +326,8 @@ const styles = StyleSheet.create({
   },
     colTitleBody:{
       flex:1,
-      borderRightWidth:1,
-      height:'80%',width:'80%',
+      borderRightWidth:0.8,
+      height:'60%',width:'80%',
       justifyContent:'center',
       alignItems:'center'
     },
@@ -342,6 +363,8 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state){
-  return {myUserIdReducer:state.userIdReducer};
+  return {
+    myUserIdReducer:state.userIdReducer,
+  };
 }
-export default connect(mapStateToProps)(InforAution);
+export default connect(mapStateToProps,{myClickSaveKeyAuction:clickSaveKeyAuction})(InforAution);
