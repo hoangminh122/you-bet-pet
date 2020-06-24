@@ -38,7 +38,7 @@ class AuctionSession extends Component {
       toggleBtnAuction:true,
       timeFormat:60, 
       endSession:false,
-      moneyNow:0,
+      // moneyNow:0,
       startSession:false,
       time  :0,
       toggleBtnAuctionAdmin:[]
@@ -224,7 +224,7 @@ class AuctionSession extends Component {
 
       this.setState({
         timeFormat:this.formatTimeCountToInt(dataSnapshot.val().time),
-        moneyNow:dataSnapshot.val().minMoney,
+        moneyNow:dataSnapshot.val().moneyNow,
         dataSourceAdmin:arr
       })
     })
@@ -286,12 +286,18 @@ class AuctionSession extends Component {
 
 
   }
+
+  goBack = () => {
+    this.props.history.goBack();
+    // history.goBack();
+  }
+
   render() {
 
     let {arrayByKeyFirebase} =this.state
     return (
       <View style={styles.container}>
-        <Header nameTitle ={arrayByKeyFirebase[4]}/>
+        <Header nameTitle ={arrayByKeyFirebase[4]} goBack = {this.goBack}/>
         <View style={styles.imagePets}>
           <View style={styles.imageChild}>
             <TouchableOpacity

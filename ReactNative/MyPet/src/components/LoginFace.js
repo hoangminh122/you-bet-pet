@@ -111,11 +111,15 @@ class LoginFace extends Component {
       }
     }
    
+    goBack = () => {
+      this.props.history.goBack();
+      // history.goBack();
+    }
     
   render() {
     return (
         <View style={(Platform.OS === 'android') ? styles.container : [styles.container,{marginTop:30}]}>
-        <Header nameTitle = "Login"/>
+        <Header nameTitle = "Login" goBack = {this.goBack}/>
             {/* <Header/> */}
             {/*Start Body */}
           

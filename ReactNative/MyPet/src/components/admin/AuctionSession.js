@@ -244,6 +244,11 @@ class AdminAuctionSession extends Component {
     }
   }
   
+  goBack = () => {
+    this.props.history.goBack();
+    // history.goBack();
+  }
+  
   render() {
     console.log("btn"+this.state.dataSource.length)
     console.log("time: "+this.state.time)
@@ -251,7 +256,7 @@ class AdminAuctionSession extends Component {
     return (
       <View style={styles.container}>
         {/* <Header nameTitle ={arrayByKeyFirebase[4]}/> */}
-        <Header nameTitle = ' '/>
+        <Header nameTitle = ' ' goBack = {this.goBack}/>
         <View style={styles.imagePets}>
           <View style={styles.imageChild}>
           <TouchableOpacity
