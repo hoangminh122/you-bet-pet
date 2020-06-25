@@ -77,11 +77,16 @@ class CreateSession extends Component {
     return ;
   }
 
+  goBack = () => {
+    this.props.history.goBack();
+    // history.goBack();
+  }
+
   render() {
     return (
          <DismissKeyboard >
          <View style={styles.container}>
-            <Header/>
+            <Header goBack = {this.goBack}/>
             <View style={styles.body}>
               <ScrollView 
                           ref = {scrollView => this._scrollView = scrollView }

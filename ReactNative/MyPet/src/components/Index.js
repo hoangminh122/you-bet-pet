@@ -143,7 +143,7 @@ class LoginFace extends Component {
                   onLogoutFinished={()=>console.log("logout")}
                   /> */}
 
-                  <TouchableOpacity style={{padding:5,height:screen.width/6,width:screen.width/6,borderColor:'gray',borderRadius:90,borderWidth:1,backgroundColor:'#F8F8FF'}} onPress={()=>this.onLoginFace()}>
+                  <TouchableOpacity style={{padding:5,height:screen.width/6,width:screen.width/6,borderColor:'gray',borderRadius:90,borderWidth:1,backgroundColor:'#F8F8FF',}} onPress={()=>this.onLoginFace()}>
                     <Image style= {{height:screen.width/6,width:screen.width/6,marginRight:100}} source={require('../images/face.png')}>
                     </Image>
                   </TouchableOpacity>
