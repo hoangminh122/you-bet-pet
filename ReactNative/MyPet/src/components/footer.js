@@ -13,14 +13,14 @@ export default class componentName extends Component {
             <Text style={styles.linkView}>Trang chu</Text>
           </View>
           <View style={styles.iconView}>
-            <Link to={'/'} style={styles.linkView}>
-              <Image source={require('../images/notify.png')}></Image>
+            <Link to={'/inforAuction'} style={styles.linkView}>
+              <Image source={require('../images/danh-sach-phien.png')}></Image>
             </Link>
             <Text style={styles.linkView}>Quan ly</Text>
           </View>
           <View style={styles.iconView}>
             <Link to={'/createSession'} style={styles.linkView}>
-              <Image source={require('../images/home.png')}></Image>
+              <Image source={require('../images/tao-phien.png')}></Image>
             </Link>
             <Text style={styles.linkView}>Tao Phien</Text>
           </View>

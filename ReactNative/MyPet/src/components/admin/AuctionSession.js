@@ -267,7 +267,7 @@ class AdminAuctionSession extends Component {
               style={{width:"100%",height:"100%"}}
                 
                 source={require('../test/big_buck_bunny.mp4')}
-                // source={{uri:'https://www.youtube.com/watch?v=dQHUK2MfXvI'}}
+                // source={{uri:'https://www.youtube.com/watch?v=IKKj2yPrMdk&t=4s'}}
                 ref={(ref) => {
                     this.player = ref
                 }}  
