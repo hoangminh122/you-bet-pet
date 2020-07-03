@@ -1,66 +1,53 @@
-import { Controller,Response, Post,Body,Request, UseGuards, Get, HttpStatus, Logger } from "@nestjs/common";
+import { Controller, Response, Post, Body, Request, UseGuards, Get, HttpStatus, Logger } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import {AuthService} from './auth.service'
+import { AuthService } from './auth.service'
 import { LoginDTO } from "./dto/auth.dto";
 import { UserService } from "../user/user.service";
 import { UserDTO } from "../user/dto/user.dto";
-import { ApiTags, ApiBody } from "@nestjs/swagger";
+import { ApiTags, ApiBody, ApiResponse } from "@nestjs/swagger";
 import { UserEntity } from "../../entities/index.entity";
 import { use } from "passport";
 import { toUserLoginDto } from "../../shared/mapper/user.mapper";
-
+import { JwtAuthGuard } from "./jwt/jwt-auth.guard";
+import { LoggerMiddleware } from "src/shared/middleware/logger.middleware";
+import { LocalAuthGuard } from "./jwt/local-auth.guard";
+import { LocalStrategy } from "./jwt/local.strategy";
 
 @ApiTags('auth')
-@Controller('auth')
+@Controller()
 export class AuthController {
-    constructor( 
+    constructor(
         private authService: AuthService,
-        private userService: UserService
-        ){}
+        private userService: UserService,
+        private localStrategy: LocalStrategy
+    ) { }
 
-    @Get()
-    @UseGuards(AuthGuard('jwt'))
-    tempAuth(){
-        return {auth:'work'};
-    }
     @Post('login')
-    @ApiBody({type:[toUserLoginDto]})
-    async loginUser(@Response() res:any,@Body() userDTO: LoginDTO){
-        if(!(userDTO && userDTO.password)) {
-            return res.status(HttpStatus.FORBIDDEN).json({
-                message: 'Username and password aer requires!'
-            })
-        }
-
-        const user = await this.userService.findByEmail(userDTO.email);
-        if(user) {
-            console.log("asd")
-            Logger.log("vao")
-            if(await this.authService.comparePassword(userDTO.password,user.password)){
-               let token = await this.authService.createToken(user) ;
-               return res.status(HttpStatus.OK).json(token);
-            }
-        }
-        return res.status(HttpStatus.FORBIDDEN).json({
-            message:'Username or password wrong!'
-        })
-    }    
+    @ApiResponse({ status: 200, description: 'Create new user success !.' })
+    @ApiBody({ type: [UserEntity] })
+    async login(@Body() req) {
+        let user = this.localStrategy.validate(req.email, req.password);
+        console.log(req)
+        return this.authService.login(user);
+    }
 
     @Post('register')
-    @ApiBody({type:[UserEntity]})
-    async register(@Response() res: any,@Body() userDTO:UserDTO){
-        if(!(userDTO && userDTO.email && userDTO.password)) {
+    @ApiBody({ type: [UserEntity] })
+    async register(@Response() res: any, @Body() userDTO: UserDTO) {
+        console.log("asdas")
+        if (!(userDTO && userDTO.email && userDTO.password)) {
             return res.status(HttpStatus.FORBIDDEN).json({
-                message:'Username and password are required!'
+                message: 'Username and password are required!'
             })
         }
         let user = await this.userService.findByEmail(userDTO.email);
-        if(user){
-            return res.status(HttpStatus.FORBIDDEN).json({message:'User exists'})
+        if (user) {
+            return res.status(HttpStatus.FORBIDDEN).json({ message: 'User exists' })
         } else {
-             user = await this.userService.create(userDTO);
+            user = await this.userService.create(userDTO);
         }
-        return res.status(HttpStatus.CREATED).json(user)
+        // return res.status(HttpStatus.CREATED).json(user)
+        return this.authService.login(user);
         // const payload = {
         //     email: user.email,
         // }
@@ -72,9 +59,7 @@ export class AuthController {
     }
 
 
-    // @Post('auth/login')
-    // async login(@Request() req){
-    //     // return this.authService.login(req.user)
-    //     return req.user;
-    // }
+   
+
+    
 }

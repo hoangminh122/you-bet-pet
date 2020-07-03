@@ -89,7 +89,7 @@ public class SercurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/").permitAll()
 //            .antMatchers("/hello","/login-api").authenticated()
             .antMatchers("/index/**").permitAll()
-                .antMatchers("/authenticate", "/register").permitAll()
+                .antMatchers("/authenticate", "/register","/hello","/getAllAnimal","/getAllChuNhan").permitAll()
 
 //            .anyRequest().authenticated().and()
 
