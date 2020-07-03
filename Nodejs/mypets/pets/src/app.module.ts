@@ -11,34 +11,36 @@ import { ForbiddenException } from './shared/errors/ForbiddenException';
 import { LoggerMiddleware } from './shared/middleware/logger.middleware';
 import { UserController } from './modules/user/user.controller';
 import { MulterModule } from '@nestjs/platform-express';
+import { PrintModule } from './print/print.module';
 
 
 @Module({
   imports: [TypeOrmModule.forRoot(), UserModule,SessionModule, AuthModule,
     MulterModule.register({
       dest:'uploads',
-  })],
+  }),
+    PrintModule],
   controllers: [AppController],
   providers: [AppService],
 })
 
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-      consumer
-        .apply(LoggerMiddleware)
-        // .forRoutes('user');
-        // .forRoutes({path:'user',method:RequestMethod.GET})
-        .exclude(
-          {path:'user/upload',method:RequestMethod.POST},
-        )
-        .forRoutes(UserController);
-       
+// export class AppModule implements NestModule {
+//   configure(consumer: MiddlewareConsumer) {
+//       consumer
+//         .apply(LoggerMiddleware)
+//         // .forRoutes('user');
+//         // .forRoutes({path:'user',method:RequestMethod.GET})
+//         .exclude(
+//           {path:'user/upload',method:RequestMethod.POST},
+//         )
+//         .forRoutes(UserController);
+export class AppModule {}
 
 
 
-  }
+//   }
 
-}
+// }
 
 // {
 //   provide:APP_FILTER,

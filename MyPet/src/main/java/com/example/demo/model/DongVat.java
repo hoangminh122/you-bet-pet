@@ -32,7 +32,7 @@ public class DongVat {
     @NotBlank
     private String url;
     @ManyToOne
-    @JoinColumn
+//    @JoinColumn
     @JsonIgnore
     @NonNull
     private  LoaiDongVat loaiDongVat;

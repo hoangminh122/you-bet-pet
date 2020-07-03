@@ -22,13 +22,7 @@ import { AuthModule } from '../auth/auth.module';
     // AuthService
   ],
   controllers: [UserController],
-  providers: [MulterModule, UserService, {
-    provide: APP_FILTER,
-    useClass: ForbiddenException
-  },
-    JoiValidationPipe,
-    // AuthGuards,
-    // AuthService
+  providers: [MulterModule, UserService,
   ],
   exports: [UserService,UserModule]
 })

@@ -37,20 +37,20 @@ export class UserService {
         return user;
     }
 
-    async findUser(id:string):Promise<UserEntity> {
-        let user = null;
-        try{
-             user = await this.userRepository.findOne({where :{id}});
-        } catch(e) {
-            throw new HttpException({
-                status: HttpStatus.NOT_FOUND,
-                error: 'This is a custom message',
-              }, HttpStatus.NOT_FOUND);
-        }
+    // async findUser(id:string):Promise<UserEntity> {
+    //     let user = null;
+    //     try{
+    //          user = await this.userRepository.findOne({where :{id}});
+    //     } catch(e) {
+    //         throw new HttpException({
+    //             status: HttpStatus.NOT_FOUND,
+    //             error: 'This is a custom message',
+    //           }, HttpStatus.NOT_FOUND);
+    //     }
        
-        return user;
+    //     return user;
 
-    }
+    // }
 
     // @UseFilters(HttpExceptionFilter)
     async update(id: string,data:Partial<UserDTO>) {

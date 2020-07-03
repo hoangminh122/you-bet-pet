@@ -20,7 +20,7 @@ public class Get_Infor_LoaiDv {
     private LoaiDongVatRepo loaiDvRepo;
 //
     @ResponseBody
-    @RequestMapping(value = "/getAllLoaiDv",method = RequestMethod.GET)
+    @RequestMapping(value = "/index/getAllLoaiDv",method = RequestMethod.GET)
     private List<LoaiDongVat> getLoaiDongVats(){
         return loaiDvRepo.findAll();
     }
