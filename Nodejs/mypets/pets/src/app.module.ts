@@ -12,10 +12,15 @@ import { LoggerMiddleware } from './shared/middleware/logger.middleware';
 import { UserController } from './modules/user/user.controller';
 import { MulterModule } from '@nestjs/platform-express';
 import { PrintModule } from './print/print.module';
+import { AdminService } from './modules/admin/admin.service';
+import { AdminModule } from './modules/admin/admin.module';
 
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), UserModule,SessionModule, AuthModule,
+  imports: [
+    TypeOrmModule.forRoot(),
+    UserModule,SessionModule,
+    AuthModule,AdminModule,
     MulterModule.register({
       dest:'uploads',
   }),

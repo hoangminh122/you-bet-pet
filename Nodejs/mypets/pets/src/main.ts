@@ -16,6 +16,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app,options);
   SwaggerModule.setup('doc',app,document)
   // app.useGlobalFilters(new HttpExceptionFilter());
-  await app.listen(3000);
+  await app.listen(3006);
 }
 bootstrap();
