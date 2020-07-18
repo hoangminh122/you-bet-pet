@@ -29,6 +29,7 @@ public class LoaiDongVat {
     @NotNull
     private  String moTaDacDiem;
 
-    @OneToMany(mappedBy = "loaiDongVat",cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "loaiDongVat",fetch = FetchType.EAGER)
     private Set<DongVat> DongVats;
 }

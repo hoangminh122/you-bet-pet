@@ -307,7 +307,7 @@ class AuctionSession extends Component {
               <Video
               style={{width:"100%",height:"100%"}}
                 
-                source={require('../components/test/big_buck_bunny.mp4')}
+              source={require('../components/test/big_buck_bunny.mp4')}
                 // source={{uri:'https://www.youtube.com/watch?v=dQHUK2MfXvI'}}
                 ref={(ref) => {
                     this.player = ref

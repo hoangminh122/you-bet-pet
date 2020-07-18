@@ -17,7 +17,7 @@ public class Get_Info_Nomal {
     private DongVatRepo dongVatRepo;
 
     @ResponseBody
-    @RequestMapping(value = "/getAllAnimal",method = RequestMethod.GET)
+    @RequestMapping(value = "/index/getAllAnimal",method = RequestMethod.GET)
     private List<DongVat> getDongVats(){
             return dongVatRepo.findAll();
     }

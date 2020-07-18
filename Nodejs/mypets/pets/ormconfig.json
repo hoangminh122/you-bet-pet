@@ -4,8 +4,8 @@
     "port": 5432,
     "username": "postgres",
     "password": "postgres",
-    "database": "test",
+    "database": "adm",
     "logging":true,
-    "synchronize": false,
+    "synchronize": true,
     "entities": ["./src/**/*.entity.ts","./dist/**/*.entity.js"]
   }

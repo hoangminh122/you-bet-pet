@@ -19,7 +19,7 @@ export default class CreateSession extends Component {
     super(props)
     this.state = {
       pageShow: 1,
-      dataSource:[3],
+      dataSource:[3,4],
     }
   }
  
@@ -29,13 +29,13 @@ export default class CreateSession extends Component {
          <View style={styles.container}>
             <Header nameTitle = "Thanh Toan"/>
             <View style={styles.body}>
-            <View style = {{ flex:1}}>
+            <View style = {{ flex:2}}>
                 <FlatList
                     style={{height:screen.height,width:screen.width,backgroundColor:'white'}}
                     data={this.state.dataSource}
                     renderItem={({item,index}) =>  
-                    <View style={[styles.bodyTop10Object,{height:80}]}>
-                        <View style={styles.bodyTop10ObjectStt}>
+                    <View style={[styles.bodyTop10Object,{height:screen.height/8}]} key={{index}}>
+                        <View style={[styles.bodyTop10ObjectStt]}>
                         <Text>1</Text>
                         </View>
                         <View style={styles.bodyTop10ObjectImage}>
@@ -51,11 +51,33 @@ export default class CreateSession extends Component {
                         </View>
                     </View>
                     } 
+                    keyExtractor={(item, index) => index.toString()}
                 />
             </View>
-            <View style = {{ flex:1}}>
-                <Text>sdfsdhg</Text>
+            <View style = {{ flex:1,flexDirection:'column',justifyContent:'flex-end',alignItems:'flex-end'}}>
+              <View style={{flex:0.5,flexDirection:'column',width:screen.width/2}}>
+                <View style={{flex:1,}}>
+                  <View style={{flex:1,flexDirection:'row'}}>
+                    <Text style={{flex:1}}>Tạm tính </Text>
+                    <Text style={{flex:1}}>65.000 đ</Text>
+                  </View>
+                </View>
+                <View style={{flex:1,flexDirection:'row'}}>
+                  <Text  style={{flex:1}}>Phụ phí</Text>
+                  <Text  style={{flex:1}}> 3.250đ</Text>
+                </View>
+                <View style={{flex:1,flexDirection:'row'}}>
+                  <Text style={{flex:1}} >Tổng cộng</Text>
+                  <Text  style={{flex:1,color:'red',fontWeight:'bold'}}>68.250đ</Text>
+                </View>
+              </View>
             </View>
+
+            <TouchableOpacity style = {{ flex:0.5,flexDirection:'row',justifyContent:'center',alignItems:'center',borderRadius:10,margin:10,backgroundColor:'red'}}>
+              <View style={{flex:0.5,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'white',fontWeight:'normal',fontSize:15}}>Thanh Toán</Text>
+              </View>
+            </TouchableOpacity>
                 
             </View>
             <Footer/>
@@ -72,113 +94,77 @@ const styles = StyleSheet.create({
     flex:1,
     backgroundColor:'#F8F8FF'
   },
+  imagePets:{
+    flex:3,
+    // backgroundColor:'#F8F8FF',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+    imageChild:{
+      height:'90%',
+      width:'90%',
+      backgroundColor:'#ABCDFF'
+    },
   body:{
-    flex:9,
-    backgroundColor:'#C6E2FF',
+    flex:6,
+    backgroundColor:'#F8F8FF',
     flexDirection:'column'
   },
-  btnCreate:{
-      flex:1,
-      justifyContent:'center',
-      alignItems:'center',
-     
+    bodyTittle:{
+      flex:1.5,
+      backgroundColor:'#F8F8FF'
     },
-  viewScene1:{
-    height:screen.height/1.5,
-    width:screen.width,
-    flex:1,
-    flexDirection:'column'
-  },
-    viewBody:{
-      flex:1,
-      flexDirection:'column',
-      alignItems:'center',
-      justifyContent:'center'
-    },
-      touchBody:{
-        backgroundColor:'blue',
-        flex:1,
-        flexDirection:'column',
-        alignItems:'center',
-        justifyContent:'center',
-        borderWidth:1,
-        width:screen.width/1.1,
-        borderColor:'white',
-        borderRadius:5
+      bodyTittleTxt:{
+        marginLeft:10,
+        fontSize:20,
+        fontWeight:'bold',
+        color:'#000000'
       },
-        btnNext:{
-          fontSize:12,
-          color:'white'
-        },
-    viewBody2:{
-      flex:5,
+    bodyTop10:{
+      flex:8.5,
+      backgroundColor:'#F8F8FF',
+      flexDirection:'column',
       justifyContent:'center',
       alignItems:'center'
     },
-      viewLetGo:{
+      bodyTop10Object:{
         flex:1,
-        flexDirection:'column',
-        justifyContent:'center',
-        alignItems:'center',
-        margin:10
-      },
-        letGoTxt:{
-          fontSize:14,
-          fontWeight:'bold',
-          color:'#000000'
-        },
-      viewNameSession:{
-        flex:2,
-        justifyContent:'center',
-        alignItems:'center'
-      },
-      viewInput:{
-        flex:1,
+        backgroundColor:'#F8F8FF',
         flexDirection:'row',
-        margin:10
+        borderRadius:10,borderBottomWidth:1,
+        borderLeftWidth:0.2,borderRightWidth:1,
+        borderColor:'gray',
+        width:'95%',
+        height:'100%',
+        alignSelf:'center',
+        margin:2
       },
-      viewDateTimePicker:{
-        flex:1,
-        flexDirection:'row',
-        margin:10
-      },
-      viewShowEmail:{
-        flex:1,
-        width:screen.width
-      },
-        emailShowTxt:{
-          flex:1,
-          borderWidth:1,
-          borderColor:'white',
-          marginHorizontal:10,
-          marginBottom:2
+        bodyTop10ObjectStt:{
+          flex:2,
+          justifyContent:'center',
+          alignItems:'center'
         },
-      viewEmailBody:{
-        flex:1,
-        flexDirection:'column',
-        width:screen.width
-      },
-        viewEmail:{
-          flex:1,
-          flexDirection:'column',
-          width:screen.width
+        bodyTop10ObjectImage:{
+          flex:3,
+          justifyContent:'center',
+          alignItems:'center'
         },
-          viewEmailChild:{
-            flex:4,
-            marginHorizontal:10
+          bodyTop10ObjectImageChild:{
+            height:'60%',
+            width:'90%',
+            backgroundColor:'#ABCDFF'
           },
-            emailInput:{
-              borderColor:'white',
-              height:30,
-              borderBottomWidth:1
-            },
-  viewScene3:{
-    height:screen.height/1.5,
-    width:screen.width
-  }
-   
+        bodyTop10ObjectInfor:{
+          flex:5,
+          justifyContent:'center',
+          alignItems:'center',
+          flexDirection:'column'
+        },
+        bodyTop10ObjectInforTxt:{
+          fontWeight:'bold',
+          fontSize:12
+        }
  });
-
 //  function mapStateToProps(state){
 //   return {
 //     myUserIdReducer:state.userIdReducer,

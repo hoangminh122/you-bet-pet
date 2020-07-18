@@ -13,6 +13,10 @@ import { JoiValidationPipe } from '../../shared/pipes/JoiValidationPipe';
 import Joi from '@hapi/joi';
 import { CreateUserDto } from './dto/create.cat.dto';
 import {FileInterceptor, FilesInterceptor, FileFieldsInterceptor} from '@nestjs/platform-express/multer'
+import { LoggingInterceptor } from '../../shared/interceptor/logging.interceptor';
+import { TransformInterceptor } from '../../shared/interceptor/transform.interceptor';
+import { ExcludeNullInterceptor } from '../../shared/interceptor/exclude-null.interceptor';
+import { CacheInterceptor } from '../../shared/interceptor/cache.interceptor';
 // import { AuthGuards } from '../auth/jwt/local-auth.guard';
 
 @ApiTags('user')
@@ -23,9 +27,14 @@ export class UserController {
         
     }
 
+    // @UseInterceptors(LoggingInterceptor)
+    // @UseInterceptors(TransformInterceptor)
+    // @UseInterceptors(ExcludeNullInterceptor)
+    @UseInterceptors(CacheInterceptor)
     @Get('test/:id')
-    async testPipe(@Param('id', new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE})) id :number) {
+    async testPipe(@Param('id', new ParseIntPipe()) id :number) {
         return typeof(id);
+        // return null;
     }
 
     @Get()
@@ -45,10 +54,10 @@ export class UserController {
         return this.userService.create(data);
     }
 
-    @Get(':id')
-    readUserById(@Param('id') id: string){
-        return this.userService.findUser(id);
-    }
+    // @Get(':id')
+    // readUserById(@Param('id') id: string){
+    //     return this.userService.findUser(id);
+    // }
 
     @Put(':id')
     @ApiBody({ type: [UserEntity] })
