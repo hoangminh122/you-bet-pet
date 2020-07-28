@@ -78,9 +78,9 @@ export class UserService {
 
     async findByEmail(email: any): Promise<UserDTO> {
         const user = await this.userRepository.findOne({where:{email:email}});
-        // if(!user){
-        //     throw new HttpException('User not found',HttpStatus.UNAUTHORIZED);
-        // }
+        if(!user){
+            throw new HttpException('User not found',HttpStatus.NOT_FOUND);
+        }
         return user;
     }
 

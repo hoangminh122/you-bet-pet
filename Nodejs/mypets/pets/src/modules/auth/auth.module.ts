@@ -13,6 +13,8 @@ import * as passport from 'passport';
 import { LocalStrategy } from './jwt/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt/jwt.strategy';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from '../../shared/filters/http-exception.filter';
 
 @Module({
   imports:[PassportModule,
@@ -21,10 +23,16 @@ import { JwtStrategy } from './jwt/jwt.strategy';
     JwtModule.register({
       secret: process.env.SECRET ||'MINH123',
       signOptions:{ expiresIn:'1h'}
-    })
+    }),
+    
 ],
   controllers:[AuthController,],
-  providers: [AuthService,UserService,LocalStrategy,JwtStrategy],
+  providers: [AuthService,UserService,LocalStrategy,JwtStrategy,
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+  }
+],
   exports: [AuthModule,AuthService]
 })
 export class AuthModule implements NestModule {
