@@ -1,4 +1,4 @@
-import { Controller, Response, Post, Body, Request, UseGuards, Get, HttpStatus, Logger } from "@nestjs/common";
+import { Controller, Response, Post, Body, Request, UseGuards, Get, HttpStatus, Logger, UnauthorizedException, UseFilters, ForbiddenException } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from './auth.service'
 import { LoginDTO } from "./dto/auth.dto";
@@ -12,9 +12,10 @@ import { JwtAuthGuard } from "./jwt/jwt-auth.guard";
 import { LoggerMiddleware } from "src/shared/middleware/logger.middleware";
 import { LocalAuthGuard } from "./jwt/local-auth.guard";
 import { LocalStrategy } from "./jwt/local.strategy";
+import { HttpExceptionFilter } from "../../shared/filters/http-exception.filter";
 
 @ApiTags('auth')
-@Controller()
+@Controller('auth')
 export class AuthController {
     constructor(
         private authService: AuthService,
@@ -23,16 +24,22 @@ export class AuthController {
     ) { }
 
     @Post('login')
+    @UseFilters(new HttpExceptionFilter())
     @ApiResponse({ status: 200, description: 'Create new user success !.' })
-    @ApiBody({ type: [UserEntity] })
+    // @ApiBody({ type: [UserEntity] })
     async login(@Body() req) {
-        let user = this.localStrategy.validate(req.email, req.password);
+        let user = await this.localStrategy.validate(req.email, req.password);
         console.log(req)
-        return this.authService.login(user);
+        if(!user) {
+            console.log("ok")
+            throw new ForbiddenException();
+        }
+        return await this.authService.login(user);
+        // throw new ForbiddenException();
     }
 
     @Post('register')
-    @ApiBody({ type: [UserEntity] })
+    // @ApiBody({ type: [UserEntity] })
     async register(@Response() res: any, @Body() userDTO: UserDTO) {
         console.log("asdas")
         if (!(userDTO && userDTO.email && userDTO.password)) {

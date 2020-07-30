@@ -1,0 +1,5 @@
+
+export enum EventEnum {
+    CONTRACT_ADDED = 'CONTRACT_ADDED',
+    PAYMENT_REJECT = 'PAYMENT_REJECT',
+}

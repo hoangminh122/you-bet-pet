@@ -12,10 +12,8 @@ import { Sync } from 'realm';
 
     export function saveUserFirebase(name,userIdFirebase,isLive){
         db.transaction((tx) => {
-            console.log("Asd")
             tx.executeSql('INSERT INTO users(name,userIdFirebase,isLive) VALUES (?,?,?)', [name.toString(),userIdFirebase.toString(),Number.parseInt(isLive)], (tx, results) => {
                 // tx.executeSql('INSERT INTO users(name,userIdFirebase,isLive) VALUES (?,?,?)', ["minh","ok",1], (tx, results) => {
-                    console.log(results)
                 if (results.rowsAffected > 0) {
                     // msg.result = true;
                     // msg.message = 'Create new hero successfully!';
@@ -38,7 +36,6 @@ import { Sync } from 'realm';
         var result = 0;
           db.transaction((tx) => {
                     let sql = 'SELECT * FROM users WHERE userIdFirebase=?';
-                    // console.log("vao")
                          let a = tx.executeSql(sql,[userIdFirebase.toString()],(tx,results)=>{
                                                 let len = results.rows.length;
                                                 if(len == 0){
@@ -61,8 +58,6 @@ import { Sync } from 'realm';
                                                 console.log("error")
                                                 // return 0;
                                         })
-                                        console.log("uujj")
-                                        console.log(a)
                     })
                     // console.log(a)
                     // console.log("result"+result )

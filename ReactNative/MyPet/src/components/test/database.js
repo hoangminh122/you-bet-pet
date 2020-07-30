@@ -29,7 +29,6 @@ export default class componentName extends Component {
           dataSource:this.state.dataSource.cloneWithRows(arr)
           
         })
-        console.log(arr)
         // console.log(arr.length)
       })
       

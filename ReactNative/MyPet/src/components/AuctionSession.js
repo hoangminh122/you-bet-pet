@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import {View,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,TouchableHighlight,Alert} from 'react-native'
+import {View,Button,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,TouchableHighlight,Alert} from 'react-native'
 import Footer from './footer'
 import Header from './header'
 import Video from 'react-native-video';
 import firebase from 'firebase'
 import CountDown from 'react-native-countdown-component'
 import {connect} from 'react-redux'
-
+import Modal from 'react-native-modalbox'
 
 
 var screen =Dimensions.get('window');
@@ -133,44 +133,76 @@ class AuctionSession extends Component {
     })
   }
 
-  addDbFlatlist = (name) =>{                                                                     //get information user take part in session has up money
+  getInforUser = async(value) => {
+    let result = [];
+    await this.itemRef.ref('users').child(value).child('profile').once('value',(snapshot) => {
+      result.push({
+                      username:snapshot.val().username,
+                      email   :snapshot.val().email,
+                      avatar  :snapshot.val().avatar
+      })
+    })
+    console.log("result")
+    console.log(result)
+    return result;
+  }
+  addDbFlatlist = async(name) =>{    
     // let arr = [];
     // let arrInfor = [];
-    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').on('child_changed',(dataSnapshot) => {         //sai rồi, login bi sai
-      let arrInfor = [];
-      let arr = [];
-      arr.push({
-        moneyUp:dataSnapshot.val().moneyUp,
-        _key: dataSnapshot.key
-      })
-      //get information user
-      let starCountRef = this.itemRef.ref('users').child(dataSnapshot.key).child('profile');
-      starCountRef.on('value',function(snapshot){
-
-        arrInfor.push({
-                        username:snapshot.val().username,
-                        email   :snapshot.val().email,
-                        avatar  :snapshot.val().avatar
+    try{
+      this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('moneyUp').on('child_changed',async(dataSnapshot) => {   
+        console.log("vao day")                                                                 //get information user take part in session has up money
+        //sai rồi, login bi sai
+        let arrInfor = [];
+        let arr = [];
+        arr.push({
+          moneyUp:dataSnapshot.val().moneyUp,
+          _key: dataSnapshot.key
         })
+        //get information user
+        console.log("dataSnapshot")
+        console.log(dataSnapshot.key)
+        console.log("dataSnapshot")
+
+        arrInfor = await this.getInforUser(dataSnapshot.key);
+        //  this.itemRef.ref('users').child(dataSnapshot.key).child('profile').on('value',(snapshot) => {
+        //   arrInfor.push({
+        //                   username:snapshot.val().username,
+        //                   email   :snapshot.val().email,
+        //                   avatar  :snapshot.val().avatar
+        //   })
+        // })
+  
+        if(this.state.dataSource.length === 3) {
+          this.state.dataSource.splice(2, 1);
+          this.state.dataInforUser.splice(2, 1);
+        }
+        console.log("arr")
+        console.log(arr)
+        console.log(arrInfor)
+        console.log("arr")
+
+        if(arr.length > 0  && arrInfor.length > 0){
+          console.log("Vao day 2")
+          let result = [] ;
+          let resultInfor = [];
+          result.push(arr,...this.state.dataSource);
+          result.sort((a,b) => a[0].moneyUp < b[0].moneyUp);
+          resultInfor.push(arrInfor,...this.state.dataInforUser);
+  
+          this.setState({
+            dataSource:result,
+            dataInforUser:resultInfor
+          })
+        } else {
+          Alert.alert("Lỗi Kết Nối !")
+        }
       })
-
-      if(this.state.dataSource.length === 3) {
-        this.state.dataSource.splice(2, 1);
-        this.state.dataInforUser.splice(2, 1);
-      }
-      if(arr.length > 0  && arrInfor.length > 0){
-        let result = [] ;
-        let resultInfor = [];
-        result.push(arr,...this.state.dataSource);
-        result.sort((a,b) => a[0].moneyUp < b[0].moneyUp);
-        resultInfor.push(arrInfor,...this.state.dataInforUser);
-
-        this.setState({
-          dataSource:result,
-          dataInforUser:resultInfor
-        })
-      }
-    })
+    }
+    catch(e){
+      Alert.alert("Nguy hiểm "+e)
+    }
+   
   }
   
   upMoneyClick = (moneykeyUp)=>{
@@ -189,7 +221,8 @@ class AuctionSession extends Component {
         
       })
       let b = this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('MaxMoney').update({
-        maxMoney:this.state.moneyNow
+        maxMoney:this.state.moneyNow,
+        peopleWin:this.props.myUserIdReducer
       })
       Alert.alert("up money session completed !.");
     }
@@ -240,9 +273,18 @@ class AuctionSession extends Component {
                 
                 until={this.state.timeFormat}
                 onFinish={() => {
-                  this.setState({
-                    toggleBtnAuction:false
-                  })
+                  // this.setState({
+                  //   toggleBtnAuction:false
+                  // })
+                  // this.openModal1();
+                  Alert.alert(
+                    'Chúc Mừng Bạn ',
+                    'Người chiến thắng !',
+                    [
+                      { text: 'Tiếp Tục', onPress: () => console.log('OK Pressed') }
+                    ],
+                    { cancelable: false }
+                  );
                 }}                  
                 digitStyle={{backgroundColor: '#FFF', borderWidth: 1, borderColor: 'white'}}
                 digitTxtStyle={{color: 'red'}}
@@ -267,7 +309,6 @@ class AuctionSession extends Component {
   componentDidMount(){
     this.setValueInitSession();
     this.listenMaxMoney();
-   
     // this.setState({                                                                  //sai chua sua
     //   keySession:this.props.match.params.key
     // });
@@ -292,8 +333,11 @@ class AuctionSession extends Component {
     // history.goBack();
   }
 
-  render() {
+  openModal1() {
+    this.refs.modal1.open();
+  }
 
+  render() {
     let {arrayByKeyFirebase} =this.state
     return (
       <View style={styles.container}>
@@ -388,6 +432,47 @@ class AuctionSession extends Component {
            </View>
         </View>
         <Footer/>
+        <Button title="Lướt lên" onPress={() => this.refs.modal1.open()} style={styles.btn}/>
+        <Modal
+          style={[styles.modal, styles.modal1]}
+          ref={"modal1"}
+          swipeToClose={this.state.swipeToClose}
+          onClosed={this.onClose}
+          onOpened={this.onOpen}
+          onClosingState={this.onClosingState}>
+            <Text style={styles.text}>Danh sách vật phẩm</Text>
+            <Button title={`Lướt Xuống(${this.state.swipeToClose ? "true" : "false"})`} onPress={() => this.setState({swipeToClose: !this.state.swipeToClose})} style={styles.btn}/>
+              <View style={{display:'flex',flexDirection:'row',flex:1}}>
+                <View style={{flex:4,flexDirection:'column'}}>
+                  <FlatList
+                  style={{height:screen.height,width:screen.width,backgroundColor:'white'}}
+                  data={[1,2]}
+                  renderItem={({item,index}) =>  
+                    <View style={[styles.bodyTop10Object,{height:80}]}>
+                      <View style={styles.bodyTop10ObjectStt}>
+                        <Text>{index+1}</Text>
+                      </View>
+                      <View style={styles.bodyTop10ObjectImage}>
+                        <Image style={styles.bodyTop10ObjectImageChild}></Image>
+                      </View>
+                      <View style={styles.bodyTop10ObjectInfor}>
+                        <View>
+                        {/* {(this.state.dataInforUser.length != 0) ? this.state.dataInforUser[index].username:"sd"} */}
+                          <Text style={styles.bodyTop10ObjectInforTxt}>dfgd</Text>
+                        </View>
+                        <View>
+                          <Text style={styles.bodyTop10ObjectInforTxt}>dfg</Text>
+                        </View>
+                      </View>
+                    </View>
+                    } 
+                  />
+                </View>
+              </View>
+             
+        
+        </Modal>
+
       </View>
     );
   }
@@ -469,7 +554,7 @@ const styles = StyleSheet.create({
         bodyTop10ObjectInforTxt:{
           fontWeight:'bold',
           fontSize:12
-        }
+        },
  });
 
 

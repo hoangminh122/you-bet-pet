@@ -37,6 +37,14 @@ export class UserController {
         // return null;
     }
 
+    @Get('/email')
+    // @UseGuards(new AuthGuards())
+    // @UseFilters(new HttpExceptionFilter())
+    // @UseFilters(HttpExceptionFilter)
+    async showUserByEmail(@Param('id') email: string){
+        return await this.userService.findByEmail(email);
+    }
+
     @Get()
     // @UseGuards(new AuthGuards())
     // @UseFilters(new HttpExceptionFilter())
