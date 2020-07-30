@@ -99,8 +99,6 @@ class InforAution extends Component {
                                             console.log("error")
                                             // return 0;
                                     })
-                                    console.log("uujj")
-                                    console.log(a)
                 })
                 // console.log(a)
                 // console.log("result"+result )
@@ -109,11 +107,6 @@ class InforAution extends Component {
 
   directToAuction = (key,owner) => {
     this.props.myClickSaveKeyAuction('AUCTION_KEY_SAVE',key)     
-    console.log("test")
-    console.log(this.props.myUserIdReducer)   
-    console.log(owner)       
-    console.log(this.props.myUserIdReducer === owner)  
-    console.log("test")          
                                    //Save key session is running 
     if(this.props.myUserIdReducer === owner){                                 //test
       let url='/auctionSession-admin/'+key;                                                                           //error cannot use param sercure
@@ -131,8 +124,6 @@ class InforAution extends Component {
   }
 
   render() {
-    console.log("id: "+this.props.myUserIdReducer)
-    console.log("login cua:"+this.findUserFirebase(this.props.myUserIdReducer))
     return (
       <View style={styles.container}>
         <Header goBack = {this.goBack}/>

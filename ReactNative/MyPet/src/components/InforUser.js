@@ -16,8 +16,6 @@ class InforUser extends Component {
         }
     }
     componentDidMount(){
-        console.log(this.props.myUserInforReducer)
-        // console.log(this.props.myUserInforReducer)
         if(this.props.myUserInforReducer != 0){
             this.setState({
                 isLive:true,

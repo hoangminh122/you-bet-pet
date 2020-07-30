@@ -32,8 +32,6 @@ export default class IndexApp extends Component {
       .then((response) =>{
         response.json()
           .then((json) =>{
-            console.log("Ádasdasd")
-            console.log(json.name)
             // Some user object has been set up somewhere, build that user here
                 user.name = json.name
             //  user.id = json.id
@@ -55,7 +53,6 @@ export default class IndexApp extends Component {
       })
     })
       .catch(()=>{
-        console.log('ERROR GETTING DATA FACEBOOK');
       })
     }
     showButtonLoginFace =()=>{
@@ -94,7 +91,6 @@ export default class IndexApp extends Component {
                       } else if (result.isCancelled){
                         console.log("login is cancelled.");
                       }else{
-                        console.log("ádasdaasdasd")
                         AccessToken.getCurrentAccessToken().then(
                           (data) =>{
                             console.log(data.accessToken.toString())

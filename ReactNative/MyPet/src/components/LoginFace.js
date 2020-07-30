@@ -65,9 +65,6 @@ class LoginFace extends Component {
         // this.initUser(token);
         const credential = new firebase.auth.FacebookAuthProvider.credential(tokenData);
         const userFace = await firebase.auth().signInWithCredential(credential);
-        console.log("userFace")
-        console.log(tokenData)
-        console.log(userFace.user.uid)
         // console.log(userFace)
         //save database sqlite some infor 
         try{                                                                                  //when in session , we save state idUserFirebase
@@ -77,7 +74,6 @@ class LoginFace extends Component {
         }catch(e){
           console.log(e)
         }
-        console.log(userFace)
         //save state id user Firebase -redux
         //test thu thoi
         // let arrTest = ["6fg2aw1pNgUg6Ly5tRNsRMMRo5z1","6fg2aw1pNgUg6Ly5tRNsRMMRo5z2","6fg2aw1pNgUg6Ly5tRNsRMMRo5z3"];
