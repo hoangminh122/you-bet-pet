@@ -9,8 +9,8 @@ export default class Main extends Component {
         return (
             <Router>
                 <div>
-                    <Route path="/index" exact component = {Index}/> 
-                    <Route path="/" exact component = {Login}/>
+                    <Route path="/" exact component = {Index}/> 
+                    <Route path="/j" exact component = {Login}/>
                 </div>
             </Router>
             
