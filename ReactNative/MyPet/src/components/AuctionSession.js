@@ -41,7 +41,11 @@ class AuctionSession extends Component {
       // moneyNow:0,
       startSession:false,
       time  :0,
-      toggleBtnAuctionAdmin:[]
+      toggleBtnAuctionAdmin:[],
+      maxMoney:'',
+      peopleWin:false,
+      dataPeopleWin:[],
+      idPeopleWin:''
     };
     //sai roi
     this.addDbFlatlist() ;    
@@ -142,9 +146,7 @@ class AuctionSession extends Component {
                       avatar  :snapshot.val().avatar
       })
     })
-    console.log("result")
-    console.log(result)
-    return result;
+    return await result;
   }
   addDbFlatlist = async(name) =>{    
     // let arr = [];
@@ -229,6 +231,17 @@ class AuctionSession extends Component {
     }
   }
 
+  listenPeopleWin = async() => {
+    this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('MaxMoney').on('value',(dataSnapshot) => {   
+      this.setState({
+        maxMoney:dataSnapshot.val().maxMoney,
+        peopleWin:dataSnapshot.val().peopleWin == this.props.myUserIdReducer ? true:false,
+        idPeoplewin:dataSnapshot.val().peopleWin
+      })
+
+    })
+  }
+
   listenMaxMoney = () => {
     this.itemRef.ref('NewSession').child('Public').child(this.state.keySession).child('MaxMoney').on('child_changed',(dataSnapshot) => {         //sai rồi, login bi sai
       let arr = [];
@@ -272,19 +285,27 @@ class AuctionSession extends Component {
                 // until={this.props.myLongTimeReducer}
                 
                 until={this.state.timeFormat}
-                onFinish={() => {
-                  // this.setState({
-                  //   toggleBtnAuction:false
-                  // })
+                onFinish={async() => {
+                  this.setState({
+                    toggleBtnAuction:false
+                  })
+                  this.listenPeopleWin();
+                  if(this.state.peopleWin)
+                    this.refs.modal1.open();
+                  let dataPeopleWin= await this.getInforUser(this.props.myUserIdReducer)
+                  this.setState({
+                    toggleBtnAuction:false,
+                    dataPeopleWin
+                  })
                   // this.openModal1();
-                  Alert.alert(
-                    'Chúc Mừng Bạn ',
-                    'Người chiến thắng !',
-                    [
-                      { text: 'Tiếp Tục', onPress: () => console.log('OK Pressed') }
-                    ],
-                    { cancelable: false }
-                  );
+                  // Alert.alert(
+                  //   'Chúc Mừng Bạn ',
+                  //   'Người chiến thắng !',
+                  //   [
+                  //     { text: 'Tiếp Tục', onPress: () => console.log('OK Pressed') }
+                  //   ],
+                  //   { cancelable: false }
+                  // );
                 }}                  
                 digitStyle={{backgroundColor: '#FFF', borderWidth: 1, borderColor: 'white'}}
                 digitTxtStyle={{color: 'red'}}
@@ -338,6 +359,8 @@ class AuctionSession extends Component {
   }
 
   render() {
+    // if(this.state.dataPeopleWin.length>0)
+    console.log("dataPeopleWin",this.state.dataPeopleWin)
     let {arrayByKeyFirebase} =this.state
     return (
       <View style={styles.container}>
@@ -431,7 +454,7 @@ class AuctionSession extends Component {
            {/* //dau gia */}
            </View>
         </View>
-        <Footer/>
+        {/* <Footer/> */}
         <Button title="Lướt lên" onPress={() => this.refs.modal1.open()} style={styles.btn}/>
         <Modal
           style={[styles.modal, styles.modal1]}
@@ -439,38 +462,25 @@ class AuctionSession extends Component {
           swipeToClose={this.state.swipeToClose}
           onClosed={this.onClose}
           onOpened={this.onOpen}
-          onClosingState={this.onClosingState}>
-            <Text style={styles.text}>Danh sách vật phẩm</Text>
-            <Button title={`Lướt Xuống(${this.state.swipeToClose ? "true" : "false"})`} onPress={() => this.setState({swipeToClose: !this.state.swipeToClose})} style={styles.btn}/>
-              <View style={{display:'flex',flexDirection:'row',flex:1}}>
-                <View style={{flex:4,flexDirection:'column'}}>
-                  <FlatList
-                  style={{height:screen.height,width:screen.width,backgroundColor:'white'}}
-                  data={[1,2]}
-                  renderItem={({item,index}) =>  
-                    <View style={[styles.bodyTop10Object,{height:80}]}>
-                      <View style={styles.bodyTop10ObjectStt}>
-                        <Text>{index+1}</Text>
-                      </View>
-                      <View style={styles.bodyTop10ObjectImage}>
-                        <Image style={styles.bodyTop10ObjectImageChild}></Image>
-                      </View>
-                      <View style={styles.bodyTop10ObjectInfor}>
-                        <View>
-                        {/* {(this.state.dataInforUser.length != 0) ? this.state.dataInforUser[index].username:"sd"} */}
-                          <Text style={styles.bodyTop10ObjectInforTxt}>dfgd</Text>
-                        </View>
-                        <View>
-                          <Text style={styles.bodyTop10ObjectInforTxt}>dfg</Text>
-                        </View>
-                      </View>
-                    </View>
-                    } 
-                  />
-                </View>
-              </View>
-             
-        
+          onClosingState={this.onClosingState}
+          >
+            <Text style={styles.text}></Text>
+            <Button title={`Lướt Xuống`} onPress={() => this.setState({swipeToClose: !this.state.swipeToClose})} style={styles.btn}/>
+                <View style={styles.imagePets}>
+                  <View style={styles.imageChild}>
+                    <Text style={[styles.imageText,{fontSize:16,color:'blue'}]}>CHÚC MỪNG !</Text>
+                    <Text style={[styles.imageText,{color:'white'}]}>{this.state.dataPeopleWin.length ? this.state.dataPeopleWin[0].username:''}</Text>
+                    <Text style={[styles.imageText,{color:'white'}]}>Chiến thắng vật phẩm</Text>
+                    <Text style={[styles.imageText,{color:'white'}]}>Với giá trị</Text>
+                    <Text style={[styles.imageText,{color:'red'}]}>{this.state.maxMoney} đ</Text>
+                    <TouchableOpacity style={styles.imageTouch} onPress={() => this.refs.modal1.close()}>
+                        <Text>Tiếp tục</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.imageTouch} onPress={() => this.props.history.push('/payment')}>
+                        <Text>Thanh Toán</Text>
+                    </TouchableOpacity>
+                  </View>
+            </View>
         </Modal>
 
       </View>
@@ -555,6 +565,27 @@ const styles = StyleSheet.create({
           fontWeight:'bold',
           fontSize:12
         },
+        
+      
+          imageChild:{
+          //   height:'40%',
+            width:'95%',
+            backgroundColor:'#ABCDFF'
+          },
+              imageText:{
+                  fontSize:13,
+                  fontWeight:'bold',
+                  alignSelf:'center'
+              },
+              imageTouch:{
+                  backgroundColor:'red',
+                  borderColor:'white',
+                  borderWidth:1,
+                  alignSelf:'center',
+                  margin:10,
+                  padding:5,
+                  borderRadius:5
+              }
  });
 
 
@@ -575,3 +606,30 @@ function mapStateToProps(state){
         
 
 
+//  <View style={{display:'flex',flexDirection:'row',flex:1}}>
+//                 <View style={{flex:4,flexDirection:'column'}}>
+//                   <FlatList
+//                   style={{height:screen.height,width:screen.width,backgroundColor:'white'}}
+//                   data={[1,2]}
+//                   renderItem={({item,index}) =>  
+//                     <View style={[styles.bodyTop10Object,{height:80}]}>
+//                       <View style={styles.bodyTop10ObjectStt}>
+//                         <Text>{index+1}</Text>
+//                       </View>
+//                       <View style={styles.bodyTop10ObjectImage}>
+//                         <Image style={styles.bodyTop10ObjectImageChild}></Image>
+//                       </View>
+//                       <View style={styles.bodyTop10ObjectInfor}>
+//                         <View>
+//                         {/* {(this.state.dataInforUser.length != 0) ? this.state.dataInforUser[index].username:"sd"} */}
+//                           <Text style={styles.bodyTop10ObjectInforTxt}>dfgd</Text>
+//                         </View>
+//                         <View>
+//                           <Text style={styles.bodyTop10ObjectInforTxt}>dfg</Text>
+//                         </View>
+//                       </View>
+//                     </View>
+//                     } 
+//                   />
+//                 </View>
+//               </View>

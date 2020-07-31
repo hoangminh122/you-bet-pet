@@ -31,6 +31,10 @@ class InforUser extends Component {
         // history.goBack();
     }
 
+    paymentVisa = () => {
+        this.props.history.push('/Visa');
+    }
+
     render() {
     return (
         <View style={(Platform.OS === 'android') ? styles.container : [styles.container,{marginTop:30}]}>
@@ -69,6 +73,9 @@ class InforUser extends Component {
                     </View>
                 </View>
                 <View style={{flex:1}}>
+                    <TouchableOpacity onPress={()=>this.paymentVisa()}>
+                        <Text style={{backgroundColor:'red',padding:10, borderRadius:10,color:'white'}}>Thanh Toán</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.bodyInforDown}>

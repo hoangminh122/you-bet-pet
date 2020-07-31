@@ -43,10 +43,10 @@ export default class CreateSession extends Component {
                         </View>
                         <View style={styles.bodyTop10ObjectInfor}>
                         <View>
-                            <Text style={styles.bodyTop10ObjectInforTxt}>jhfghfghf</Text>
+                            <Text style={styles.bodyTop10ObjectInforTxt}>Pet-362</Text>
                         </View>
                         <View>
-                            <Text style={styles.bodyTop10ObjectInforTxt}>200000 đ</Text>
+                            <Text style={styles.bodyTop10ObjectInforTxt}>582.500.00 đ</Text>
                         </View>
                         </View>
                     </View>
@@ -59,16 +59,16 @@ export default class CreateSession extends Component {
                 <View style={{flex:1,}}>
                   <View style={{flex:1,flexDirection:'row'}}>
                     <Text style={{flex:1}}>Tạm tính </Text>
-                    <Text style={{flex:1}}>65.000 đ</Text>
+                    <Text style={{flex:1}}>1165.000.00 đ</Text>
                   </View>
                 </View>
                 <View style={{flex:1,flexDirection:'row'}}>
                   <Text  style={{flex:1}}>Phụ phí</Text>
-                  <Text  style={{flex:1}}> 3.250đ</Text>
+                  <Text  style={{flex:1}}> 3.250.00đ</Text>
                 </View>
                 <View style={{flex:1,flexDirection:'row'}}>
                   <Text style={{flex:1}} >Tổng cộng</Text>
-                  <Text  style={{flex:1,color:'red',fontWeight:'bold'}}>68.250đ</Text>
+                  <Text  style={{flex:1,color:'red',fontWeight:'bold'}}>1168.250.00đ</Text>
                 </View>
               </View>
             </View>
