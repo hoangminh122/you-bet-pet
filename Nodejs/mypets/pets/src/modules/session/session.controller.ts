@@ -31,4 +31,8 @@ export class SessionController {
         return this.sessionService.destroy(id);
     }
 
+    @Get('/date-now')
+    getDateNow(){
+        console.log(new Date().toLocaleString().slice(11,22))
+    }
 }
