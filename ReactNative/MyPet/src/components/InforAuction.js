@@ -10,7 +10,7 @@ import {clickSaveKeyAuction} from '../redux/action/ActionSaveKeyLogined'
 // import {saveUserFirebase,findUserFirebase} from '../databases/saveUserLogin'                       //can't fix error warming
 
 import { ToastAndroid } from 'react-native';
-import { Sync } from 'realm';
+// import { Sync } from 'realm';
 
 const screen = Dimensions.get('window')
 

@@ -13,6 +13,8 @@ import {connect} from 'react-redux'
 import CreateSession from './components/CreateSession';
 import Payment from './components/Payment';
 import PaymentVisa from './components/PaymentVisa'
+import ChatScreen from './components/chat/ChatScreen';
+import LoginScreen from './components/chat/LoginScreen';
 
 class Main extends Component {
   render() {
@@ -25,8 +27,12 @@ class Main extends Component {
             <Route exact path='/auctionSession-admin/:key' component={AdminAuctionSession} />
             <Route exact path='/auctionSession/:key' component={AuctionSession} />
             <Route exact path='/inforUser' component={InforUser} />
-            <Route exact path='/Visa' component={PaymentVisa}/>
+            <Route exact path='/visa' component={PaymentVisa}/>
+            <Route exact path='/payment' component={Payment}/>
             <Route exact path='/loginEmail' component={LoginEmail}/>
+            <Route exact path='/D' component={ChatScreen} />
+            <Route exact path='/d' component={LoginScreen} />
+
           </Switch>
         </NativeRouter>
     );
