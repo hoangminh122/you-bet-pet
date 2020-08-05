@@ -374,8 +374,9 @@ class AuctionSession extends Component {
               <Video
               style={{width:"100%",height:"100%"}}
                 
-              source={require('../components/test/big_buck_bunny.mp4')}
+              source={require('../video/minh.mp4')}
                 // source={{uri:'https://www.youtube.com/watch?v=dQHUK2MfXvI'}}
+                // source={{uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'}}
                 ref={(ref) => {
                     this.player = ref
                 }}  
@@ -385,7 +386,8 @@ class AuctionSession extends Component {
                 muted={this.state.muted}
                 resizeMode={this.state.resizeMode}
                 paused={this.state.paused}
-              
+                fullscreen={true}
+                resizeMode="cover"
               />
             </TouchableOpacity>
 

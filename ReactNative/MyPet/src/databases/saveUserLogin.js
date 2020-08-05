@@ -1,6 +1,6 @@
 
 import { ToastAndroid } from 'react-native';
-import { Sync } from 'realm';
+// import { Sync } from 'realm';
 
     var SQLite = require('react-native-sqlite-storage');
     if (Platform.OS === 'ios') {
