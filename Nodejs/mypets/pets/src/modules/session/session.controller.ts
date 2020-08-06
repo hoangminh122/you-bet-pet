@@ -1,11 +1,14 @@
-import { Controller, Get, Body, Post, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, Put, Delete, UseGuards } from '@nestjs/common';
 import { SessionDTO } from './dto/session.dto';
 import { SessionService } from './session.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
 
 
 @ApiTags('session')
 @Controller('session')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 export class SessionController {
     constructor(private sessionService: SessionService){
 

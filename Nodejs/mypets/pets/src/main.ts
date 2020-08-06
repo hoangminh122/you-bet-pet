@@ -12,6 +12,10 @@ async function bootstrap() {
   const options = new DocumentBuilder().setTitle('Pets API')
   .setDescription('Pets Auction sesion API')
   .setVersion('1.0')
+  .setBasePath('api')
+  .addBearerAuth(
+    
+  )
   .addTag('pets')
   .build();
 
