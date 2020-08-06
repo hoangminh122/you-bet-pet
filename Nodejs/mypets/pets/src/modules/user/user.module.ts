@@ -11,6 +11,7 @@ import { MulterModule } from '@nestjs/platform-express';
 // import { AuthModule } from '../auth/auth.module';
 import { AuthService } from '../auth/auth.service';
 import { AuthModule } from '../auth/auth.module';
+import { PrintModule } from '../../print/print.module';
 
 @Module({
   imports: [
@@ -18,12 +19,14 @@ import { AuthModule } from '../auth/auth.module';
     MulterModule.register({
       dest: 'uploads',
     }),
-    forwardRef(() =>AuthModule)
+    forwardRef(() =>AuthModule,
+    ),
+    forwardRef(() =>PrintModule)
     // AuthService
   ],
   controllers: [UserController],
   providers: [MulterModule, UserService,
   ],
-  exports: [UserService,UserModule]
+  exports: [UserService]
 })
 export class UserModule { }

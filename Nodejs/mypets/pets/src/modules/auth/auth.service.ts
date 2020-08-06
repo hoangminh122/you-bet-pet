@@ -18,19 +18,26 @@ export class AuthService {
     }
     
     async validateUser(email: string, password: string): Promise<any> {
+        let comparePassword = null;
         const user = await this.userService.findByEmail(email);
-        if (user && this.comparePassword(password, user.password)) {
+        if(user !== null){
+            comparePassword = await this.comparePassword(password, user.password);
+        }
+        if (comparePassword) {
             const { password, ...result } = user;
             return result;
         }
         return null;
     }
     
-    async login(user: any) {
-        const payload = { email: user.email, sub: user.userId };
-        return {
-            access_token: this.jwtService.sign(payload)
+    async login(userObj: any) {
+        let result =null;
+        let user = await userObj;
+        const payload = { email:user.email,UserId:user.id };
+        result =  {
+            access_token: await this.jwtService.sign(payload)
         }
+        return result;
     }
 
     async createToken( payload: any) {
@@ -46,9 +53,7 @@ export class AuthService {
         return bcrypt.hash(password,this.saltRounds);
     }
     async comparePassword(attempt: string|undefined, passwordHash: string|undefined): Promise<boolean> {
-        let attemptHash = this.getHash(attempt);
-        Logger.log(attempt)
-        // console.log(bcrypt.compare(attempt,passwordHash))
-        return await bcrypt.compare(attempt,passwordHash)
+        let result = await bcrypt.compare(attempt, passwordHash);
+        return result;
     }
 }

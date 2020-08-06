@@ -3,7 +3,7 @@ import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from './auth.service'
 import { LoginDTO } from "./dto/auth.dto";
 import { UserService } from "../user/user.service";
-import { UserDTO } from "../user/dto/user.dto";
+// import { UserDTO } from "../user/dto/user.dto";
 import { ApiTags, ApiBody, ApiResponse } from "@nestjs/swagger";
 import { UserEntity } from "../../entities/index.entity";
 import { use } from "passport";
@@ -13,6 +13,7 @@ import { LoggerMiddleware } from "src/shared/middleware/logger.middleware";
 import { LocalAuthGuard } from "./jwt/local-auth.guard";
 import { LocalStrategy } from "./jwt/local.strategy";
 import { HttpExceptionFilter } from "../../shared/filters/http-exception.filter";
+import { CreateUserDto } from "../user/dto/create.cat.dto";
 
 @ApiTags('auth')
 @Controller('auth')
@@ -27,20 +28,21 @@ export class AuthController {
     @UseFilters(new HttpExceptionFilter())
     @ApiResponse({ status: 200, description: 'Create new user success !.' })
     // @ApiBody({ type: [UserEntity] })
-    async login(@Body() req) {
-        let user = await this.localStrategy.validate(req.email, req.password);
-        console.log(req)
-        if(!user) {
-            console.log("ok")
-            throw new ForbiddenException();
+    async login(@Body() req:LoginDTO) {
+        let result = null;
+        const user = await this.localStrategy.validate(req.email, req.password);
+        if(user != null){
+            result= await this.authService.login(user);
+            return result;
         }
-        return await this.authService.login(user);
-        // throw new ForbiddenException();
+        return new UnauthorizedException;
+        // res.status(200).send("UnauthorizedException");
+        // throw new UnauthorizedException();
     }
 
     @Post('register')
     // @ApiBody({ type: [UserEntity] })
-    async register(@Response() res: any, @Body() userDTO: UserDTO) {
+    async register(@Response() res: any, @Body() userDTO: CreateUserDto) {
         console.log("asdas")
         if (!(userDTO && userDTO.email && userDTO.password)) {
             return res.status(HttpStatus.FORBIDDEN).json({

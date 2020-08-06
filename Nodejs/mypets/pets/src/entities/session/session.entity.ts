@@ -13,10 +13,10 @@ export class SessionEntity  extends BaseEntity{
     @Column({type:'varchar',length:100,name:'user_win'})
     userWin    :string;
 
-    @Column({type:'varchar',length:100,name:'state_session'})
+    @Column({type:'varchar',length:100,name:'state_session',nullable:true})
     state    :string;
 
-    @Column({type:'varchar',length:100,name:'long_time'})
+    @Column({type:'int',name:'long_time'})
     longTime   :string;
 
     @Column({type:'varchar',length:100,name:'time_start'})

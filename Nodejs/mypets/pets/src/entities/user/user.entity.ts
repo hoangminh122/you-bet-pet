@@ -23,7 +23,7 @@ export class UserEntity extends BaseEntity {
   avatar:string;
 
   @ApiProperty()
-  @Column({type:'int'})
+  @Column({type:'varchar'})
   phone:string;
 
   @ApiProperty()
