@@ -1,7 +1,7 @@
 # you-bet-pet
 If you want know about the Petshop front-end (by reactjs )
 click link:
-https://github.com/hoangminh122/front-end-mypet 
+https://github.com/hoangminh122/front-end-mypet    <br/>
 Demo:
  https://www.youtube.com/watch?v=qltY7JPPyKw&feature=youtu.be
 
