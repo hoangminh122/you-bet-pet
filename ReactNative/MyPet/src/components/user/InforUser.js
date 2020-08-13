@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Text,View,Image, Dimensions,StyleSheet, TouchableOpacity} from 'react-native'
-import Header from './header';
-import Footer from './footer';
+import Header from '../header_footer/header';
+import Footer from '../header_footer/footer';
 import {connect} from 'react-redux'
 
 const screen = Dimensions.get('window');
