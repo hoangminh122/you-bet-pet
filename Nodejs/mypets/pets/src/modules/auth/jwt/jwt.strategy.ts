@@ -8,31 +8,15 @@ import * as passport from "passport";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(private authService: AuthService){
-        super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        passReqToCallback: true,
-        secretOrKey: process.env.SECRET || 'MINH123',
-        },
-    //    async (req, payload, next) => await this.verify(req, payload, next)
-    );
-    // passport.use(this);
+    constructor() {
+      super({
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        ignoreExpiration: false,
+        secretOrKey: process.env.SECRET,
+      });
     }
-
-    // async verify(req,payload: any,done:VerifiedCallback){
-    //     console.log("vaof")
-    //     Logger.log("sds")
-    //     console.log(payload)
-    //     const user = await this.authService.validateUser(payload);
-    //     if(!user){
-    //         return done(
-    //             new HttpException('Unauthorized access',
-    //             HttpStatus.UNAUTHORIZED),
-    //             false
-    //             );
-    //     }
-
-    //     return done(null, user, payload.iat);
-    // }
-
-}
+  
+    async validate(payload: any) {
+      return { userId: payload.sub, email: payload.email };
+    }
+  }

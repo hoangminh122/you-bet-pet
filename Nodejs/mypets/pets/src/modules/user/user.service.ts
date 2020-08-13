@@ -2,13 +2,14 @@ import { Injectable, Controller, HttpException, HttpStatus, BadRequestException,
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../../entities/user/user.entity';
 import { Repository } from 'typeorm';
-import { UserDTO } from './dto/user.dto';
+// import { UserDTO } from './dto/user.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { ForbiddenException } from '../../shared/errors/ForbiddenException';
 import { HttpExceptionFilter } from '../../shared/filters/http-exception.filter';
 import { LoginDTO } from 'src/modules/auth/dto/auth.dto';
 import { toUserLoginDto } from '../../shared/mapper/user.mapper';
 import {AuthService} from '../auth/auth.service'
+import { CreateUserDto } from './dto/create.cat.dto';
 @Injectable()
 export class UserService {
     constructor(
@@ -29,7 +30,7 @@ export class UserService {
     });
     }
 
-    async create(data:UserDTO){
+    async create(data:CreateUserDto){
         const user = await this.userRepository.create(data);
         //hash password
         user.password = await this.authService.getHash(user.password);
@@ -53,7 +54,7 @@ export class UserService {
     // }
 
     // @UseFilters(HttpExceptionFilter)
-    async update(id: string,data:Partial<UserDTO>) {
+    async update(id: string,data:Partial<CreateUserDto>) {
         try{
             await this.userRepository.update({id},data);
             return await this.userRepository.findOne({id});
@@ -76,13 +77,22 @@ export class UserService {
         return await this. userRepository.findOne({email})
     }
 
-    async findByEmail(email: any): Promise<UserDTO> {
+    async findByEmail(email: any): Promise<CreateUserDto> {
         const user = await this.userRepository.findOne({where:{email:email}});
-        // if(!user){
-        //     throw new HttpException('User not found',HttpStatus.UNAUTHORIZED);
-        // }
+        if(!user){
+            throw new HttpException('User not found',HttpStatus.NOT_FOUND);
+        }
         return user;
     }
+
+    async findById(id: string): Promise<CreateUserDto> {
+        const user = await this.userRepository.findOne({where:{id:id}});
+        if(!user){
+            throw new HttpException('User not found',HttpStatus.NOT_FOUND);
+        }
+        return user;
+    }
+
 
    
 

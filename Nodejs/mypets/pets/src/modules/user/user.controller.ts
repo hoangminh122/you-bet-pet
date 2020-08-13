@@ -4,8 +4,8 @@ import { Controller, Get, Post, Put,
          UsePipes, Logger, ValidationPipe, Query, 
          UseInterceptors, UploadedFile, Res, UploadedFiles, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserDTO } from './dto/user.dto';
-import { ApiBody,ApiResponse,ApiTags} from '@nestjs/swagger';
+// import { UserDTO } from './dto/user.dto';
+import { ApiBody,ApiResponse,ApiTags, ApiBearerAuth} from '@nestjs/swagger';
 import { UserEntity } from '../../entities/index.entity';
 import { HttpExceptionFilter } from '../../shared/filters/http-exception.filter';
 import { get } from 'http';
@@ -17,6 +17,7 @@ import { LoggingInterceptor } from '../../shared/interceptor/logging.interceptor
 import { TransformInterceptor } from '../../shared/interceptor/transform.interceptor';
 import { ExcludeNullInterceptor } from '../../shared/interceptor/exclude-null.interceptor';
 import { CacheInterceptor } from '../../shared/interceptor/cache.interceptor';
+import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
 // import { AuthGuards } from '../auth/jwt/local-auth.guard';
 
 @ApiTags('user')
@@ -37,7 +38,19 @@ export class UserController {
         // return null;
     }
 
+    @Get('/:email')
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
+    // @UseGuards(new AuthGuards())
+    // @UseFilters(new HttpExceptionFilter())
+    // @UseFilters(HttpExceptionFilter)
+    async showUserByEmail(@Param('email') email: string){
+        return await this.userService.findByEmail(email);
+    }
+
     @Get()
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     // @UseGuards(new AuthGuards())
     // @UseFilters(new HttpExceptionFilter())
     // @UseFilters(HttpExceptionFilter)
@@ -50,7 +63,7 @@ export class UserController {
     // @UsePipes(new JoiValidationPipe(Joi.object().keys({username: Joi.string().required()})))  ///wrong
     @ApiResponse({ status: 200, description: 'Create new user success !.'})
     @ApiBody({ type: [UserEntity] })
-    createUser(@Body(new ValidationPipe()) data: CreateUserDto){
+    createUser(@Body() data: CreateUserDto){
         return this.userService.create(data);
     }
 
@@ -60,8 +73,10 @@ export class UserController {
     // }
 
     @Put(':id')
-    @ApiBody({ type: [UserEntity] })
-    updateUser(@Param('id') id:string,@Body() data :UserDTO){
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
+    // @ApiBody({ type: [UserEntity] })
+    updateUser(@Param('id') id:string,@Body() data :CreateUserDto){
         return this.userService.update(id,data);
     }
 
@@ -71,6 +86,8 @@ export class UserController {
     }
     
     @Post('upload')
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     // @UseInterceptors(
     //     FileFieldsInterceptor(
     //       [

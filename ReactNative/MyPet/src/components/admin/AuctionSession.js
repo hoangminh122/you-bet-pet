@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {View,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,TouchableHighlight,Alert} from 'react-native'
 import Footer from '../admin/footer'
-import Header from '../header'
+import Header from '../header_footer/header'
 import Video from 'react-native-video';
 import firebase from 'firebase'
 import CountDown from 'react-native-countdown-component'
@@ -99,7 +99,6 @@ class AdminAuctionSession extends Component {
         moneyUp:dataSnapshot.val().moneyUp,
         _key: dataSnapshot.key
       })
-      console.log(arr)
       //get information user
       let starCountRef = this.itemRef.ref('users').child(dataSnapshot.key).child('profile');
       starCountRef.on('value',function(snapshot){
@@ -190,10 +189,7 @@ class AdminAuctionSession extends Component {
   }
 
   clickButtonAuction =(toggleValue) =>{
-       
-        let name = "6fg2aw1pNgUg6Ly5tRNsRMMRo5z1";
-        console.log("btn hien tai:"+this.state.toggleBtnAuction)
-        if(this.props.myUserIdReducer != 0 && this.props.myKeyLoginedReducer != 0 && this.state.time != '0'){
+        if(this.state.startSession && !this.state.toggleBtnAuction && this.props.myUserIdReducer != 0 && this.props.myKeyLoginedReducer != 0 && this.state.time != '0'){
         let a = this.itemRef.ref('NewSession').child('Public').child(this.props.myKeyLoginedReducer).child('admin').update({
           toggleBtnAuction:true,
           time:this.state.time,
@@ -204,7 +200,6 @@ class AdminAuctionSession extends Component {
           toggleBtnAuction:toggleValue,
           timeFormat:this.formatTimeCountToInt(this.state.time)
         })
-      // console.log(a);
       Alert.alert("Start  session completed !.");
     }
   }
@@ -220,27 +215,24 @@ class AdminAuctionSession extends Component {
         startSession:true,
         paused:false
       });
-      console.log(this.state.startSession)
       if(this.props.myUserIdReducer != 0){
         let a = this.itemRef.ref('NewSession').child('Public').child(this.props.myKeyLoginedReducer).child('admin').update({
           // startSession:this.state.startSession
           startSession:true
         })
       }
-      console.log("okkkeee")
+
     } else {
       this.setState({
         startSession:false,
         paused:true
       });
-      console.log(this.state.endSession)
       if(this.props.myUserIdReducer != 0){
         let a = this.itemRef.ref('NewSession').child('Public').child(this.props.myKeyLoginedReducer).child('admin').update({
           // startSession:this.state.startSession
           startSession:false
         })
       }
-      console.log("okkkeee")
     }
   }
   
@@ -250,9 +242,6 @@ class AdminAuctionSession extends Component {
   }
   
   render() {
-    console.log("btn"+this.state.dataSource.length)
-    console.log("time: "+this.state.time)
-   console.log("toggleBtnAuction : "+this.props.myKeyLoginedReducer)
     return (
       <View style={styles.container}>
         {/* <Header nameTitle ={arrayByKeyFirebase[4]}/> */}

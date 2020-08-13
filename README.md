@@ -1,14 +1,17 @@
 # you-bet-pet
 If you want know about the Petshop front-end (by reactjs )
 click link:
-https://github.com/hoangminh122/front-end-mypet
+https://github.com/hoangminh122/front-end-mypet    <br/>
+Demo:
+ https://www.youtube.com/watch?v=qltY7JPPyKw&feature=youtu.be
+
 
 <h2><b>Program description:</b></h2>
 
  &nbsp; PetShop is a simple java server based Spring boot+laravel. Database is mysql. The package that connect server and db is mysql.
 
 <b><u>Features/highlights<br/>
- ![alt text](https://raw.githubusercontent.com/hoangminh122/you-bet-pet/master/pet1.png)
+ ![alt text](https://raw.githubusercontent.com/hoangminh122/you-bet-pet/master/pet1.png)<br/>
  ![alt text](https://raw.githubusercontent.com/hoangminh122/you-bet-pet/master/pet2.png)
  ![alt text](https://raw.githubusercontent.com/hoangminh122/you-bet-pet/master/pet3.png)
  ![alt text](https://raw.githubusercontent.com/hoangminh122/you-bet-pet/master/pet4.png)
@@ -36,7 +39,7 @@ B2:OPEN BY INTELIJI IDEA (I used Inteliji 2019.2 for source code).<br/>
 
 B3: CLONE SOURCE CODE FRONDEND FROM GITHUB to DESTOP(use git comment)<br/>
  Link: https://github.com/hoangminh122/front-end-mypet<br/>
-
+B3.1: CLONE SOURCE NODEJS :
 B4: OPEN BY vISUAL CODE ( use "npm install" to setting package need for project.<br/>
 
 B5: DOWNLOAD AND SETTING NODE(I use 10.3) ,Xampp (use 7.3.1)<br/>

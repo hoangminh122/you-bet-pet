@@ -7,8 +7,8 @@ import {LoginManager,LoginButton,AccessToken} from 'react-native-fbsdk'
 // import token from './token'
 import firebaseConfig from '../config/ConfigFirebase'
 import firebase from 'firebase'
-import Header from './header';
-import Footer from './footer';
+import Header from './HeaderFooter/header';
+import Footer from './HeaderFooter/footer';
 import { Link } from 'react-router-native';
 import {saveUserFirebase,findUserFirebase} from '../databases/saveUserLogin'
 import {connect} from 'react-redux'
@@ -65,9 +65,6 @@ class LoginFace extends Component {
         // this.initUser(token);
         const credential = new firebase.auth.FacebookAuthProvider.credential(tokenData);
         const userFace = await firebase.auth().signInWithCredential(credential);
-        console.log("userFace")
-        console.log(tokenData)
-        console.log(userFace.user.uid)
         // console.log(userFace)
         //save database sqlite some infor 
         try{                                                                                  //when in session , we save state idUserFirebase
@@ -77,7 +74,6 @@ class LoginFace extends Component {
         }catch(e){
           console.log(e)
         }
-        console.log(userFace)
         //save state id user Firebase -redux
         //test thu thoi
         // let arrTest = ["6fg2aw1pNgUg6Ly5tRNsRMMRo5z1","6fg2aw1pNgUg6Ly5tRNsRMMRo5z2","6fg2aw1pNgUg6Ly5tRNsRMMRo5z3"];
@@ -149,11 +145,11 @@ class LoginFace extends Component {
                   </TouchableOpacity>
                  
                 </View>
-                {/* <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                  <Link to={'/inforAuction'} style={{margin:11,height:60,width:60,borderColor:'gray',borderRadius:90,borderWidth:1,backgroundColor:'blue'}}>
+                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                  <Link to={'/loginEmail'} style={{margin:11,height:60,width:60,borderColor:'gray',borderRadius:90,borderWidth:1,backgroundColor:'blue'}}>
                     <Text style={{margin:10}}>Let's Go !</Text>
                   </Link>
-                </View> */}
+                </View>
                 
               </View>
             {/* end image background index page */}
