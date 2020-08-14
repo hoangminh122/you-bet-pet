@@ -460,7 +460,7 @@ class AuctionSession extends Component {
                 </TouchableHighlight>
                   <Text style={{margin:5,width:"60%",fontSize:12}}>{`${this.state.moneyNow} vnd`}</Text>
                 <TouchableHighlight style={{backgroundColor:'red',width:15,height:15,flexDirection:'row',flex:1,alignItems:'center',justifyContent:'center'}} onPress= {() => this.upMoneyClick(100000)}>
-                  <Image style={{width:10,height:10,}} source={require('../images/add.png')}></Image>
+                  <Image style={{width:10,height:10,}} source={require('../../images/add.png')}></Image>
                 </TouchableHighlight>
                 </View>
               </TouchableOpacity>

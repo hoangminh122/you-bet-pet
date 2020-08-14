@@ -55,19 +55,19 @@ class InforUser extends Component {
                 <View style={styles.bodyIconUpContactView}>
                     <View style={styles.bodyIconUpContactViewPhone}>
                         <TouchableOpacity style={styles.bodyIconUpContactViewchildTouch} >
-                            <Image source={require('../images/phone.png')} style={styles.bodyIconUpContactViewchildTouchImage}>
+                            <Image source={require('../../images/phone.png')} style={styles.bodyIconUpContactViewchildTouchImage}>
                             </Image>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.bodyIconUpContactViewSms}>
                         <TouchableOpacity style={styles.bodyIconUpContactViewchildTouch}>
-                            <Image  source={require('../images/sms.png')} style={styles.bodyIconUpContactViewchildTouchImage}>
+                            <Image  source={require('../../images/sms.png')} style={styles.bodyIconUpContactViewchildTouchImage}>
                             </Image>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.bodyIconUpContactViewChat}>
                         <TouchableOpacity style={styles.bodyIconUpContactViewchildTouch}>
-                            <Image  source={require('../images/chat.png')} style={styles.bodyIconUpContactViewchildTouchImage}>
+                            <Image  source={require('../../images/chat.png')} style={styles.bodyIconUpContactViewchildTouchImage}>
                             </Image>
                         </TouchableOpacity>
                     </View>
