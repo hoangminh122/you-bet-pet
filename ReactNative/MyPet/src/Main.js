@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import {NativeRouter,Route,Link,Switch,View,Text} from 'react-router-native'
 import Login from './components/Index';
-import LoginEmail from './components/LoginEmail';
-import InforUser from './components/InforUser';
+import LoginEmail from './components/login/LoginEmail';
+import InforUser from './components/user/InforUser';
 // import Login1 from './src/components/auctionSession';
 // import {View} from 'react-native'
-import Demo from './components/CreateSession'
-import AuctionSession from './components/AuctionSession';
+//import Demo from './components/CreateSession'
+import AuctionSession from './components/auction_stream/AuctionSession';
 import AdminAuctionSession from './components/admin/AuctionSession';
-import InforAuction from './components/InforAuction';
+import InforAuction from './components/user/InforAuction';
 import {connect} from 'react-redux'
-import CreateSession from './components/CreateSession';
+import CreateSession from './components/create_session/CreateSession';
 import Payment from './components/payment/Payment';
 import PaymentVisa from './components/payment/PaymentVisa'
 import ChatScreen from './components/chat/ChatScreen';

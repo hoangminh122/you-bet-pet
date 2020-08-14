@@ -38,6 +38,8 @@ target 'MyPet' do
 
   pod 'react-native-sqlite-storage', :path => '../node_modules/react-native-sqlite-storage'
 
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
   target 'MyPetTests' do
     inherit! :search_paths
     # Pods for testing

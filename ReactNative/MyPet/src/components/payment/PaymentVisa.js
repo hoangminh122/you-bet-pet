@@ -72,7 +72,7 @@ export default class CreateSession extends Component {
                             </View>
                             <View style={[styles.bodyTop10ObjectImage,{flex:1.5}]}>
                             {/* <Image style={styles.bodyTop10ObjectImageChild}></Image> */}
-                            <Image source={require('../images/MasterCard.png')} style={styles.bodyTop10ObjectImageChild}></Image>
+                            <Image source={require('../../images/MasterCard.png')} style={styles.bodyTop10ObjectImageChild}></Image>
                             </View>
                             <View style={styles.bodyTop10ObjectInfor}>
                             <View>
