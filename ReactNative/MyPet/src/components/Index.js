@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 
-import { StyleSheet,Text,View,ImageBackground,Image, Dimensions, TouchableOpacity, TextInput, CheckBox, Button, Alert} from 'react-native'
-//import bgImage from '../images/background.jpg'
-//import logo from '../images/logo.png'
-import {LoginManager,LoginButton,AccessToken} from 'react-native-fbsdk'
-// import token from './token'
+import { StyleSheet,Text,View,Image, Dimensions, TouchableOpacity} from 'react-native'
+import {LoginManager,AccessToken} from 'react-native-fbsdk'
 import firebaseConfig from '../config/ConfigFirebase'
 import firebase from 'firebase'
-//import Header from './HeaderFooter/header';
-//import Footer from './HeaderFooter/footer';
 import { Link } from 'react-router-native';
 import {saveUserFirebase,findUserFirebase} from '../databases/saveUserLogin'
 import {connect} from 'react-redux'
@@ -102,7 +97,7 @@ class LoginFace extends Component {
                                                             })    //use temp, I will fix after
          //end  
          //direction to inforAuction
-         this.props.history.push('/payment')
+         this.props.history.push('/inforAuction')
       }
       catch(error){
         //do something here
@@ -114,20 +109,13 @@ class LoginFace extends Component {
   render() {
     return (
         <View style={(Platform.OS === 'android') ? styles.container : [styles.container,{marginTop:30}]}>
-          
           <View style={styles.body}>
-         
             <View style={styles.bodyChild}>
               <View style={{flex:1, flexDirection:"column",backgroundColor:"#6699FF",borderBottomLeftRadius:90,borderBottomRightRadius:90}}>
-               
-                
-               
-
               </View>
             {/* start image background index page */}
               <View style={{flex:1,flexDirection:'column',margin:10,backgroundColor:''}}>
                 <View style={{flex:4,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-
                   {/* <LoginButton style={{margin:10,height:50,width:50,borderColor:'gray',borderRadius:90,borderWidth:1}} onLoginFinished={
                     (error,result) =>{
                       if(error){
@@ -141,19 +129,16 @@ class LoginFace extends Component {
                   }
                   onLogoutFinished={()=>console.log("logout")}
                   /> */}
-
                   <TouchableOpacity style={{padding:5,height:screen.width/6,width:screen.width/6,borderColor:'gray',borderRadius:90,borderWidth:1,backgroundColor:'#F8F8FF',}} onPress={()=>this.onLoginFace()}>
                     <Image style= {{height:screen.width/6,width:screen.width/6,marginRight:100}} source={require('../images/face.png')}>
                     </Image>
                   </TouchableOpacity>
-                 
                 </View>
                 <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                   <Link to={'/loginEmail'} style={{margin:11,height:60,width:60,borderColor:'gray',borderRadius:90,borderWidth:1,backgroundColor:'blue'}}>
                     <Text style={{margin:10}}>Let's Go !</Text>
                   </Link>
                 </View>
-                
               </View>
             {/* end image background index page */}
             </View>
