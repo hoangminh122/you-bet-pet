@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
       txtColTitleBodyDown:{
         maxWidth:'80%',
         fontWeight:'500',
-        fontFamily:'Roboto',
+        // fontFamily:'Roboto',
         fontSize:12
       }
 

@@ -99,7 +99,7 @@ class CreateSession extends Component {
                           >
                 <View style={styles.viewScene1}>
                   <View style = {{flex:2}}>
-                  <Image source={require('../images/pets.png')}/>
+                  <Image source={require('../../images/pets.png')}/>
                   </View>
                   <View style = {styles.viewBody}>
                     <Text style={{flex:1,fontWeight:'bold'}}>Join Auction </Text>

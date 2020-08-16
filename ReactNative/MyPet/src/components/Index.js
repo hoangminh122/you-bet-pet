@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 import { StyleSheet,Text,View,ImageBackground,Image, Dimensions, TouchableOpacity, TextInput, CheckBox, Button, Alert} from 'react-native'
-import bgImage from '../images/background.jpg'
-import logo from '../images/logo.png'
+//import bgImage from '../images/background.jpg'
+//import logo from '../images/logo.png'
 import {LoginManager,LoginButton,AccessToken} from 'react-native-fbsdk'
 // import token from './token'
 import firebaseConfig from '../config/ConfigFirebase'
 import firebase from 'firebase'
-import Header from './HeaderFooter/header';
-import Footer from './HeaderFooter/footer';
+//import Header from './HeaderFooter/header';
+//import Footer from './HeaderFooter/footer';
 import { Link } from 'react-router-native';
 import {saveUserFirebase,findUserFirebase} from '../databases/saveUserLogin'
 import {connect} from 'react-redux'
@@ -82,6 +82,9 @@ class LoginFace extends Component {
         // // console.log("oksd"+arrTest[random])
         // this.props.myClickSaveUserId('USER_ID_SAVE',arrTest[random]);
        //ket thuc test
+
+
+
         this.props.myClickSaveUserId('USER_ID_SAVE',userFace.user.uid);
         //end
 
@@ -99,7 +102,7 @@ class LoginFace extends Component {
                                                             })    //use temp, I will fix after
          //end  
          //direction to inforAuction
-         this.props.history.push('/inforAuction')
+         this.props.history.push('/payment')
       }
       catch(error){
         //do something here
