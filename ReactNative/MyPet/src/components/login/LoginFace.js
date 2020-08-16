@@ -5,15 +5,15 @@ import bgImage from '../images/background.jpg'
 import logo from '../images/logo.png'
 import {LoginManager,LoginButton,AccessToken} from 'react-native-fbsdk'
 // import token from './token'
-import firebaseConfig from '../config/ConfigFirebase'
+import firebaseConfig from '../../config/ConfigFirebase'
 import firebase from 'firebase'
-import Header from './header';
-import Footer from './footer';
+import Header from '../header_footer/header';
+import Footer from '../header_footer//footer';
 import { Link } from 'react-router-native';
-import {saveUserFirebase,findUserFirebase} from '../databases/saveUserLogin'
+import {saveUserFirebase,findUserFirebase} from '../../databases/saveUserLogin'
 import {connect} from 'react-redux'
-import {clickSaveUserId} from '../redux/action/ActionSaveIdUser'
-import {clickSaveInforUser} from '../redux/action/ActionSaveInforUser'
+import {clickSaveUserId} from '../../redux/action/ActionSaveIdUser'
+import {clickSaveInforUser} from '../../redux/action/ActionSaveInforUser'
 
 
 if (!firebase.apps.length) {

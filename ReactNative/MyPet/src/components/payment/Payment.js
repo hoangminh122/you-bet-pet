@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {View,Text, TextInput, TouchableWithoutFeedback,Image, Keyboard,ScrollView, Dimensions,StyleSheet, TouchableOpacity, Alert,FlatList} from 'react-native'
-import Header from './header';
-import Footer from './footer';
+import Header from '../header_footer/header';
+import Footer from '../header_footer/footer';
 import DatePicker from 'react-native-datepicker'
 // import {connect} from 'react-redux'
 

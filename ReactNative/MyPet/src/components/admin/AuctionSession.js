@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {View,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,TouchableHighlight,Alert} from 'react-native'
 import Footer from '../admin/footer'
-import Header from '../header'
+import Header from '../header_footer/header'
 import Video from 'react-native-video';
 import firebase from 'firebase'
 import CountDown from 'react-native-countdown-component'

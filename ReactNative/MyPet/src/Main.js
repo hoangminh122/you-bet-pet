@@ -11,8 +11,8 @@ import AdminAuctionSession from './components/admin/AuctionSession';
 import InforAuction from './components/InforAuction';
 import {connect} from 'react-redux'
 import CreateSession from './components/CreateSession';
-import Payment from './components/Payment';
-import PaymentVisa from './components/PaymentVisa'
+import Payment from './components/payment/Payment';
+import PaymentVisa from './components/payment/PaymentVisa'
 import ChatScreen from './components/chat/ChatScreen';
 import LoginScreen from './components/chat/LoginScreen';
 
