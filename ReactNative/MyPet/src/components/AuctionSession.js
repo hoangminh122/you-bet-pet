@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {View,Button,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,TouchableHighlight,Alert, TextInput} from 'react-native'
-import Footer from '../header_footer/footer'
-import Header from '../header_footer/header'
+import {View,Button,Text, Dimensions,StyleSheet, Image,TouchableOpacity,FlatList,TouchableHighlight,Alert} from 'react-native'
+import Footer from './footer'
+import Header from './header'
 import Video from 'react-native-video';
 import firebase from 'firebase'
 import CountDown from 'react-native-countdown-component'
@@ -45,8 +45,7 @@ class AuctionSession extends Component {
       maxMoney:'',
       peopleWin:false,
       dataPeopleWin:[],
-      idPeopleWin:'',
-      moneyInput:0
+      idPeopleWin:''
     };
     //sai roi
     this.addDbFlatlist() ;    
@@ -359,23 +358,9 @@ class AuctionSession extends Component {
     this.refs.modal1.open();
   }
 
-  clickBtnInputMoney = () => {
-    console.log("vaod")
-    if(this.state.moneyInput > this.state.moneyNow) {
-       this.setState({
-         moneyNow: parseInt(this.state.moneyInput)
-       })
-       this.refs.modal3.close();
-    } else {
-      this.refs.modal3.close();
-      return false;
-    }
-    
-  }
   render() {
-    const temp = this;
     // if(this.state.dataPeopleWin.length>0)
-    console.log("moneyInput" +this.state.moneyInput)
+    console.log("dataPeopleWin",this.state.dataPeopleWin)
     let {arrayByKeyFirebase} =this.state
     return (
       <View style={styles.container}>
@@ -389,9 +374,9 @@ class AuctionSession extends Component {
               <Video
               style={{width:"100%",height:"100%"}}
                 
-              // source={require('../video/minh.mp4')}
+              source={require('../video/minh.mp4')}
                 // source={{uri:'https://www.youtube.com/watch?v=dQHUK2MfXvI'}}
-                source={{uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'}}
+                // source={{uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'}}
                 ref={(ref) => {
                     this.player = ref
                 }}  
@@ -413,13 +398,8 @@ class AuctionSession extends Component {
             <Text style={styles.bodyTittleTxt}>Người đấu giá </Text>
           </View>
           <View style={styles.bodyTop10}>
-           
+
           <View style={{flex:4,flexDirection:'column'}}>
-            <Modal style={[styles.modal, styles.modal3,{padding:10,borderRadius:10,borderWidth:1,borderColor:'red'}]} position={"center"} ref={"modal3"} isDisabled={this.state.isDisabled}>
-              <Text style={[styles.text,{fontWeight:'bold',marginLeft:10}]}>Nhập số Tiền :</Text>
-              <TextInput type = "text" placeholder="Money" style={{borderColor:'gray', borderWidth:1,borderRadius:5,margin:10,}} onChangeText ={(e)=>this.setState({ moneyInput: parseInt(e)})} />
-              <Button title={`Đồng ý`} onPress={() => this.clickBtnInputMoney()} style={[styles.btn,{color:'white'}]}/>
-            </Modal>
             <FlatList
             style={{height:screen.height,width:screen.width,backgroundColor:'white'}}
             data={this.state.dataSource}
@@ -452,18 +432,18 @@ class AuctionSession extends Component {
                  {this.showTimeCount()}
                 </View>
               </View>
-              <TouchableOpacity style={[styles.bodyTop10ObjectImage,{flex:1,borderRightWidth:3}]} onPress={() => this.refs.modal3.open()}>
+              <View style={[styles.bodyTop10ObjectImage,{flex:1,borderRightWidth:3}]}>
                 <Text style={{fontSize:11,fontWeight:'bold'}}>Đấu giá hiện tại</Text>
                 <View style={{flexDirection:'row',flex:1,alignItems:'center',alignContent:'center'}}>
                 <TouchableHighlight style={{backgroundColor:'gray',width:15,height:15}}>
                   <Image></Image>
                 </TouchableHighlight>
-                  <Text style={{margin:5,width:"60%",fontSize:12}}>{`${this.state.moneyNow} vnd`}</Text>
+                  <Text style={{margin:5,width:"60%",fontSize:12}}>{this.state.moneyNow}vnd</Text>
                 <TouchableHighlight style={{backgroundColor:'red',width:15,height:15,flexDirection:'row',flex:1,alignItems:'center',justifyContent:'center'}} onPress= {() => this.upMoneyClick(100000)}>
                   <Image style={{width:10,height:10,}} source={require('../images/add.png')}></Image>
                 </TouchableHighlight>
                 </View>
-              </TouchableOpacity>
+              </View>
               <View style={[styles.bodyTop10ObjectInfor,{flex:1}]}>
                 <TouchableOpacity style={this.setToggleBtnAuction()} onPress={()=>this.clickButtonAuction()}>
                   <View style={{flex:1,flexDirection:'column',alignSelf:'center',justifyContent:'center'}}>
@@ -478,7 +458,6 @@ class AuctionSession extends Component {
         </View>
         {/* <Footer/> */}
         <Button title="Lướt lên" onPress={() => this.refs.modal1.open()} style={styles.btn}/>
-        
         <Modal
           style={[styles.modal, styles.modal1]}
           ref={"modal1"}
@@ -505,8 +484,6 @@ class AuctionSession extends Component {
                   </View>
             </View>
         </Modal>
-        {/* <Button title="Position" onPress={() => this.refs.modal3.open()} style={styles.btn}/> */}
-        
 
       </View>
     );

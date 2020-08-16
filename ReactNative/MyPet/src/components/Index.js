@@ -7,8 +7,8 @@ import {LoginManager,LoginButton,AccessToken} from 'react-native-fbsdk'
 // import token from './token'
 import firebaseConfig from '../config/ConfigFirebase'
 import firebase from 'firebase'
-import Header from './HeaderFooter/header';
-import Footer from './HeaderFooter/footer';
+import Header from './header';
+import Footer from './footer';
 import { Link } from 'react-router-native';
 import {saveUserFirebase,findUserFirebase} from '../databases/saveUserLogin'
 import {connect} from 'react-redux'

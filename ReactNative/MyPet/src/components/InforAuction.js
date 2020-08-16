@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {View,Text,StyleSheet, Dimensions,ScrollView, TouchableHighlight, TouchableOpacity} from 'react-native'
-import Header from '../header_footer/header';
-import Footer from '../header_footer/footer';
+import Header from './header';
+import Footer from './footer';
 import firebase from 'firebase'
 import ListView from 'deprecated-react-native-listview'
 import {Link} from 'react-router-native'
 import {connect} from 'react-redux'
-import {clickSaveKeyAuction} from '../../redux/action/ActionSaveKeyLogined'
+import {clickSaveKeyAuction} from '../redux/action/ActionSaveKeyLogined'
 // import {saveUserFirebase,findUserFirebase} from '../databases/saveUserLogin'                       //can't fix error warming
 
 import { ToastAndroid } from 'react-native';

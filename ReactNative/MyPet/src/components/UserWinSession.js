@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {View,Text, Dimensions,StyleSheet,TouchableOpacity} from 'react-native'
-import Footer from '../header_footer/footer'
-import Header from '../header_footer/header'
+import Footer from './footer'
+import Header from './header'
 import firebase from 'firebase'
 
 var screen =Dimensions.get('window');

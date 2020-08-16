@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {View,Text, TextInput, Dimensions, TouchableOpacity, Alert} from 'react-native'
-import firebaseConfig from '../../config/ConfigFirebase'
+import firebaseConfig from '../config/ConfigFirebase'
 import firebase from 'firebase'
 import axios from 'axios'
 

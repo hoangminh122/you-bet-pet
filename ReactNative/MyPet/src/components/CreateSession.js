@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {View,Text, TextInput, TouchableWithoutFeedback,Image, Keyboard,ScrollView, Dimensions,StyleSheet, TouchableOpacity, Alert} from 'react-native'
-import Header from '../header_footer/header';
+import Header from './header';
 import DatePicker from 'react-native-datepicker'
 import firebase from 'firebase'
 import {connect} from 'react-redux'

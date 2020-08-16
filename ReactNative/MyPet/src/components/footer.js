@@ -8,25 +8,25 @@ export default class componentName extends Component {
         <View style={styles.container}>
           <View style={styles.iconView}>
             <Link to={'/'} style={styles.linkView}>
-              <Image source={require('../../images/home.png')}></Image>
+              <Image source={require('../images/home.png')}></Image>
             </Link>
             <Text style={styles.linkView}>Trang chu</Text>
           </View>
           <View style={styles.iconView}>
             <Link to={'/inforAuction'} style={styles.linkView}>
-              <Image source={require('../../images/danh-sach-phien.png')}></Image>
+              <Image source={require('../images/danh-sach-phien.png')}></Image>
             </Link>
             <Text style={styles.linkView}>Quan ly</Text>
           </View>
           <View style={styles.iconView}>
             <Link to={'/createSession'} style={styles.linkView}>
-              <Image source={require('../../images/tao-phien.png')}></Image>
+              <Image source={require('../images/tao-phien.png')}></Image>
             </Link>
             <Text style={styles.linkView}>Tao Phien</Text>
           </View>
           <View style={styles.iconView}>
             <Link to={'/inforUser'} style={styles.linkView}>
-              <Image style={styles.imageUser} source={require('../../images/user.png')}></Image>
+              <Image style={styles.imageUser} source={require('../images/user.png')}></Image>
             </Link>
             <Text style={styles.linkView}>Tai khoan</Text>
           </View>

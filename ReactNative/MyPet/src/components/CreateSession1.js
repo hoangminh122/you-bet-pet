@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {View,Text,StyleSheet, TouchableOpacity, TextInput} from 'react-native'
-import Header from '../header_footer/header';
-import Footer from '../header_footer/footer'
+import Header from './header';
+import Footer from './footer'
 
 export default class CreateSession extends Component {
   render() {
