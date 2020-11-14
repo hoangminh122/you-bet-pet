@@ -6,7 +6,7 @@ import { SessionEntity } from "../../entities/session/session.entity";
 import { UserEntity } from "../../entities/index.entity";
 
 @Module({
-    imports:[TypeOrmModule.forFeature([SessionEntity,UserEntity])],
+    imports:[],
     controllers:[SessionController],
     providers:[SessionService]
 })
