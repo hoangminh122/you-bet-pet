@@ -10,26 +10,28 @@ import { MulterModule } from '@nestjs/platform-express';
 import { AdminService } from './modules/admin/admin.service';
 import { AdminModule } from './modules/admin/admin.module';
 import { AppGateway } from './modules/gateway/gateway.service';
-import { ChatGateway } from './modules/chat/chat.gateway';
+// import { ChatGateway } from './modules/chat/chat.gateway';
 import { AlertController } from './modules/alert/alert.controller';
 import { AlertGateway } from './modules/alert/alert.gateway';
 import { EventModule } from './modules/events/events.module';
+import { DatabaseModule } from './modules/database/database.module';
 
 
 @Module({
   imports: [
-    MulterModule.register({
-      dest:'uploads',
-  }),
-    AppGateway,
-    ChatGateway,
-    EventModule
+  //   MulterModule.register({
+  //     dest:'uploads',
+  // }),
+    DatabaseModule
+    // AppGateway,
+    // ChatGateway,
+    // EventModule
     // AlertGateway,
     // AlertController
   ],
-  controllers: [AppController,AlertController],
-  providers: [AppService,AlertGateway],
-  exports:[AlertGateway]
+  controllers: [AppController],
+  providers: [AppService],
+  exports:[]
 })
 
 // export class AppModule implements NestModule {

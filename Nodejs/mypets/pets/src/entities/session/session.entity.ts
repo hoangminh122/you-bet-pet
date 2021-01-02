@@ -1,30 +1,69 @@
-import { Entity, Column, ManyToOne, IsNull } from "typeorm";
-import {BaseEntity} from '../base.entity'
-import {UserEntity} from '../user/user.entity'
+import {UserEntity} from '../user/Users'
+import { UUIDV4 } from 'sequelize';
+import {
+  Model,
+  Table,
+  Column,
+  DataType,
+  ForeignKey,
+  Default,
+  Sequelize,
+  PrimaryKey,
+  IsUUID,
+  BelongsTo,
+} from 'sequelize-typescript';
 
-@Entity({name:'session'})
-export class SessionEntity  extends BaseEntity{
-    @Column({type:'varchar',length:100,name:'name_session'})
+
+@Table({ tableName: 'sessions', timestamps: false })
+export class SessionEntity  extends Model<SessionEntity>{
+    @IsUUID(4)
+    @PrimaryKey
+    @Column({
+      type: DataType.UUID,
+      defaultValue: Sequelize.literal('uuid_generate_v4()'),
+    })
+    id!: string;
+   
+    @Column({
+        allowNull: false,
+        type: DataType.STRING,
+    })
     nameSession:string;
 
-    @Column({type:'int',name:'money_win'})
+    @Column({
+        allowNull: false,
+        type: DataType.INTEGER,
+    })
     moneyWin   : number;
 
-    @Column({type:'varchar',length:100,name:'user_win'})
+    @Column({
+        allowNull: false,
+        type: DataType.STRING,
+    })
     userWin    :string;
 
-    @Column({type:'varchar',length:100,name:'state_session',nullable:true})
+    @Column({
+        allowNull: false,
+        type: DataType.STRING,
+    })
     state    :string;
 
-    @Column({type:'int',name:'long_time'})
+    @Column({
+        allowNull: false,
+        type: DataType.STRING,
+    })
     longTime   :string;
 
-    @Column({type:'varchar',length:100,name:'time_start'})
+    @Column({
+        allowNull: false,
+        type: DataType.STRING,
+    })
     timeStart  :string;
 
-    @Column({type:'varchar',nullable:false})
-    userId  :string;
+    @Column({
+        allowNull: false,
+        type: DataType.STRING,
+    })
+    userOwnId  :string;
 
-    @ManyToOne(type => UserEntity, user => user.sessions)
-    user:UserEntity
 }
