@@ -22,7 +22,8 @@ import { DatabaseModule } from './modules/database/database.module';
   //   MulterModule.register({
   //     dest:'uploads',
   // }),
-    DatabaseModule
+    DatabaseModule,
+    SessionModule
     // AppGateway,
     // ChatGateway,
     // EventModule
