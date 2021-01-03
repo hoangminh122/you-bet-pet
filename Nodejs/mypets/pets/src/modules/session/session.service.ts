@@ -1,6 +1,4 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Inject, Injectable } from "@nestjs/common";
 import { SessionDTO } from "./dto/session.dto";
 import { SessionEntity } from "../../entities/session/session.entity";
 import { UserEntity } from "../../entities/index.entity";
@@ -8,32 +6,36 @@ import { UserEntity } from "../../entities/index.entity";
 @Injectable()
 export class SessionService {
     constructor(
-        @InjectRepository(SessionEntity)
-        private sessionRepository: Repository<SessionEntity>,
-        @InjectRepository(UserEntity)
-        private UserRepository: Repository<UserEntity>
+        @Inject('SESSION_REPOSITORY') 
+        private sessionRepository :typeof SessionEntity
+   
     ){
-
-    }
+        }
 
     async showAll(){
-        return await this.sessionRepository.find({relations:['user']});
+        return await this.sessionRepository.findAll();
+    }
+
+    async getSession(id:string){
+        const applicantInfo = await this.sessionRepository.findOne({
+            where: { id },
+          });
+        return applicantInfo;
     }
 
     async create(data :SessionDTO){
         console.log(data)
         const session = await this.sessionRepository.create(data);
-        await this.sessionRepository.save(session);
         return session;
     }
 
-    async update(id:string,data:Partial<SessionDTO>){
+    async update(id:string,data){
         await this.sessionRepository.update({id},data);
         return await this.sessionRepository.findOne({where:{id}});
     }
     
     async destroy(id:string){
-        await this.sessionRepository.delete({id})
+        await this.sessionRepository.destroy({where:{id}});
         return {deleted:true}
     }
 }

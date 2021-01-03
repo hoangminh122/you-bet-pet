@@ -7,7 +7,7 @@ import {join} from 'path'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.useStaticAssets(join(__dirname,'..','static'));
+  //app.useStaticAssets(join(__dirname,'..','static'));
 
   const options = new DocumentBuilder().setTitle('Pets API')
   .setDescription('Pets Auction sesion API')

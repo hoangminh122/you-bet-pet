@@ -19,6 +19,28 @@ else {
         var db = SQLite.openDatabase({name : "pets.db", createFromLocation : "~pets.db", location: 'Library'});
 }
 class ListViewItem extends Component {
+  constructor(props){
+    super(props);
+  }
+
+  renderStateSesion = (state) => {
+    console.log("sahdgahsgd",state)
+    switch(state)
+    {
+      case 1:
+        return 'Đang diễn ra';
+        break;
+      case 0:
+        return 'Sắp diễn ra';
+        break;
+      case -1:
+        return 'Đã kết thúc';
+        break;
+      default:
+        return 'Sắp diễn ra';
+        break;
+    }
+  }
   render(){
     return(
             <View style={styles.listView}>
@@ -32,7 +54,7 @@ class ListViewItem extends Component {
                 <Text>{this.props.rowData.moneyInit}</Text>
               </View>
               <View style={styles.listViewCol}>
-                <Text>Đang diễn ra</Text>
+                <Text>{this.renderStateSesion(this.props.rowData.state)}</Text>
               </View>
             </View>
     )
@@ -57,6 +79,7 @@ class InforAution extends Component {
         timeStart  :dataSnapshot.val().create.timeStart,
         arrEmail   :dataSnapshot.val().create.arrEmail,
         moneyInit  :dataSnapshot.val().create.moneyInit,
+        state      :dataSnapshot.val().create.state,
         _key: dataSnapshot.key
       })
       this.setState({

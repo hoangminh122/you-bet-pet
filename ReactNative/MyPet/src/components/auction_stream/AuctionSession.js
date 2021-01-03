@@ -292,7 +292,11 @@ class AuctionSession extends Component {
                   })
                   this.listenPeopleWin();
                   if(this.state.peopleWin)
-                    this.refs.modal1.open();
+                  {
+                    this.openModal1();
+                   // this.refs.modal1.open();
+
+                  }
                   let dataPeopleWin= await this.getInforUser(this.props.myUserIdReducer)
                   this.setState({
                     toggleBtnAuction:false,
@@ -356,6 +360,8 @@ class AuctionSession extends Component {
   }
 
   openModal1() {
+    //phien dau gia ket thuc
+    console.log("phien dau gia ket thuc");
     this.refs.modal1.open();
   }
 

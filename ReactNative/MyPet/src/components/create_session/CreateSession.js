@@ -67,7 +67,8 @@ class CreateSession extends Component {
           // email:this.state.email,
           arrEmail:this.state.arrEmail,
           moneyInit:this.state.moneyInit,
-          owner: this.props.myUserIdReducer
+          owner: this.props.myUserIdReducer,
+          state:0
         }
       })
       Alert.alert("Create new session completed !.");
