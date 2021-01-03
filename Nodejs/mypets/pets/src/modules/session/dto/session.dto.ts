@@ -35,6 +35,6 @@ export class  SessionDTO {
     @ApiProperty()
     @IsNotEmpty()
     @IsNumber()
-    userId:string;
+    userOwnId:string;
 }
 
