@@ -44,13 +44,13 @@ const styles = StyleSheet.create({
     iconView:{
       flex:1,
       backgroundColor:'#F8F8FF',
-      borderTopWidth:0.2,
       borderColor:'gray'
     },
       linkView:{
         justifyContent:'center',
         margin:10,
         marginBottom:5,
+        fontSize:12,
         // alignSelf:'stretch',
         alignSelf:'center',
       },

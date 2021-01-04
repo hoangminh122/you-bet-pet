@@ -8,7 +8,8 @@ import {join} from 'path'
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   //app.useStaticAssets(join(__dirname,'..','static'));
-
+  app.enableCors(); //protection
+  
   const options = new DocumentBuilder().setTitle('Pets API')
   .setDescription('Pets Auction sesion API')
   .setVersion('1.0')
@@ -23,6 +24,6 @@ async function bootstrap() {
   SwaggerModule.setup('doc',app,document)
   // app.useGlobalFilters(new HttpExceptionFilter());
   app.enableCors();
-  await app.listen(3006);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

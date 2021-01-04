@@ -420,8 +420,8 @@ class AuctionSession extends Component {
           </View>
           <View style={styles.bodyTop10}>
            
-          <View style={{flex:4,flexDirection:'column'}}>
-            <Modal style={[styles.modal, styles.modal3,{padding:10,borderRadius:10,borderWidth:1,borderColor:'red'}]} position={"center"} ref={"modal3"} isDisabled={this.state.isDisabled}>
+          <View style={{flex:4,lexDirection:'column'}}>
+            <Modal style={[styles.modal, styles.modal3,{padding:10,borderRadius:10,borderWidth:1,borderColor:'red',height:400}]} position={"center"} ref={"modal3"} isDisabled={this.state.isDisabled}>
               <Text style={[styles.text,{fontWeight:'bold',marginLeft:10}]}>Nhập số Tiền :</Text>
               <TextInput type = "text" placeholder="Money" style={{borderColor:'gray', borderWidth:1,borderRadius:5,margin:10,}} onChangeText ={(e)=>this.setState({ moneyInput: parseInt(e)})} />
               <Button title={`Đồng ý`} onPress={() => this.clickBtnInputMoney()} style={[styles.btn,{color:'white'}]}/>

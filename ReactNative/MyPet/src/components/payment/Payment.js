@@ -23,11 +23,16 @@ export default class CreateSession extends Component {
     }
   }
  
+  goBack = () => {
+    this.props.history.goBack();
+    // history.goBack();
+  }
+
   render() {
     return (
          <DismissKeyboard >
          <View style={styles.container}>
-            <Header nameTitle = "Thanh Toan"/>
+            <Header nameTitle = "Thanh Toan"  goBack = {this.goBack}/>
             <View style={styles.body}>
               <View style = {{ flex:2}}>
                   <FlatList

@@ -7,13 +7,13 @@ import { APP_FILTER } from '@nestjs/core';
 import { ForbiddenException } from './shared/errors/ForbiddenException';
 import { LoggerMiddleware } from './shared/middleware/logger.middleware';
 import { MulterModule } from '@nestjs/platform-express';
-import { AdminService } from './modules/admin/admin.service';
-import { AdminModule } from './modules/admin/admin.module';
-import { AppGateway } from './modules/gateway/gateway.service';
+// import { AdminService } from './modules/admin/admin.service';
+// import { AdminModule } from './modules/admin/admin.module';
+// import { AppGateway } from './modules/gateway/gateway.service';
 // import { ChatGateway } from './modules/chat/chat.gateway';
-import { AlertController } from './modules/alert/alert.controller';
-import { AlertGateway } from './modules/alert/alert.gateway';
-import { EventModule } from './modules/events/events.module';
+// import { AlertController } from './modules/alert/alert.controller';
+// import { AlertGateway } from './modules/alert/alert.gateway';
+// import { EventModule } from './modules/events/events.module';
 import { DatabaseModule } from './modules/database/database.module';
 
 

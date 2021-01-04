@@ -37,6 +37,11 @@ export default class CreateSession extends Component {
     }
   }
  
+  goBack = () => {
+    this.props.history.goBack();
+    // history.goBack();
+  }
+
   clickChoise = (index) =>{
     this.setState({
       backGround : [styles.bodyTop10Object,{height:screen.height/8},{backgroundColor:'gray'}],
@@ -49,7 +54,7 @@ export default class CreateSession extends Component {
     return (
          <DismissKeyboard >
          <View style={styles.container}>
-            <Header nameTitle = "Thanh Toan"/>
+            <Header nameTitle = "Thanh Toan"  goBack = {this.goBack}/>
             <View style={styles.body}>
             <ScrollView 
                           ref = {scrollView => this._scrollView = scrollView }

@@ -9,8 +9,7 @@ export class SessionService {
         @Inject('SESSION_REPOSITORY') 
         private sessionRepository :typeof SessionEntity
    
-    ){
-        }
+    ){}
 
     async showAll(){
         return await this.sessionRepository.findAll();

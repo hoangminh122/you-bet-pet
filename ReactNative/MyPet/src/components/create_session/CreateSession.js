@@ -251,7 +251,7 @@ class CreateSession extends Component {
                       <View style={[styles.viewBody2,{flex:2}]}> 
                         {/* <Text style={{fontWeight:'bold'}}></Text> */}
                          <TextInput
-                            style={{borderBottomWidth:1,height:30}}
+                            style={{borderBottomWidth:1,height:40}}
                             placeholder="Money init "
                             placeholderTextColor="gray"
                             onChangeText ={ (value) =>this.setState({moneyInit:value})}
@@ -389,7 +389,7 @@ const styles = StyleSheet.create({
           },
             emailInput:{
               borderColor:'white',
-              height:30,
+              height:40,
               borderBottomWidth:1
             },
   viewScene3:{

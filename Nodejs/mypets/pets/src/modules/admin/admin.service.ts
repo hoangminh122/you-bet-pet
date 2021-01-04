@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
+// import { Injectable } from "@nestjs/common";
 
 
-@Injectable()
-export class AdminService {
+// @Injectable()
+// export class AdminService {
 
-    setTimeRemaining(idUser:string,idSession:string) :string {
-        return 'ok';
-    }
-}
+//     setTimeRemaining(idUser:string,idSession:string) :string {
+//         return 'ok';
+//     }
+// }
