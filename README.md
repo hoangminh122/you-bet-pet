@@ -54,7 +54,7 @@ Link: https://github.com/hoangminh122/PetShop-App.<br/>
 b9: built by android studio, copy foder name "SourceOpen" to C:\xampp\htdocs\.<br/>
 
 b10: built project complete.<br/>
-
+Figma https://www.figma.com/proto/lCAM7SELCdKrfMYvGfwExc/Pets?node-id=1-9
 THANKYOU!<br/>
 By: -hoangminh12297@gmail.com<br/>
     -thevi97@gmail.com<br/>
